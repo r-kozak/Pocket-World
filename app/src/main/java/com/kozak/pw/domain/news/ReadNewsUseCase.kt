@@ -1,7 +1,7 @@
 package com.kozak.pw.domain.news
 
-class ReadNewsUseCase {
-    fun readNews(newsItemId: Int) {
-        TODO()
-    }
+import com.kozak.pw.domain.repository.NewsItemRepository
+
+class ReadNewsUseCase(private val newsItemRepository: NewsItemRepository) {
+    fun readNews(newsItemId: Int) = newsItemRepository.readNews(newsItemId)
 }

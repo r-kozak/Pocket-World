@@ -1,7 +1,7 @@
 package com.kozak.pw.domain.person
 
-class AddPersonUseCase {
-    fun addPerson(personItem: PersonItem) {
-        TODO()
-    }
+import com.kozak.pw.domain.repository.PersonItemRepository
+
+class AddPersonUseCase(private val personItemRepository: PersonItemRepository) {
+    fun addPerson(personItem: PersonItem) = personItemRepository.addPerson(personItem)
 }
