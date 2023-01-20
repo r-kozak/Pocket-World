@@ -1,7 +1,7 @@
 package com.kozak.pw.domain.person
 
-class KillPersonUseCase {
-    fun killPerson(personId: Long) {
-        TODO()
-    }
+import com.kozak.pw.domain.repository.PersonItemRepository
+
+class KillPersonUseCase(private val personItemRepository: PersonItemRepository) {
+    fun killPerson(personId: Long) = personItemRepository.killPerson(personId)
 }

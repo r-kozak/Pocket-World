@@ -1,7 +1,9 @@
 package com.kozak.pw.domain.person
 
-class EditPersonUseCase {
-    fun editPerson(personId: Long) {
-        TODO()
+import com.kozak.pw.domain.repository.PersonItemRepository
+
+class EditPersonUseCase(private val personItemRepository: PersonItemRepository) {
+    fun editPerson(personItem: PersonItem) {
+        personItemRepository.editPerson(personItem)
     }
 }

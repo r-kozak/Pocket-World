@@ -1,7 +1,7 @@
 package com.kozak.pw.domain.person
 
-class GetPersonByIdUseCase {
-    fun getPersonById(personId: Long): PersonItem {
-        TODO()
-    }
+import com.kozak.pw.domain.repository.PersonItemRepository
+
+class GetPersonByIdUseCase(private val personItemRepository: PersonItemRepository) {
+    fun getPersonById(personId: Long): PersonItem = personItemRepository.getPersonById(personId)
 }
