@@ -1,17 +1,19 @@
 package com.kozak.pw.domain.news
 
+import com.kozak.pw.PwConstants
+
 /**
  * Model to store information about news.
  * User can mark or read news.
  * @author Roman Kozak, 2023/01/19
  */
 data class NewsItem(
-    val id: Long,
-    val title: String,
-    val text: String,
+    var title: String,
+    var text: String,
     val priority: NewsPriority,
-    val marked: Boolean,
-    val read: Boolean
+    var marked: Boolean,
+    var read: Boolean,
+    var id: Long = PwConstants.INITIAL_ITEM_ID
 ) {
     enum class NewsPriority(order: Int) {
         HIGH(1), MIDDLE(2), LOW(3)
