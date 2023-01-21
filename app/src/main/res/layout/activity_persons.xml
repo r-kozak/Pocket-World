@@ -6,11 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".presentation.activity.PersonsActivity">
 
-    <Button
-        android:id="@+id/buttonKill"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Kill"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_persons"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_person_normal"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

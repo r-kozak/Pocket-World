@@ -8,6 +8,7 @@ data class PersonItem(
     var lastName: String,
     val birthDate: LocalDateTime,
     val sex: Sex,
+    var isFavorite: Boolean = false,
     var deathDate: LocalDateTime? = null,
     var isAlive: Boolean = true,
     var id: Long = PwConstants.INITIAL_ITEM_ID

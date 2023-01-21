@@ -9,4 +9,5 @@ interface PersonItemRepository {
     fun getPersonById(personId: Long): PersonItem
     fun getPersonItemsList(): LiveData<List<PersonItem>>
     fun killPerson(personId: Long)
+    fun togglePersonFavorite(personId: Long)
 }

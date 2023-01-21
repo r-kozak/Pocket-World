@@ -1,12 +1,8 @@
 package com.kozak.pw.presentation.view_model
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kozak.pw.data.PersonItemRepositoryImpl
-import com.kozak.pw.domain.person.EditPersonUseCase
-import com.kozak.pw.domain.person.GetPersonsListUseCase
-import com.kozak.pw.domain.person.KillPersonUseCase
-import com.kozak.pw.domain.person.PersonItem
+import com.kozak.pw.domain.person.*
 
 class PersonsViewModel: ViewModel() {
     private val repository = PersonItemRepositoryImpl // TODO get rid of dependency to data layer
@@ -14,6 +10,7 @@ class PersonsViewModel: ViewModel() {
     private val getPersonsUseCase = GetPersonsListUseCase(repository)
     private val killPersonUseCase = KillPersonUseCase(repository)
     private val editPersonUseCase = EditPersonUseCase(repository)
+    private val togglePersonFavoriteUseCase = MarkPersonFavoriteUseCase(repository)
 
     val personItemsList = getPersonsUseCase.getPersonItemsList()
 
@@ -23,5 +20,9 @@ class PersonsViewModel: ViewModel() {
 
     fun editPerson(personItem: PersonItem) {
         editPersonUseCase.editPerson(personItem)
+    }
+
+    fun togglePersonFavorite(personId: Long) {
+        togglePersonFavoriteUseCase.togglePersonFavorite(personId)
     }
 }

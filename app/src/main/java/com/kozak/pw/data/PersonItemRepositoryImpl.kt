@@ -16,7 +16,7 @@ object PersonItemRepositoryImpl: PersonItemRepository {
     private val personItemsList = MutableLiveData<List<PersonItem>>()
 
     init {
-        repeat(10) {
+        repeat(25) {
             addPerson(PersonGenerator.generate())
         }
     }
@@ -53,10 +53,16 @@ object PersonItemRepositoryImpl: PersonItemRepository {
         val person = getPersonById(personId)
         person.deathDate = Clock.System.now().toLocalDateTime(TimeZone.UTC)
         person.isAlive = false
-        editPerson(person)
+        updateList()
+    }
+
+    override fun togglePersonFavorite(personId: Long) {
+        val person = getPersonById(personId)
+        person.isFavorite = !person.isFavorite
+        updateList()
     }
 
     private fun updateList() {
-        personItemsList.value = persons.toList()
+        personItemsList.value = persons.filter { it.isAlive }.toList()
     }
 }
