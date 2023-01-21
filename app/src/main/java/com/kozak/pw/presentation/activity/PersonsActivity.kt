@@ -23,8 +23,11 @@ class PersonsActivity : AppCompatActivity() {
 
         setupRecyclerView()
         viewModel = ViewModelProvider(this)[PersonsViewModel::class.java]
-        viewModel.personItemsList.observe(this) {
-            personsListAdapter.personsList = it
+        viewModel.personItemsList.observe(this) { personItems ->
+            // copy items because in PersonItemDiffCallback.areContentsTheSame() old and new items
+            // will be the same
+            // see: https://stackoverflow.com/questions/53156597/listadapter-with-diffutil-itemcallback-always-considers-objects-the-same
+            personsListAdapter.submitList(personItems.map { it.copy() })
         }
     }
 
@@ -47,14 +50,17 @@ class PersonsActivity : AppCompatActivity() {
     }
 
     private fun setupSwipeListener() {
-        val callback = object : ItemTouchHelper.SimpleCallback(0,
+        val callback = object : ItemTouchHelper.SimpleCallback(
+            0,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
         ) {
-            override fun onMove(rv: RecyclerView, vh: RecyclerView.ViewHolder,
-                                t: RecyclerView.ViewHolder) = false
+            override fun onMove(
+                rv: RecyclerView, vh: RecyclerView.ViewHolder,
+                t: RecyclerView.ViewHolder
+            ) = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val personId = personsListAdapter.personsList[viewHolder.adapterPosition].id
+                val personId = personsListAdapter.currentList[viewHolder.adapterPosition].id
                 viewModel.killPerson(personId)
             }
         }

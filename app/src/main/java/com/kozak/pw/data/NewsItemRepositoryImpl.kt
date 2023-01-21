@@ -4,7 +4,7 @@ import com.kozak.pw.PwConstants
 import com.kozak.pw.domain.news.NewsItem
 import com.kozak.pw.domain.repository.NewsItemRepository
 
-object NewsItemRepositoryImpl: NewsItemRepository {
+object NewsItemRepositoryImpl : NewsItemRepository {
     private val news = mutableListOf<NewsItem>()
 
     private var autoincrementId: Long = 1

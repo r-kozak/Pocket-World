@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.kozak.pw.data.PersonItemRepositoryImpl
 import com.kozak.pw.domain.person.*
 
-class PersonsViewModel: ViewModel() {
+class PersonsViewModel : ViewModel() {
     private val repository = PersonItemRepositoryImpl // TODO get rid of dependency to data layer
 
     private val getPersonsUseCase = GetPersonsListUseCase(repository)

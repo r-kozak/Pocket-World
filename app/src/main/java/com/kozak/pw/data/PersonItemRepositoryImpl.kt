@@ -9,7 +9,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
-object PersonItemRepositoryImpl: PersonItemRepository {
+object PersonItemRepositoryImpl : PersonItemRepository {
     private val persons = mutableListOf<PersonItem>()
     private var autoincrementId: Long = 1
 
