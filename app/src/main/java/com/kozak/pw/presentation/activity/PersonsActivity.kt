@@ -2,8 +2,10 @@ package com.kozak.pw.presentation.activity
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +17,7 @@ class PersonsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPersonsBinding
     private lateinit var viewModel: PersonsViewModel
     private lateinit var personsListAdapter: PersonsListAdapter
+    private var personContainer: FragmentContainerView? = null
 
     companion object {
         fun intentShowPersons(context: Context): Intent {
@@ -27,6 +30,7 @@ class PersonsActivity : AppCompatActivity() {
         binding = ActivityPersonsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        personContainer = binding.personContainer
         setupRecyclerView()
         viewModel = ViewModelProvider(this)[PersonsViewModel::class.java]
         viewModel.personItemsList.observe(this) { personItems ->
@@ -36,6 +40,9 @@ class PersonsActivity : AppCompatActivity() {
             personsListAdapter.submitList(personItems.map { it.copy() })
         }
     }
+
+    private fun isNowLandscapeMode() =
+        resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     private fun setupRecyclerView() {
         with(binding.rvPersons) {
