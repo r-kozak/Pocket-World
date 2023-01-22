@@ -4,14 +4,12 @@ import com.kozak.pw.domain.person.PersonItem
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.random.Random
 import kotlin.time.Duration
 
-private fun Int.roll() = (0 until this)
-    .sumOf { (1..6).toList().random() }
-
-private val maleFirstNames = listOf("Mukola", "Petro", "Stepan", "Oleh", "Matviy")
-private val femaleFirstNames = listOf("Olha", "Tetyana", "Katya", "Nataha", "Alina")
-private val lastNames = listOf("Veresen", "Begins", "Petrenko", "Simpson", "Kremez")
+private val maleFirstNames = listOf("Mukola", "Petro", "Stepan", "Oleh", "Matviy", "Oleksiy")
+private val femaleFirstNames = listOf("Olha", "Tetyana", "Katya", "Nataha", "Alina", "Anna")
+private val lastNames = listOf("Veresen", "Begins", "Petrenko", "Simpson", "Kremez", "Muzika")
 
 object PersonGenerator {
     fun generate(): PersonItem {
@@ -23,10 +21,14 @@ object PersonGenerator {
         val lastName = lastNames.random()
 
         val birthDate = Clock.System.now()
-            .minus(Duration.parse("P${5.roll() * 365}D"))
-            .minus(Duration.parse("P${50.roll()}D"))
+            .minus(Duration.parse("P${Random.nextInt(20) * 365}D"))
+            .minus(Duration.parse("P${Random.nextInt(365)}D"))
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
-        return PersonItem(firstName, lastName, birthDate, sex)
+        return PersonItem(birthDate, sex).apply {
+            this.firstName = firstName
+            this.lastName = lastName
+            this.strength = Random.nextInt(101)
+        }
     }
 }

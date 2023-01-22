@@ -7,14 +7,15 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 data class PersonItem(
-    var firstName: String,
-    var lastName: String,
     val birthDate: LocalDateTime,
     val sex: Sex,
+    var firstName: String = "",
+    var lastName: String = "",
+    var strength: Int = PwConstants.DEFAULT_PERSON_STRENGTH,
+    var id: Long = PwConstants.INITIAL_ITEM_ID,
     var isFavorite: Boolean = false,
-    var deathDate: LocalDateTime? = null,
     var isAlive: Boolean = true,
-    var id: Long = PwConstants.INITIAL_ITEM_ID
+    var deathDate: LocalDateTime? = null
 ) {
     enum class Sex {
         MALE, FEMALE
