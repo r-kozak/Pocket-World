@@ -22,7 +22,7 @@ object PersonItemRepositoryImpl : PersonItemRepository {
     }
 
     override fun addPerson(personItem: PersonItem) {
-        if (personItem.id == PwConstants.INITIAL_ITEM_ID) {
+        if (personItem.id == PwConstants.DEFAULT_ITEM_ID) {
             personItem.id = autoincrementId++
         }
         persons.add(personItem)

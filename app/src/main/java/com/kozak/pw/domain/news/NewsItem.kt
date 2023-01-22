@@ -13,7 +13,7 @@ data class NewsItem(
     val priority: NewsPriority,
     var marked: Boolean,
     var read: Boolean,
-    var id: Long = PwConstants.INITIAL_ITEM_ID
+    var id: Long = PwConstants.DEFAULT_ITEM_ID
 ) {
     enum class NewsPriority(order: Int) {
         HIGH(1), MIDDLE(2), LOW(3)

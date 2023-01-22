@@ -10,7 +10,7 @@ object NewsItemRepositoryImpl : NewsItemRepository {
     private var autoincrementId: Long = 1
 
     override fun addNews(newsItem: NewsItem) {
-        if (newsItem.id == PwConstants.INITIAL_ITEM_ID) {
+        if (newsItem.id == PwConstants.DEFAULT_ITEM_ID) {
             newsItem.id = autoincrementId++
         }
         news.add(newsItem)

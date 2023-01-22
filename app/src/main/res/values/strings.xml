@@ -10,6 +10,15 @@
     <string name="BirthDateExample">01/12/22 13:15</string>
     <string name="LabelSex">Sex:</string>
     <string name="SexExample">FEMALE</string>
-    <string name="LabelIsAlive">Alive</string>
+    <string name="LabelIsAlive">Alive:</string>
+    <string name="LabelIsFavorite">Favorite:</string>
     <string name="IsAliveExample">true</string>
+    <string name="IsFavoriteExample">false</string>
+    <string name="LabelDeathDate">Death date:</string>
+    <string name="DeathDateExample">-</string>
+    <string name="LabelId">ID:</string>
+    <string name="IdExample">0</string>
+    <string name="error_input_strength">Strength must be greater that 0</string>
+    <string name="error_input_first_name">First name can\'t be empty</string>
+    <string name="error_input_last_name">Last name can\'t be empty</string>
 </resources>

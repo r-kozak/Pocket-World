@@ -58,14 +58,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/save_button"
+        app:layout_constraintBottom_toTopOf="@+id/birthDateLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_last_name"
         app:layout_constraintVertical_chainStyle="packed">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_count"
+            android:id="@+id/et_strength"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/strength_hint"
@@ -73,72 +73,167 @@
             tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 <!-- change constraints -->
-
-    <TextView
-        android:id="@+id/tvLabelBirthDate"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/birthDateLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/LabelBirthDate"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_strength"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintBottom_toTopOf="@+id/sexLayout"
+        app:layout_constraintVertical_chainStyle="packed">
 
-    <TextView
-        android:id="@+id/tvBirthDate"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tvLabelBirthDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/LabelBirthDate" />
+
+        <TextView
+            android:id="@+id/tvBirthDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/BirthDateExample" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sexLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/BirthDateExample"
-        app:layout_constraintStart_toEndOf="@+id/tvLabelBirthDate"
-        app:layout_constraintTop_toBottomOf="@+id/til_strength"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/tvLabelSex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/LabelSex"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBirthDate"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@+id/birthDateLayout"
+        app:layout_constraintBottom_toTopOf="@+id/isAliveLayout"
+        app:layout_constraintVertical_chainStyle="packed">
 
-    <TextView
-        android:id="@+id/tvSex"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tvLabelSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/LabelSex" />
+
+        <TextView
+            android:id="@+id/tvSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/SexExample" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/isAliveLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/SexExample"
-        app:layout_constraintStart_toEndOf="@+id/tvLabelSex"
-        app:layout_constraintTop_toBottomOf="@+id/tvBirthDate"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/tvLabelIsAlive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/LabelIsAlive"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSex"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@+id/sexLayout"
+        app:layout_constraintBottom_toTopOf="@+id/isFavoriteLayout"
+        app:layout_constraintVertical_chainStyle="packed">
 
-    <TextView
-        android:id="@+id/tvIsAlive"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tvLabelIsAlive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/LabelIsAlive" />
+
+        <TextView
+            android:id="@+id/tvIsAlive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/IsAliveExample" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/isFavoriteLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/IsAliveExample"
-        app:layout_constraintStart_toEndOf="@+id/tvLabelIsAlive"
-        app:layout_constraintTop_toBottomOf="@+id/tvSex"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/isAliveLayout"
+        app:layout_constraintBottom_toTopOf="@+id/deathDateLayout"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <TextView
+            android:id="@+id/tvLabelIsFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/LabelIsFavorite" />
+
+        <TextView
+            android:id="@+id/tvIsFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/IsFavoriteExample" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/deathDateLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/isFavoriteLayout"
+        app:layout_constraintBottom_toTopOf="@+id/idLayout"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <TextView
+            android:id="@+id/tvLabelDeathDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/LabelDeathDate" />
+
+        <TextView
+            android:id="@+id/tvDeathDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/DeathDateExample" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/idLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deathDateLayout"
+        app:layout_constraintBottom_toTopOf="@+id/save_button"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <TextView
+            android:id="@+id/tvLabelId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/LabelId" />
+
+        <TextView
+            android:id="@+id/tvId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/IdExample" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/kill_button"
@@ -157,5 +252,6 @@
         android:text="@string/save_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

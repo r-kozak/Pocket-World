@@ -3,12 +3,10 @@ package com.kozak.pw.presentation.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.kozak.pw.PwConstants
 import com.kozak.pw.databinding.ActivityPersonsBinding
 import com.kozak.pw.presentation.PersonsListAdapter
 import com.kozak.pw.presentation.view_model.PersonsViewModel
@@ -78,7 +76,7 @@ class PersonsActivity : AppCompatActivity() {
 
     private fun setupClickListener() {
         personsListAdapter.onPersonItemClickListener = {
-            Log.d(PwConstants.PW_LOG_TAG, it.toString())
+            startActivity(PersonActivity.intentEditPerson(this, it.id))
         }
     }
 
