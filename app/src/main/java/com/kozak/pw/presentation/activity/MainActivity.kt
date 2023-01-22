@@ -1,8 +1,7 @@
 package com.kozak.pw.presentation.activity
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.kozak.pw.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonPersons.setOnClickListener {
-            startActivity(Intent(this, PersonsActivity::class.java))
+            startActivity(PersonsActivity.intentShowPersons(this))
         }
     }
 }

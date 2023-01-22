@@ -1,5 +1,7 @@
 package com.kozak.pw.presentation.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +17,12 @@ class PersonsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPersonsBinding
     private lateinit var viewModel: PersonsViewModel
     private lateinit var personsListAdapter: PersonsListAdapter
+
+    companion object {
+        fun intentShowPersons(context: Context): Intent {
+            return Intent(context, PersonsActivity::class.java)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
