@@ -3,21 +3,16 @@ package com.kozak.pw.presentation.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.kozak.pw.PwConstants
 import com.kozak.pw.PwConstants.DEFAULT_ITEM_ID
 import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityPersonBinding
 import com.kozak.pw.presentation.fragment.PersonFragment
-import com.kozak.pw.presentation.view_model.PersonViewModel
 
 class PersonActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedListener {
     private var currentPersonId: Long = DEFAULT_ITEM_ID
     private lateinit var binding: ActivityPersonBinding
-    private lateinit var viewModel: PersonViewModel
 
 
     companion object {
@@ -35,9 +30,6 @@ class PersonActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedList
         binding = ActivityPersonBinding.inflate(layoutInflater)
         setContentView(binding.root)
         parseIntent()
-
-        viewModel = ViewModelProvider(this)[PersonViewModel::class.java]
-        Log.d(PwConstants.LOG_TAG, "PersonActivity - viewModel: $viewModel")
 
         if (savedInstanceState == null) {
             // this is the first activity creation
