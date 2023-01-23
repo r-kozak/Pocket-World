@@ -3,6 +3,7 @@ package com.kozak.pw.presentation.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +47,8 @@ class PersonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[PersonViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[PersonViewModel::class.java]
+        Log.d(PwConstants.LOG_TAG, "PersonFragment - viewModel: $viewModel")
         setClickListeners()
         addTextChangeListeners()
         displayPersonData()
