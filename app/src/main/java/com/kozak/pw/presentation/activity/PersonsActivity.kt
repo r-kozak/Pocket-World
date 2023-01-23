@@ -2,19 +2,25 @@ package com.kozak.pw.presentation.activity
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityPersonsBinding
 import com.kozak.pw.presentation.PersonsListAdapter
+import com.kozak.pw.presentation.fragment.PersonFragment
 import com.kozak.pw.presentation.view_model.PersonsViewModel
 
-class PersonsActivity : AppCompatActivity() {
+class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedListener {
     private lateinit var binding: ActivityPersonsBinding
     private lateinit var viewModel: PersonsViewModel
     private lateinit var personsListAdapter: PersonsListAdapter
+    private var personContainer: FragmentContainerView? = null
 
     companion object {
         fun intentShowPersons(context: Context): Intent {
@@ -27,6 +33,7 @@ class PersonsActivity : AppCompatActivity() {
         binding = ActivityPersonsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        personContainer = binding.personContainer
         setupRecyclerView()
         viewModel = ViewModelProvider(this)[PersonsViewModel::class.java]
         viewModel.personItemsList.observe(this) { personItems ->
@@ -34,6 +41,19 @@ class PersonsActivity : AppCompatActivity() {
             // will be the same
             // see: https://stackoverflow.com/questions/53156597/listadapter-with-diffutil-itemcallback-always-considers-objects-the-same
             personsListAdapter.submitList(personItems.map { it.copy() })
+        }
+    }
+
+    private fun isNowPortraitMode() =
+        resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+
+    private fun launchPersonFragment(personId: Long) {
+        binding.personContainer?.let {
+            supportFragmentManager.popBackStack()
+            supportFragmentManager.beginTransaction()
+                .replace(it.id, PersonFragment.newInstance(personId))
+                .addToBackStack(PersonFragment::class.java.toString())
+                .commit()
         }
     }
 
@@ -76,7 +96,11 @@ class PersonsActivity : AppCompatActivity() {
 
     private fun setupClickListener() {
         personsListAdapter.onPersonItemClickListener = {
-            startActivity(PersonActivity.intentEditPerson(this, it.id))
+            if (isNowPortraitMode()) {
+                startActivity(PersonActivity.newEditPersonIntent(this, it.id))
+            } else {
+                launchPersonFragment(it.id)
+            }
         }
     }
 
@@ -84,5 +108,10 @@ class PersonsActivity : AppCompatActivity() {
         personsListAdapter.onPersonItemLongClickListener = {
             viewModel.togglePersonFavorite(it.id)
         }
+    }
+
+    override fun onEditingFinished() {
+        Toast.makeText(this, R.string.person_saved_success, Toast.LENGTH_SHORT).show()
+        supportFragmentManager.popBackStack()
     }
 }

@@ -63,6 +63,9 @@ object PersonItemRepositoryImpl : PersonItemRepository {
     }
 
     private fun updateList() {
-        personItemsList.value = persons.filter { it.isAlive }.toList()
+        personItemsList.value = persons
+            .filter { it.isAlive }
+            .sortedBy { it.birthDate }
+            .toList()
     }
 }
