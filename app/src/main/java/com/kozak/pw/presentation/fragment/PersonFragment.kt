@@ -1,5 +1,6 @@
 package com.kozak.pw.presentation.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,6 +20,7 @@ class PersonFragment : Fragment() {
 
     private lateinit var viewModel: PersonViewModel
     private lateinit var binding: FragmentPersonBinding
+    private lateinit var onEditingFinishedListener: OnEditingFinishedListener
     private var currentPersonId: Long = PwConstants.DEFAULT_ITEM_ID
 
     companion object {
@@ -33,6 +35,19 @@ class PersonFragment : Fragment() {
         }
     }
 
+    interface OnEditingFinishedListener {
+        fun onEditingFinished()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnEditingFinishedListener) {
+            onEditingFinishedListener = context
+        } else {
+            throw RuntimeException("Context must implement OnEditingFinishedListener")
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parseParams()
@@ -41,8 +56,8 @@ class PersonFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-         binding = FragmentPersonBinding.inflate(inflater, container, false)
-         return binding.root
+        binding = FragmentPersonBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -91,7 +106,7 @@ class PersonFragment : Fragment() {
             else null
         }
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            activity?.onBackPressedDispatcher?.onBackPressed()
+            onEditingFinishedListener.onEditingFinished()
         }
     }
 

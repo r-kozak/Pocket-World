@@ -4,17 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityPersonsBinding
 import com.kozak.pw.presentation.PersonsListAdapter
 import com.kozak.pw.presentation.fragment.PersonFragment
 import com.kozak.pw.presentation.view_model.PersonsViewModel
 
-class PersonsActivity : AppCompatActivity() {
+class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedListener {
     private lateinit var binding: ActivityPersonsBinding
     private lateinit var viewModel: PersonsViewModel
     private lateinit var personsListAdapter: PersonsListAdapter
@@ -106,5 +108,10 @@ class PersonsActivity : AppCompatActivity() {
         personsListAdapter.onPersonItemLongClickListener = {
             viewModel.togglePersonFavorite(it.id)
         }
+    }
+
+    override fun onEditingFinished() {
+        Toast.makeText(this, R.string.person_saved_success, Toast.LENGTH_SHORT).show()
+        onBackPressedDispatcher.onBackPressed()
     }
 }

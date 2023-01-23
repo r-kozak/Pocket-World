@@ -90,14 +90,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/LabelBirthDate" />
+            android:text="@string/label_birth_date" />
 
         <TextView
             android:id="@+id/tvBirthDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/BirthDateExample" />
+            android:text="@string/birth_date_example" />
     </LinearLayout>
 
     <LinearLayout
@@ -117,14 +117,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/LabelSex" />
+            android:text="@string/label_sex" />
 
         <TextView
             android:id="@+id/tvSex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/SexExample" />
+            android:text="@string/sex_example" />
     </LinearLayout>
 
     <LinearLayout
@@ -144,14 +144,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/LabelIsAlive" />
+            android:text="@string/label_is_alive" />
 
         <TextView
             android:id="@+id/tvIsAlive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/IsAliveExample" />
+            android:text="@string/is_alive_example" />
     </LinearLayout>
 
     <LinearLayout
@@ -171,14 +171,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/LabelIsFavorite" />
+            android:text="@string/label_is_favorite" />
 
         <TextView
             android:id="@+id/tvIsFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/IsFavoriteExample" />
+            android:text="@string/is_favorite_example" />
     </LinearLayout>
 
     <LinearLayout
@@ -198,14 +198,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/LabelDeathDate" />
+            android:text="@string/label_death_date" />
 
         <TextView
             android:id="@+id/tvDeathDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/DeathDateExample" />
+            android:text="@string/death_date_example" />
     </LinearLayout>
 
     <LinearLayout
@@ -225,14 +225,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/LabelId" />
+            android:text="@string/label_id" />
 
         <TextView
             android:id="@+id/tvId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/IdExample" />
+            android:text="@string/id_example" />
     </LinearLayout>
 
     <Button
