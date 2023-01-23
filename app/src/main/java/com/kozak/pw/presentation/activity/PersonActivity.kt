@@ -27,8 +27,16 @@ class PersonActivity : AppCompatActivity() {
         binding = ActivityPersonBinding.inflate(layoutInflater)
         setContentView(binding.root)
         parseIntent()
+
+        if (savedInstanceState == null) {
+            // this is the first activity creation
+            launchFragment()
+        }
+    }
+
+    private fun launchFragment() {
         supportFragmentManager.beginTransaction()
-            .add(binding.personContainer.id, PersonFragment.newInstance(currentPersonId))
+            .replace(binding.personContainer.id, PersonFragment.newInstance(currentPersonId))
             .commit()
     }
 

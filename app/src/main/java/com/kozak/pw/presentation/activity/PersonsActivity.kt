@@ -49,7 +49,7 @@ class PersonsActivity : AppCompatActivity() {
         binding.personContainer?.let {
             supportFragmentManager.popBackStack()
             supportFragmentManager.beginTransaction()
-                .add(it.id, PersonFragment.newInstance(personId))
+                .replace(it.id, PersonFragment.newInstance(personId))
                 .addToBackStack(PersonFragment::class.java.toString())
                 .commit()
         }
