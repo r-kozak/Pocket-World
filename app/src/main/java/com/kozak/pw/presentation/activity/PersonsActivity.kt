@@ -112,6 +112,6 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
 
     override fun onEditingFinished() {
         Toast.makeText(this, R.string.person_saved_success, Toast.LENGTH_SHORT).show()
-        onBackPressedDispatcher.onBackPressed()
+        supportFragmentManager.popBackStack()
     }
 }
