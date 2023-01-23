@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.kozak.pw.databinding.ActivityPersonsBinding
 import com.kozak.pw.presentation.PersonsListAdapter
+import com.kozak.pw.presentation.fragment.PersonFragment
 import com.kozak.pw.presentation.view_model.PersonsViewModel
 
 class PersonsActivity : AppCompatActivity() {
@@ -41,8 +42,18 @@ class PersonsActivity : AppCompatActivity() {
         }
     }
 
-    private fun isNowLandscapeMode() =
-        resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    private fun isNowPortraitMode() =
+        resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+
+    private fun launchPersonFragment(personId: Long) {
+        binding.personContainer?.let {
+            supportFragmentManager.popBackStack()
+            supportFragmentManager.beginTransaction()
+                .add(it.id, PersonFragment.newInstance(personId))
+                .addToBackStack(PersonFragment::class.java.toString())
+                .commit()
+        }
+    }
 
     private fun setupRecyclerView() {
         with(binding.rvPersons) {
@@ -83,7 +94,11 @@ class PersonsActivity : AppCompatActivity() {
 
     private fun setupClickListener() {
         personsListAdapter.onPersonItemClickListener = {
-            startActivity(PersonActivity.intentEditPerson(this, it.id))
+            if (isNowPortraitMode()) {
+                startActivity(PersonActivity.newEditPersonIntent(this, it.id))
+            } else {
+                launchPersonFragment(it.id)
+            }
         }
     }
 

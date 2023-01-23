@@ -15,7 +15,7 @@ class PersonActivity : AppCompatActivity() {
     companion object {
         private const val INTENT_PERSON_ID = "intent_person_id"
 
-        fun intentEditPerson(context: Context, personItemId: Long): Intent {
+        fun newEditPersonIntent(context: Context, personItemId: Long): Intent {
             val intent = Intent(context, PersonActivity::class.java)
             intent.putExtra(INTENT_PERSON_ID, personItemId)
             return intent

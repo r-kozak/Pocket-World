@@ -55,9 +55,7 @@ class PersonFragment : Fragment() {
 
     private fun parseParams() {
         val args = requireArguments()
-        if (!args.containsKey(PERSON_ID)) {
-            throw RuntimeException("Param person id is absent")
-        }
+        if (!args.containsKey(PERSON_ID)) throw RuntimeException("Param person id is absent")
         currentPersonId = args.getLong(PERSON_ID, PwConstants.DEFAULT_ITEM_ID)
     }
 
@@ -94,7 +92,6 @@ class PersonFragment : Fragment() {
             activity?.onBackPressedDispatcher?.onBackPressed()
         }
     }
-
 
     private fun displayPersonData() {
         viewModel.getPersonItem(currentPersonId)
@@ -137,6 +134,4 @@ class PersonFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
     }
-
-
 }
