@@ -48,6 +48,7 @@
     <string name="required_percentage">Required percent of correct answers: %s</string>
     <string name="required_score">Required count of correct answers: %s</string>
     <string name="progress_answers">Correct answers %s (minimum %s)</string>
+    <string name="number_composition">Number composition</string>
     <!-- num composition } -->
 
 </resources>
