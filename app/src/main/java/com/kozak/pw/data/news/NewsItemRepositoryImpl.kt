@@ -1,8 +1,8 @@
-package com.kozak.pw.data
+package com.kozak.pw.data.news
 
 import com.kozak.pw.PwConstants
 import com.kozak.pw.domain.news.NewsItem
-import com.kozak.pw.domain.repository.NewsItemRepository
+import com.kozak.pw.domain.news.NewsItemRepository
 
 object NewsItemRepositoryImpl : NewsItemRepository {
     private val news = mutableListOf<NewsItem>()

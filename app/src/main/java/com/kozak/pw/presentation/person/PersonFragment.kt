@@ -1,4 +1,4 @@
-package com.kozak.pw.presentation.fragment
+package com.kozak.pw.presentation.person
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.kozak.pw.PwConstants
 import com.kozak.pw.R
 import com.kozak.pw.databinding.FragmentPersonBinding
-import com.kozak.pw.presentation.view_model.PersonViewModel
 import com.kozak.pw.short
 
 class PersonFragment : Fragment() {

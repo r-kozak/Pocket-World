@@ -1,4 +1,4 @@
-package com.kozak.pw.presentation.activity
+package com.kozak.pw.presentation.person
 
 import android.content.Context
 import android.content.Intent
@@ -12,9 +12,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityPersonsBinding
-import com.kozak.pw.presentation.PersonsListAdapter
-import com.kozak.pw.presentation.fragment.PersonFragment
-import com.kozak.pw.presentation.view_model.PersonsViewModel
 
 class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedListener {
     private lateinit var binding: ActivityPersonsBinding

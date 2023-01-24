@@ -1,9 +1,9 @@
-package com.kozak.pw.presentation.view_model
+package com.kozak.pw.presentation.person
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kozak.pw.data.PersonItemRepositoryImpl
+import com.kozak.pw.data.person.PersonItemRepositoryImpl
 import com.kozak.pw.domain.person.EditPersonUseCase
 import com.kozak.pw.domain.person.GetPersonByIdUseCase
 import com.kozak.pw.domain.person.KillPersonUseCase

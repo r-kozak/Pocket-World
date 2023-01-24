@@ -1,4 +1,4 @@
-package com.kozak.pw.presentation
+package com.kozak.pw.presentation.person
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

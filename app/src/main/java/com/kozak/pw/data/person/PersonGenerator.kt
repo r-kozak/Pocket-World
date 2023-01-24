@@ -1,4 +1,4 @@
-package com.kozak.pw.data
+package com.kozak.pw.data.person
 
 import com.kozak.pw.domain.person.PersonItem
 import kotlinx.datetime.Clock
@@ -7,11 +7,12 @@ import kotlinx.datetime.toLocalDateTime
 import kotlin.random.Random
 import kotlin.time.Duration
 
-private val maleFirstNames = listOf("Mukola", "Petro", "Stepan", "Oleh", "Matviy", "Oleksiy")
-private val femaleFirstNames = listOf("Olha", "Tetyana", "Katya", "Nataha", "Alina", "Anna")
-private val lastNames = listOf("Veresen", "Begins", "Petrenko", "Simpson", "Kremez", "Muzika")
-
 object PersonGenerator {
+
+    private val maleFirstNames = listOf("Mukola", "Petro", "Stepan", "Oleh", "Matviy", "Oleksiy")
+    private val femaleFirstNames = listOf("Olha", "Tetyana", "Katya", "Nataha", "Alina", "Anna")
+    private val lastNames = listOf("Veresen", "Begins", "Petrenko", "Simpson", "Kremez", "Muzika")
+
     fun generate(): PersonItem {
         val sex = PersonItem.Sex.values().random()
         val firstName = when (sex) {

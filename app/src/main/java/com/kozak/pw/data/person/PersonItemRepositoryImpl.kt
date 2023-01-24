@@ -1,10 +1,10 @@
-package com.kozak.pw.data
+package com.kozak.pw.data.person
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kozak.pw.PwConstants
 import com.kozak.pw.domain.person.PersonItem
-import com.kozak.pw.domain.repository.PersonItemRepository
+import com.kozak.pw.domain.person.PersonItemRepository
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime

@@ -1,4 +1,4 @@
-package com.kozak.pw.presentation
+package com.kozak.pw.presentation.person
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding

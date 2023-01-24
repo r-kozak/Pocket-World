@@ -1,7 +1,6 @@
-package com.kozak.pw.domain.repository
+package com.kozak.pw.domain.person
 
 import androidx.lifecycle.LiveData
-import com.kozak.pw.domain.person.PersonItem
 
 interface PersonItemRepository {
     fun addPerson(personItem: PersonItem)

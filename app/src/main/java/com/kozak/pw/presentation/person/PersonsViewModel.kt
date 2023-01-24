@@ -1,7 +1,7 @@
-package com.kozak.pw.presentation.view_model
+package com.kozak.pw.presentation.person
 
 import androidx.lifecycle.ViewModel
-import com.kozak.pw.data.PersonItemRepositoryImpl
+import com.kozak.pw.data.person.PersonItemRepositoryImpl
 import com.kozak.pw.domain.person.*
 
 class PersonsViewModel : ViewModel() {

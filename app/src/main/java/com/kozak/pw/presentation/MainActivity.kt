@@ -1,8 +1,9 @@
-package com.kozak.pw.presentation.activity
+package com.kozak.pw.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kozak.pw.databinding.ActivityMainBinding
+import com.kozak.pw.presentation.person.PersonsActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

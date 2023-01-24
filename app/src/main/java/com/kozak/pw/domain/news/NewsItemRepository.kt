@@ -1,6 +1,4 @@
-package com.kozak.pw.domain.repository
-
-import com.kozak.pw.domain.news.NewsItem
+package com.kozak.pw.domain.news
 
 interface NewsItemRepository {
     fun addNews(newsItem: NewsItem)

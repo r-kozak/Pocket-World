@@ -1,4 +1,4 @@
-package com.kozak.pw.presentation.activity
+package com.kozak.pw.presentation.person
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kozak.pw.PwConstants.DEFAULT_ITEM_ID
 import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityPersonBinding
-import com.kozak.pw.presentation.fragment.PersonFragment
 
 class PersonActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedListener {
     private var currentPersonId: Long = DEFAULT_ITEM_ID

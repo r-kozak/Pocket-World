@@ -1,4 +1,4 @@
-package com.kozak.pw.presentation
+package com.kozak.pw.presentation.person
 
 import androidx.recyclerview.widget.DiffUtil
 import com.kozak.pw.domain.person.PersonItem
