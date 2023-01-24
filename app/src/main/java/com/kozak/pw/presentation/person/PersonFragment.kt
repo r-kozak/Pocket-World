@@ -17,9 +17,13 @@ import com.kozak.pw.short
 class PersonFragment : Fragment() {
 
     private lateinit var viewModel: PersonViewModel
-    private lateinit var binding: FragmentPersonBinding
     private lateinit var onEditingFinishedListener: OnEditingFinishedListener
     private var currentPersonId: Long = PwConstants.DEFAULT_ITEM_ID
+
+
+    private var _binding: FragmentPersonBinding? = null
+    private val binding: FragmentPersonBinding
+        get() = _binding ?: throw RuntimeException("FragmentPersonBinding == null")
 
     companion object {
         private const val PERSON_ID = "person_id"
@@ -54,7 +58,7 @@ class PersonFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPersonBinding.inflate(inflater, container, false)
+        _binding = FragmentPersonBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -147,5 +151,10 @@ class PersonFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
