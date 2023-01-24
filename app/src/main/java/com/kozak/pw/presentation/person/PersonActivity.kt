@@ -13,7 +13,6 @@ class PersonActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedList
     private var currentPersonId: Long = DEFAULT_ITEM_ID
     private lateinit var binding: ActivityPersonBinding
 
-
     companion object {
         private const val INTENT_PERSON_ID = "intent_person_id"
 

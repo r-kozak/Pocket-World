@@ -33,7 +33,7 @@
         question mark, and in the other the number 4. So in place of the question mark should be the
         number 3 because 3 + 4 = 7
     </string>
-    <string name="button_understand">It\'s clear</string>
+    <string name="button_lets_go">Let\'s go</string>
     <string name="welcome_logo">Welcome logo</string>
     <string name="choose_level_title">Choose level:</string>
     <string name="easy_level">Easy</string>
@@ -48,7 +48,7 @@
     <string name="required_percentage">Required percent of correct answers: %s</string>
     <string name="required_score">Required count of correct answers: %s</string>
     <string name="progress_answers">Correct answers %s (minimum %s)</string>
-    <string name="number_composition">Number composition</string>
+    <string name="number_composition">Number Composition</string>
     <!-- num composition } -->
 
 </resources>
