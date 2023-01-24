@@ -24,7 +24,7 @@ class GameFinishedFragment : Fragment() {
         fun newInstance(gameResult: GameResult): GameFinishedFragment {
             return GameFinishedFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(GAME_RESULT_KEY, gameResult)
+                    putParcelable(GAME_RESULT_KEY, gameResult)
                 }
             }
         }
@@ -38,8 +38,8 @@ class GameFinishedFragment : Fragment() {
     private fun parseArgs() {
         val args = requireArguments()
         if (!args.containsKey(GAME_RESULT_KEY)) throw RuntimeException("Param 'game result' is absent")
-        @Suppress("DEPRECATION") // getSerializable(String, Class) available from Tiramisu
-        gameResult = args.getSerializable(GAME_RESULT_KEY) as GameResult
+        @Suppress("DEPRECATION") // getParcelable(String, Class) available from Tiramisu
+        args.getParcelable<GameResult>(GAME_RESULT_KEY)?.let { gameResult = it }
     }
 
     override fun onCreateView(
@@ -58,6 +58,7 @@ class GameFinishedFragment : Fragment() {
                     retryGame()
                 }
             })
+        binding.buttonRetry.setOnClickListener { retryGame() }
     }
 
     override fun onDestroyView() {

@@ -1,6 +1,10 @@
 package com.kozak.pw.domain.num_composition.entity
 
-enum class Level(val gameSettings: GameSettings) {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+enum class Level(val gameSettings: GameSettings) : Parcelable{
 
     TEST(GameSettings(10, 3, 50, 8)),
     EASY(GameSettings(10, 10, 70, 60)),

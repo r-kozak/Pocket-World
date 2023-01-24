@@ -29,7 +29,7 @@ class GameFragment : Fragment() {
         fun newInstance(level: Level): GameFragment {
             return GameFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(KEY_LEVEL, level)
+                    putParcelable(KEY_LEVEL, level)
                 }
             }
         }
@@ -43,8 +43,8 @@ class GameFragment : Fragment() {
     private fun parseArgs() {
         val args = requireArguments()
         if (!args.containsKey(KEY_LEVEL)) throw RuntimeException("Param 'level' is absent")
-        @Suppress("DEPRECATION") // getSerializable(String, Class) available from Tiramisu
-        level = args.getSerializable(KEY_LEVEL) as Level
+        @Suppress("DEPRECATION") // getParcelable(String, Class) available from Tiramisu
+        args.getParcelable<Level>(KEY_LEVEL)?.let { level = it }
     }
 
     override fun onCreateView(
