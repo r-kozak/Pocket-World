@@ -10,19 +10,19 @@ class PersonsViewModel : ViewModel() {
     private val getPersonsUseCase = GetPersonsListUseCase(repository)
     private val killPersonUseCase = KillPersonUseCase(repository)
     private val editPersonUseCase = EditPersonUseCase(repository)
-    private val togglePersonFavoriteUseCase = MarkPersonFavoriteUseCase(repository)
+    private val togglePersonFavoriteUseCase = TogglePersonFavoriteUseCase(repository)
 
-    val personItemsList = getPersonsUseCase.getPersonItemsList()
+    val personItemsList = getPersonsUseCase()
 
     fun killPerson(personId: Long) {
-        killPersonUseCase.killPerson(personId)
+        killPersonUseCase(personId)
     }
 
     fun editPerson(personItem: PersonItem) {
-        editPersonUseCase.editPerson(personItem)
+        editPersonUseCase(personItem)
     }
 
     fun togglePersonFavorite(personId: Long) {
-        togglePersonFavoriteUseCase.togglePersonFavorite(personId)
+        togglePersonFavoriteUseCase(personId)
     }
 }

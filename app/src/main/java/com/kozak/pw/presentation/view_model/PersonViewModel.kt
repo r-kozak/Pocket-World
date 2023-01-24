@@ -38,11 +38,11 @@ class PersonViewModel : ViewModel() {
         get() = _shouldCloseScreen
 
     fun getPersonItem(personId: Long) {
-        _personItem.value = getPersonUseCase.getPersonById(personId)
+        _personItem.value = getPersonUseCase(personId)
     }
 
     fun killPerson(personId: Long) {
-        killPersonUseCase.killPerson(personId)
+        killPersonUseCase(personId)
         finishWork()
     }
 
@@ -57,13 +57,13 @@ class PersonViewModel : ViewModel() {
         val strength = parseStrength(inputStrength)
         val fieldsValid = validateInput(firstName, lastName, strength)
         if (fieldsValid) {
-            val personItem = getPersonUseCase.getPersonById(id)
+            val personItem = getPersonUseCase(id)
             personItem.apply {
                 this.firstName = firstName
                 this.lastName = lastName
                 this.strength = strength
             }
-            editPersonUseCase.editPerson(personItem)
+            editPersonUseCase(personItem)
             finishWork()
         }
     }
