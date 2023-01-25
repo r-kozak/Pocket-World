@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="gameResult"
+            type="com.kozak.pw.domain.num_composition.entity.GameResult" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -25,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="@string/required_score"
+            android:text="@{String.valueOf(gameResult.gameSettings.minCountOfRightAnswers)}"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@id/tv_score_answers"
             app:layout_constraintEnd_toEndOf="parent"
