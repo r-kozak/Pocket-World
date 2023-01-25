@@ -20,5 +20,7 @@ class NumCompositionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNumCompositionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.hide()
     }
 }
