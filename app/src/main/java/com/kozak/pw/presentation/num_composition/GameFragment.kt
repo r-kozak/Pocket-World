@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.kozak.pw.R
 import com.kozak.pw.databinding.FragmentGameBinding
 import com.kozak.pw.domain.num_composition.entity.GameResult
@@ -44,7 +45,7 @@ class GameFragment : Fragment() {
     companion object {
         val NAME: String = GameFragment::class.java.simpleName
 
-        private const val KEY_LEVEL = "level"
+        const val KEY_LEVEL = "level"
 
         fun newInstance(level: Level): GameFragment {
             return GameFragment().apply {
@@ -81,10 +82,10 @@ class GameFragment : Fragment() {
     }
 
     private fun launchGameFinishedFragment(gameResult: GameResult) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.num_composition_container, GameFinishedFragment.newInstance(gameResult))
-            .addToBackStack(null)
-            .commit()
+        Bundle().apply {
+            putParcelable(GameFinishedFragment.GAME_RESULT_KEY, gameResult)
+            findNavController().navigate(R.id.action_gameFragment_to_gameFinishedFragment, this)
+        }
     }
 
     private fun setClickListenersToOptions() {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.kozak.pw.R
 import com.kozak.pw.databinding.FragmentChooseLevelBinding
 import com.kozak.pw.domain.num_composition.entity.Level
@@ -17,12 +18,6 @@ class ChooseLevelFragment : Fragment() {
     private var _binding: FragmentChooseLevelBinding? = null
     private val binding: FragmentChooseLevelBinding
         get() = _binding ?: throw RuntimeException("FragmentChooseLevelBinding == null")
-
-    companion object {
-        val NAME: String = ChooseLevelFragment::class.java.simpleName
-
-        fun newInstance(): ChooseLevelFragment = ChooseLevelFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,10 +37,10 @@ class ChooseLevelFragment : Fragment() {
     }
 
     private fun launchGameFragment(level: Level) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.num_composition_container, GameFragment.newInstance(level))
-            .addToBackStack(GameFragment.NAME)
-            .commit()
+        Bundle().apply {
+            putParcelable(GameFragment.KEY_LEVEL, level)
+            findNavController().navigate(R.id.action_chooseLevelFragment_to_gameFragment, this)
+        }
     }
 
     override fun onDestroyView() {

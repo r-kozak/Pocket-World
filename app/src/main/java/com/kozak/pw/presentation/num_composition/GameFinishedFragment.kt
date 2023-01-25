@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import com.kozak.pw.R
 import com.kozak.pw.databinding.FragmentGameFinishedBinding
 import com.kozak.pw.domain.num_composition.entity.GameResult
@@ -20,7 +19,7 @@ class GameFinishedFragment : Fragment() {
     private lateinit var gameResult: GameResult
 
     companion object {
-        private const val GAME_RESULT_KEY = "game-result"
+        const val GAME_RESULT_KEY = "game-result"
 
         fun newInstance(gameResult: GameResult): GameFinishedFragment {
             return GameFinishedFragment().apply {
@@ -50,13 +49,6 @@ class GameFinishedFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                retryGame()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
         binding.buttonRetry.setOnClickListener { retryGame() }
     }
 
@@ -105,8 +97,6 @@ class GameFinishedFragment : Fragment() {
     }
 
     private fun retryGame() {
-        requireActivity().supportFragmentManager.popBackStack(
-            GameFragment.NAME, FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
+        findNavController().popBackStack()
     }
 }
