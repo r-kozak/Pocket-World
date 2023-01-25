@@ -10,24 +10,23 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.kozak.pw.R
+import androidx.navigation.fragment.navArgs
 import com.kozak.pw.databinding.FragmentGameBinding
 import com.kozak.pw.domain.num_composition.entity.GameResult
-import com.kozak.pw.domain.num_composition.entity.Level
 
 /**
  * com.kozak.pw.presentation.num_composition.ChooseLevelFragment launches this fragment
  */
 class GameFragment : Fragment() {
 
+    private val args by navArgs<GameFragmentArgs>()
+
     private var _binding: FragmentGameBinding? = null
     private val binding: FragmentGameBinding
         get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
 
-    private lateinit var level: Level
-
     private val viewModel by lazy {
-        val viewModelFactory = GameViewModelFactory(requireActivity().application, level)
+        val viewModelFactory = GameViewModelFactory(requireActivity().application, args.level)
         ViewModelProvider(this, viewModelFactory)[GameViewModel::class.java]
     }
 
@@ -40,32 +39,6 @@ class GameFragment : Fragment() {
             add(binding.tvOption5)
             add(binding.tvOption6)
         }
-    }
-
-    companion object {
-        val NAME: String = GameFragment::class.java.simpleName
-
-        const val KEY_LEVEL = "level"
-
-        fun newInstance(level: Level): GameFragment {
-            return GameFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_LEVEL, level)
-                }
-            }
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        parseArgs()
-    }
-
-    private fun parseArgs() {
-        val args = requireArguments()
-        if (!args.containsKey(KEY_LEVEL)) throw RuntimeException("Param 'level' is absent")
-        @Suppress("DEPRECATION") // getParcelable(String, Class) available from Tiramisu
-        args.getParcelable<Level>(KEY_LEVEL)?.let { level = it }
     }
 
     override fun onCreateView(
@@ -82,10 +55,7 @@ class GameFragment : Fragment() {
     }
 
     private fun launchGameFinishedFragment(gameResult: GameResult) {
-        Bundle().apply {
-            putParcelable(GameFinishedFragment.GAME_RESULT_KEY, gameResult)
-            findNavController().navigate(R.id.action_gameFragment_to_gameFinishedFragment, this)
-        }
+        findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameFinishedFragment(gameResult))
     }
 
     private fun setClickListenersToOptions() {

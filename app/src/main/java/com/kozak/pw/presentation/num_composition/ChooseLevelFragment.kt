@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.kozak.pw.R
 import com.kozak.pw.databinding.FragmentChooseLevelBinding
 import com.kozak.pw.domain.num_composition.entity.Level
 
@@ -37,10 +36,9 @@ class ChooseLevelFragment : Fragment() {
     }
 
     private fun launchGameFragment(level: Level) {
-        Bundle().apply {
-            putParcelable(GameFragment.KEY_LEVEL, level)
-            findNavController().navigate(R.id.action_chooseLevelFragment_to_gameFragment, this)
-        }
+        findNavController().navigate(
+            ChooseLevelFragmentDirections.actionChooseLevelFragmentToGameFragment(level)
+        )
     }
 
     override fun onDestroyView() {
