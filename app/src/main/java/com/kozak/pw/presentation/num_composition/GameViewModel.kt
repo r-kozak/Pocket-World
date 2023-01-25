@@ -2,9 +2,9 @@ package com.kozak.pw.presentation.num_composition
 
 import android.app.Application
 import android.os.CountDownTimer
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.kozak.pw.R
 import com.kozak.pw.data.num_composition.GameRepositoryImpl
 import com.kozak.pw.domain.num_composition.entity.GameResult
@@ -13,9 +13,8 @@ import com.kozak.pw.domain.num_composition.entity.Level
 import com.kozak.pw.domain.num_composition.entity.Question
 import com.kozak.pw.domain.num_composition.usecase.GenerateQuestionUseCase
 
-class GameViewModel(application: Application) : AndroidViewModel(application) {
+class GameViewModel(private val application: Application, private val level: Level) : ViewModel() {
 
-    private val context = application
 
     private val repository = GameRepositoryImpl // TODO get rid of dependency to data layer
     private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
@@ -57,14 +56,18 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val gameResult: LiveData<GameResult>
         get() = _gameResult
 
+    init {
+        startGame()
+    }
+
     companion object {
         private const val MILLIS_IN_SECOND = 1_000L
         private const val SECONDS_IN_MINUTE = 60
     }
 
-    fun startGame(level: Level) {
+    private fun startGame() {
         gameSettings = level.gameSettings
-        _minPercent.value = gameSettings.minPercentOfRightAnswer
+        _minPercent.value = gameSettings.minPercentOfRightAnswers
 
         startTimer()
         generateQuestion()
@@ -84,12 +87,12 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         _percentOfRightAnswers.value = percent
         _progressAnswers.value =
             String.format(
-                context.resources.getString(R.string.progress_answers),
+                application.resources.getString(R.string.progress_answers),
                 countOfRightAnswers,
-                gameSettings.minCountOfRightAnswer
+                gameSettings.minCountOfRightAnswers
             )
-        _enoughCountOfRightAnswers.value = countOfRightAnswers >= gameSettings.minCountOfRightAnswer
-        _enoughPercentOfRightAnswers.value = percent >= gameSettings.minPercentOfRightAnswer
+        _enoughCountOfRightAnswers.value = countOfRightAnswers >= gameSettings.minCountOfRightAnswers
+        _enoughPercentOfRightAnswers.value = percent >= gameSettings.minPercentOfRightAnswers
     }
 
     private fun checkAnswer(answerNumber: Int) {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.kozak.pw.R
 import com.kozak.pw.databinding.FragmentGameFinishedBinding
 import com.kozak.pw.domain.num_composition.entity.GameResult
 
@@ -35,13 +36,6 @@ class GameFinishedFragment : Fragment() {
         parseArgs()
     }
 
-    private fun parseArgs() {
-        val args = requireArguments()
-        if (!args.containsKey(GAME_RESULT_KEY)) throw RuntimeException("Param 'game result' is absent")
-        @Suppress("DEPRECATION") // getParcelable(String, Class) available from Tiramisu
-        args.getParcelable<GameResult>(GAME_RESULT_KEY)?.let { gameResult = it }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -51,14 +45,58 @@ class GameFinishedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    retryGame()
-                }
-            })
+        setupClickListeners()
+        bindViews()
+    }
+
+    private fun setupClickListeners() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                retryGame()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
         binding.buttonRetry.setOnClickListener { retryGame() }
+    }
+
+    private fun bindViews() {
+        with(binding) {
+            emojiResult.setImageResource(getSmileResId())
+            tvRequiredAnswers.text = String.format(
+                getString(R.string.required_score),
+                gameResult.gameSettings.minCountOfRightAnswers
+            )
+            tvScoreAnswers.text = String.format(
+                getString(R.string.score_answers),
+                gameResult.countOfRightAnswers
+            )
+            tvRequiredPercentage.text = String.format(
+                getString(R.string.required_percentage),
+                gameResult.gameSettings.minPercentOfRightAnswers
+            )
+            tvScorePercentage.text = String.format(
+                getString(R.string.score_percentage),
+                getPercentOfRightAnswers()
+            )
+        }
+    }
+
+    private fun getSmileResId(): Int {
+        return if (gameResult.isWinner) R.drawable.ic_smile
+        else R.drawable.ic_sad
+    }
+
+    private fun getPercentOfRightAnswers() = with(gameResult) {
+        if (countOfQuestions == 0) 0
+        else ((countOfRightAnswers / countOfQuestions.toDouble()) * 100).toInt()
+    }
+
+    private fun parseArgs() {
+        val args = requireArguments()
+        if (!args.containsKey(GAME_RESULT_KEY)) throw RuntimeException("Param 'game result' is absent")
+        @Suppress("DEPRECATION") // getParcelable(String, Class) available from Tiramisu
+        args.getParcelable<GameResult>(GAME_RESULT_KEY)?.let { gameResult = it }
     }
 
     override fun onDestroyView() {
