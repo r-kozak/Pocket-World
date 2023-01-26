@@ -15,7 +15,6 @@ import com.kozak.pw.domain.num_composition.usecase.GenerateQuestionUseCase
 
 class GameViewModel(private val application: Application, private val level: Level) : ViewModel() {
 
-
     private val repository = GameRepositoryImpl // TODO get rid of dependency to data layer
     private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
     private var timer: CountDownTimer? = null

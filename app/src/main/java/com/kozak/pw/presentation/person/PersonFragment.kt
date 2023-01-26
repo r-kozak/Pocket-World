@@ -10,16 +10,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.kozak.pw.PwConstants
-import com.kozak.pw.R
 import com.kozak.pw.databinding.FragmentPersonBinding
-import com.kozak.pw.short
 
 class PersonFragment : Fragment() {
 
-    private lateinit var viewModel: PersonViewModel
     private lateinit var onEditingFinishedListener: OnEditingFinishedListener
     private var currentPersonId: Long = PwConstants.DEFAULT_ITEM_ID
 
+    private val viewModel by lazy {
+        val viewModelFactory = PersonViewModelFactory(currentPersonId)
+        ViewModelProvider(this, viewModelFactory)[PersonViewModel::class.java]
+    }
 
     private var _binding: FragmentPersonBinding? = null
     private val binding: FragmentPersonBinding
@@ -64,11 +65,14 @@ class PersonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[PersonViewModel::class.java]
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         setClickListeners()
         addTextChangeListeners()
-        displayPersonData()
-        observeViewModel()
+
+        viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
+            onEditingFinishedListener.onEditingFinished()
+        }
     }
 
     private fun parseParams() {
@@ -90,39 +94,6 @@ class PersonFragment : Fragment() {
                 binding.etLastName.editableText.toString(),
                 binding.etStrength.editableText.toString()
             )
-        }
-    }
-
-    private fun observeViewModel() {
-        viewModel.errorInputFirstName.observe(viewLifecycleOwner) { isError ->
-            binding.tilFirstName.error = if (isError) getString(R.string.error_input_first_name)
-            else null
-        }
-        viewModel.errorInputLastName.observe(viewLifecycleOwner) { isError ->
-            binding.tilLastName.error = if (isError) getString(R.string.error_input_last_name)
-            else null
-        }
-        viewModel.errorInputStrength.observe(viewLifecycleOwner) { isError ->
-            binding.tilStrength.error = if (isError) getString(R.string.error_input_strength)
-            else null
-        }
-        viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            onEditingFinishedListener.onEditingFinished()
-        }
-    }
-
-    private fun displayPersonData() {
-        viewModel.getPersonItem(currentPersonId)
-        viewModel.personItem.observe(viewLifecycleOwner) {
-            binding.etFirstName.setText(it.firstName)
-            binding.etLastName.setText(it.lastName)
-            binding.etStrength.setText(it.strength.toString())
-            binding.tvBirthDate.text = it.birthDate.short()
-            binding.tvSex.text = it.sex.toString()
-            binding.tvDeathDate.text = it.deathDate.short()
-            binding.tvIsAlive.text = it.isAlive.toString()
-            binding.tvIsFavorite.text = it.isFavorite.toString()
-            binding.tvId.text = it.id.toString()
         }
     }
 

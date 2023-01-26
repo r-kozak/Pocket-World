@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kozak.pw.presentation.person.PersonViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -15,6 +22,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
+            app:errorInputFirstName="@{viewModel.errorInputFirstName}"
             app:layout_constraintBottom_toTopOf="@id/til_last_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/first_name_hint"
                 android:inputType="textCapWords"
+                android:text="@{viewModel.personItem.firstName}"
                 tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -38,6 +47,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
+            app:errorInputLastName="@{viewModel.errorInputLastName}"
             app:layout_constraintBottom_toTopOf="@id/til_strength"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/last_name_hint"
                 android:inputType="textCapWords"
+                android:text="@{viewModel.personItem.lastName}"
                 tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,6 +71,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
+            app:errorInputStrength="@{viewModel.errorInputStrength}"
             app:layout_constraintBottom_toTopOf="@+id/birthDateLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,9 +84,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/strength_hint"
                 android:inputType="number"
+                android:text="@{String.valueOf(viewModel.personItem.strength)}"
                 tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
-        <!-- change constraints -->
+
         <LinearLayout
             android:id="@+id/birthDateLayout"
             android:layout_width="0dp"
@@ -99,7 +112,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/birth_date_example" />
+                app:localDateTimeToShort="@{viewModel.personItem.birthDate}"
+                tools:text="@string/birth_date_example" />
         </LinearLayout>
 
         <LinearLayout
@@ -126,7 +140,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/sex_example" />
+                android:text="@{viewModel.personItem.sex.toString()}"
+                tools:text="@string/sex_example" />
         </LinearLayout>
 
         <LinearLayout
@@ -153,7 +168,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/is_alive_example" />
+                android:text="@{String.valueOf(viewModel.personItem.alive)}"
+                tools:text="@string/is_alive_example" />
         </LinearLayout>
 
         <LinearLayout
@@ -180,7 +196,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/is_favorite_example" />
+                android:text="@{String.valueOf(viewModel.personItem.favorite)}"
+                tools:text="@string/is_favorite_example" />
         </LinearLayout>
 
         <LinearLayout
@@ -207,7 +224,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/death_date_example" />
+                app:localDateTimeToShort="@{viewModel.personItem.deathDate}"
+                tools:text="@string/death_date_example" />
         </LinearLayout>
 
         <LinearLayout
@@ -234,7 +252,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/id_example" />
+                android:text="@{String.valueOf(viewModel.personItem.id)}"
+                tools:text="@string/id_example" />
         </LinearLayout>
 
         <Button

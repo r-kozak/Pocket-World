@@ -9,7 +9,7 @@ import com.kozak.pw.domain.person.GetPersonByIdUseCase
 import com.kozak.pw.domain.person.KillPersonUseCase
 import com.kozak.pw.domain.person.PersonItem
 
-class PersonViewModel : ViewModel() {
+class PersonViewModel(private val personId: Long) : ViewModel() {
     private val repository = PersonItemRepositoryImpl // TODO get rid of dependency to data layer
 
     private val getPersonUseCase = GetPersonByIdUseCase(repository)
@@ -37,7 +37,11 @@ class PersonViewModel : ViewModel() {
     val shouldCloseScreen: LiveData<Unit>
         get() = _shouldCloseScreen
 
-    fun getPersonItem(personId: Long) {
+    init {
+        getPersonItem(personId)
+    }
+
+    private fun getPersonItem(personId: Long) {
         _personItem.value = getPersonUseCase(personId)
     }
 
@@ -81,19 +85,20 @@ class PersonViewModel : ViewModel() {
     }
 
     private fun validateInput(firstName: String, lastName: String, strength: Int): Boolean {
+        var result = true
         if (firstName.isBlank()) {
             _errorInputFirstName.value = true
-            return false
+            result = false
         }
         if (lastName.isBlank()) {
             _errorInputLastName.value = true
-            return false
+            result = false
         }
         if (strength <= 0) {
             _errorInputStrength.value = true
-            return false
+            result = false
         }
-        return true
+        return result
     }
 
     fun resetErrorInputFirstName() {
