@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Pocket-World</string>
     <string name="persons">Persons</string>
+    <string name="number_composition">Number Composition</string>
     <string name="first_name_hint">First name</string>
     <string name="last_name_hint">Last name</string>
     <string name="strength_hint">Strength</string>
@@ -48,7 +49,6 @@
     <string name="required_percentage">Required percent of correct answers: %s</string>
     <string name="required_score">Required count of correct answers: %s</string>
     <string name="progress_answers">Correct answers %s (minimum %s)</string>
-    <string name="number_composition">Number Composition</string>
     <!-- num composition } -->
 
 </resources>
