@@ -23,7 +23,7 @@
     <string name="error_input_first_name">First name can\'t be empty</string>
     <string name="error_input_last_name">Last name can\'t be empty</string>
     <string name="person_saved_success">Person saved successfully</string>
-    <!-- { num composition -->
+    <!-- num composition { -->
     <string name="question_mark">\?</string>
     <string name="welcome_title">Number composition</string>
     <string name="game_rules">
@@ -51,4 +51,11 @@
     <string name="progress_answers">Correct answers %s (minimum %s)</string>
     <!-- num composition } -->
 
+    <!-- Coroutines { -->
+    <string name="city">City</string>
+    <string name="temperature">Temperature, C</string>
+    <string name="download">Download</string>
+    <string name="coroutines">Coroutines</string>
+    <string name="loading_temperature_toast">Great Bavovna in %s city</string>
+    <!-- Coroutines  } -->
 </resources>

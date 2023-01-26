@@ -17,9 +17,11 @@ class MainActivity : AppCompatActivity() {
         binding.buttonPersons.setOnClickListener {
             startActivity(PersonsActivity.intentShowPersons(this))
         }
-
         binding.buttonNumComposition.setOnClickListener {
             startActivity(NumCompositionActivity.intentStartGame(this))
+        }
+        binding.buttonCoroutines.setOnClickListener {
+            startActivity(CoroutinesActivity.startIntent(this))
         }
     }
 }
