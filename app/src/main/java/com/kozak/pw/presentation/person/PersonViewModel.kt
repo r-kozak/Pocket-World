@@ -1,17 +1,17 @@
 package com.kozak.pw.presentation.person
 
 import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.kozak.pw.data.person.PersonItemRepositoryImpl
 import com.kozak.pw.domain.person.EditPersonUseCase
 import com.kozak.pw.domain.person.GetPersonByIdUseCase
 import com.kozak.pw.domain.person.KillPersonUseCase
 import com.kozak.pw.domain.person.PersonItem
 
-class PersonViewModel(private val personId: Long) : ViewModel() {
-    private val repository = PersonItemRepositoryImpl(Application()) // TODO get rid of dependency to data layer
+class PersonViewModel(application: Application, personId: Long) : AndroidViewModel(application) {
+    private val repository = PersonItemRepositoryImpl(application) // TODO get rid of dependency to data layer
 
     private val getPersonUseCase = GetPersonByIdUseCase(repository)
     private val killPersonUseCase = KillPersonUseCase(repository)

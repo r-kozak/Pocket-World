@@ -18,7 +18,10 @@ class PersonFragment : Fragment() {
     private var currentPersonId: Long = PwConstants.DEFAULT_ITEM_ID
 
     private val viewModel by lazy {
-        val viewModelFactory = PersonViewModelFactory(currentPersonId)
+        val viewModelFactory = PersonViewModelFactory(
+            requireActivity().application,
+            currentPersonId
+        )
         ViewModelProvider(this, viewModelFactory)[PersonViewModel::class.java]
     }
 

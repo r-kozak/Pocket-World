@@ -57,5 +57,6 @@
     <string name="download">Download</string>
     <string name="coroutines">Coroutines</string>
     <string name="loading_temperature_toast">Great Bavovna in %s city</string>
+    <string name="add_person_description">Add a new person</string>
     <!-- Coroutines  } -->
 </resources>

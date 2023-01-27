@@ -1,6 +1,6 @@
-package com.kozak.pw.data.person
+package com.kozak.pw.domain.person
 
-import com.kozak.pw.domain.person.PersonItem
+import com.kozak.pw.PwConstants
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -21,15 +21,17 @@ object PersonGenerator {
         }
         val lastName = lastNames.random()
 
+        val randomYearsOld = Random.nextInt(PwConstants.NEW_PERSON_MAX_YEARS_OLD) * PwConstants.DAYS_IN_YEAR
+        val randomDays = Random.nextInt(PwConstants.DAYS_IN_YEAR)
         val birthDate = Clock.System.now()
-            .minus(Duration.parse("P${Random.nextInt(20) * 365}D"))
-            .minus(Duration.parse("P${Random.nextInt(365)}D"))
+            .minus(Duration.parse("P${randomYearsOld}D"))
+            .minus(Duration.parse("P${randomDays}D"))
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
         return PersonItem(birthDate, sex).apply {
             this.firstName = firstName
             this.lastName = lastName
-            this.strength = Random.nextInt(101)
+            this.strength = Random.nextInt(PwConstants.PERSON_MAX_STRENGTH + 1)
         }
     }
 }
