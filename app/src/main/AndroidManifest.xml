@@ -13,18 +13,21 @@
         android:theme="@style/Theme.PocketWorld"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.activity.PersonActivity"
+            android:name=".presentation.CoroutinesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.num_composition.NumCompositionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.person.PersonActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".presentation.activity.PersonsActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:name=".presentation.person.PersonsActivity"
+            android:exported="false" />
         <activity
-            android:name=".presentation.activity.MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

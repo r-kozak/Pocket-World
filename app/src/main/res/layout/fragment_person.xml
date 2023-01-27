@@ -1,256 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.fragment.PersonFragment">
+<layout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_first_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@id/til_last_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed">
+    <data>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_first_name"
-            android:layout_width="match_parent"
+        <variable
+            name="viewModel"
+            type="com.kozak.pw.presentation.person.PersonViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.person.PersonFragment">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_first_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/first_name_hint"
-            android:inputType="textCapWords"
-            tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            app:errorInputFirstName="@{viewModel.errorInputFirstName}"
+            app:layout_constraintBottom_toTopOf="@id/til_last_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_last_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@id/til_strength"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_first_name"
-        app:layout_constraintVertical_chainStyle="packed">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/first_name_hint"
+                android:inputType="textCapWords"
+                android:text="@{viewModel.personItem.firstName}"
+                tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_last_name"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_last_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/last_name_hint"
-            android:inputType="textCapWords"
-            tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            app:errorInputLastName="@{viewModel.errorInputLastName}"
+            app:layout_constraintBottom_toTopOf="@id/til_strength"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_first_name"
+            app:layout_constraintVertical_chainStyle="packed">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_strength"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/birthDateLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_last_name"
-        app:layout_constraintVertical_chainStyle="packed">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/last_name_hint"
+                android:inputType="textCapWords"
+                android:text="@{viewModel.personItem.lastName}"
+                tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_strength"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_strength"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/strength_hint"
-            android:inputType="number"
-            tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <!-- change constraints -->
-    <LinearLayout
-        android:id="@+id/birthDateLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_strength"
-        app:layout_constraintBottom_toTopOf="@+id/sexLayout"
-        app:layout_constraintVertical_chainStyle="packed">
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            app:errorInputStrength="@{viewModel.errorInputStrength}"
+            app:layout_constraintBottom_toTopOf="@+id/birthDateLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_last_name"
+            app:layout_constraintVertical_chainStyle="packed">
 
-        <TextView
-            android:id="@+id/tvLabelBirthDate"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_strength"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/strength_hint"
+                android:inputType="number"
+                android:text="@{String.valueOf(viewModel.personItem.strength)}"
+                tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/birthDateLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/sexLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_strength"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <TextView
+                android:id="@+id/tvLabelBirthDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/label_birth_date" />
+
+            <TextView
+                android:id="@+id/tvBirthDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:localDateTimeToShort="@{viewModel.personItem.birthDate}"
+                tools:text="@string/birth_date_example" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sexLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/isAliveLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/birthDateLayout"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <TextView
+                android:id="@+id/tvLabelSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/label_sex" />
+
+            <TextView
+                android:id="@+id/tvSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{viewModel.personItem.sex.toString()}"
+                tools:text="@string/sex_example" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/isAliveLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/isFavoriteLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sexLayout"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <TextView
+                android:id="@+id/tvLabelIsAlive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/label_is_alive" />
+
+            <TextView
+                android:id="@+id/tvIsAlive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{String.valueOf(viewModel.personItem.alive)}"
+                tools:text="@string/is_alive_example" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/isFavoriteLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/deathDateLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isAliveLayout"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <TextView
+                android:id="@+id/tvLabelIsFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/label_is_favorite" />
+
+            <TextView
+                android:id="@+id/tvIsFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{String.valueOf(viewModel.personItem.favorite)}"
+                tools:text="@string/is_favorite_example" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/deathDateLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/idLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isFavoriteLayout"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <TextView
+                android:id="@+id/tvLabelDeathDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/label_death_date" />
+
+            <TextView
+                android:id="@+id/tvDeathDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:localDateTimeToShort="@{viewModel.personItem.deathDate}"
+                tools:text="@string/death_date_example" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/idLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/save_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deathDateLayout"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <TextView
+                android:id="@+id/tvLabelId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/label_id" />
+
+            <TextView
+                android:id="@+id/tvId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{String.valueOf(viewModel.personItem.id)}"
+                tools:text="@string/id_example" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/kill_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/label_birth_date" />
+            android:text="@string/kill_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/tvBirthDate"
+        <Button
+            android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/birth_date_example" />
-    </LinearLayout>
+            android:layout_marginEnd="8dp"
+            android:text="@string/save_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/sexLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthDateLayout"
-        app:layout_constraintBottom_toTopOf="@+id/isAliveLayout"
-        app:layout_constraintVertical_chainStyle="packed">
-
-        <TextView
-            android:id="@+id/tvLabelSex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/label_sex" />
-
-        <TextView
-            android:id="@+id/tvSex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/sex_example" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/isAliveLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sexLayout"
-        app:layout_constraintBottom_toTopOf="@+id/isFavoriteLayout"
-        app:layout_constraintVertical_chainStyle="packed">
-
-        <TextView
-            android:id="@+id/tvLabelIsAlive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/label_is_alive" />
-
-        <TextView
-            android:id="@+id/tvIsAlive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/is_alive_example" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/isFavoriteLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/isAliveLayout"
-        app:layout_constraintBottom_toTopOf="@+id/deathDateLayout"
-        app:layout_constraintVertical_chainStyle="packed">
-
-        <TextView
-            android:id="@+id/tvLabelIsFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/label_is_favorite" />
-
-        <TextView
-            android:id="@+id/tvIsFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/is_favorite_example" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/deathDateLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/isFavoriteLayout"
-        app:layout_constraintBottom_toTopOf="@+id/idLayout"
-        app:layout_constraintVertical_chainStyle="packed">
-
-        <TextView
-            android:id="@+id/tvLabelDeathDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/label_death_date" />
-
-        <TextView
-            android:id="@+id/tvDeathDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/death_date_example" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/idLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deathDateLayout"
-        app:layout_constraintBottom_toTopOf="@+id/save_button"
-        app:layout_constraintVertical_chainStyle="packed">
-
-        <TextView
-            android:id="@+id/tvLabelId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/label_id" />
-
-        <TextView
-            android:id="@+id/tvId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/id_example" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/kill_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/kill_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="@string/save_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
