@@ -1,71 +1,33 @@
 package com.kozak.pw.data.person
 
+import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.kozak.pw.PwConstants
+import androidx.lifecycle.Transformations
+import com.kozak.pw.data.AppDatabase
 import com.kozak.pw.domain.person.PersonItem
 import com.kozak.pw.domain.person.PersonItemRepository
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 
-object PersonItemRepositoryImpl : PersonItemRepository {
-    private val persons = mutableListOf<PersonItem>()
-    private var autoincrementId: Long = 1
+class PersonItemRepositoryImpl(application: Application) : PersonItemRepository {
 
-    private val personItemsList = MutableLiveData<List<PersonItem>>()
+    private val personItemDao = AppDatabase.getInstance(application).personItemDao()
+    private val mapper = PersonItemMapper()
 
-    init {
-        repeat(25) {
-            addPerson(PersonGenerator.generate())
-        }
-    }
+    override fun addPerson(personItem: PersonItem) = addOrUpdatePerson(personItem)
 
-    override fun addPerson(personItem: PersonItem) {
-        if (personItem.id == PwConstants.DEFAULT_ITEM_ID) {
-            personItem.id = autoincrementId++
-        }
-        persons.add(personItem)
-        updateList()
-    }
+    override fun updatePerson(personItem: PersonItem) = addOrUpdatePerson(personItem)
 
-    override fun editPerson(personItem: PersonItem) {
-        getPersonById(personItem.id)
-            .let { persons.indexOf(it) }
-            .let {
-                persons.removeAt(it)
-                persons.add(it, personItem)
-            }
-        updateList()
+    private fun addOrUpdatePerson(personItem: PersonItem) {
+        val personEntity = mapper.mapItemToEntity(personItem)
+        personItemDao.addOrUpdatePerson(personEntity)
     }
 
     override fun getPersonById(personId: Long): PersonItem {
-        return persons
-            .find { it.id == personId }
-            ?: throw RuntimeException("Person with id $personId not found!")
+        val personEntity = personItemDao.getPersonById(personId)
+        return mapper.mapEntityToItem(personEntity)
     }
 
-    override fun getPersonItemsList(): LiveData<List<PersonItem>> {
-        return personItemsList
-    }
-
-    override fun killPerson(personId: Long) {
-        val person = getPersonById(personId)
-        person.deathDate = Clock.System.now().toLocalDateTime(TimeZone.UTC)
-        person.isAlive = false
-        updateList()
-    }
-
-    override fun togglePersonFavorite(personId: Long) {
-        val person = getPersonById(personId)
-        person.isFavorite = !person.isFavorite
-        updateList()
-    }
-
-    private fun updateList() {
-        personItemsList.value = persons
-            .filter { it.isAlive }
-            .sortedBy { it.birthDate }
-            .toList()
-    }
+    override fun getPersonItemsList(): LiveData<List<PersonItem>> =
+        Transformations.map(personItemDao.getPersonsList()) {
+            mapper.mapEntitiesListToItemsList(it)
+        }
 }

@@ -10,14 +10,14 @@ import androidx.room.Query
 interface PersonItemDao {
 
     @Query("SELECT * FROM person_items")
-    fun getPersonItemsList(): LiveData<List<PersonItemEntity>>
+    fun getPersonsList(): LiveData<List<PersonItemEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addPersonItem(personItemEntity: PersonItemEntity)
+    fun addOrUpdatePerson(personItemEntity: PersonItemEntity)
 
     @Query("DELETE FROM person_items WHERE id=:personItemId")
-    fun deletePersonItem(personItemId: Long)
+    fun deletePerson(personItemId: Long)
 
-    @Query("SELECT * FROM person_items WHERE id=:personItemId LIMIT 1")
-    fun selectPersonItem(personItemId: Long)
+    @Query("SELECT * FROM person_items WHERE id=:personId LIMIT 1")
+    fun getPersonById(personId: Long): PersonItemEntity
 }
