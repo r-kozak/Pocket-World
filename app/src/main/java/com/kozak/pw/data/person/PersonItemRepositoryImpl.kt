@@ -12,16 +12,16 @@ class PersonItemRepositoryImpl(application: Application) : PersonItemRepository 
     private val personItemDao = AppDatabase.getInstance(application).personItemDao()
     private val mapper = PersonItemMapper()
 
-    override fun addPerson(personItem: PersonItem) = addOrUpdatePerson(personItem)
+    override suspend fun addPerson(personItem: PersonItem) = addOrUpdatePerson(personItem)
 
-    override fun updatePerson(personItem: PersonItem) = addOrUpdatePerson(personItem)
+    override suspend fun updatePerson(personItem: PersonItem) = addOrUpdatePerson(personItem)
 
-    private fun addOrUpdatePerson(personItem: PersonItem) {
+    private suspend fun addOrUpdatePerson(personItem: PersonItem) {
         val personEntity = mapper.mapItemToEntity(personItem)
         personItemDao.addOrUpdatePerson(personEntity)
     }
 
-    override fun getPersonById(personId: Long): PersonItem {
+    override suspend fun getPersonById(personId: Long): PersonItem {
         val personEntity = personItemDao.getPersonById(personId)
         return mapper.mapEntityToItem(personEntity)
     }

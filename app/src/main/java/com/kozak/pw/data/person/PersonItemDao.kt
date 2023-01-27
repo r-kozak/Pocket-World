@@ -13,11 +13,11 @@ interface PersonItemDao {
     fun getPersonsList(): LiveData<List<PersonItemEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addOrUpdatePerson(personItemEntity: PersonItemEntity)
+    suspend fun addOrUpdatePerson(personItemEntity: PersonItemEntity)
 
     @Query("DELETE FROM person_items WHERE id=:personItemId")
-    fun deletePerson(personItemId: Long)
+    suspend fun deletePerson(personItemId: Long)
 
     @Query("SELECT * FROM person_items WHERE id=:personId LIMIT 1")
-    fun getPersonById(personId: Long): PersonItemEntity
+    suspend fun getPersonById(personId: Long): PersonItemEntity
 }

@@ -4,14 +4,17 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.kozak.pw.data.person.PersonItemRepositoryImpl
 import com.kozak.pw.domain.person.EditPersonUseCase
 import com.kozak.pw.domain.person.GetPersonByIdUseCase
 import com.kozak.pw.domain.person.KillPersonUseCase
 import com.kozak.pw.domain.person.PersonItem
+import kotlinx.coroutines.launch
 
 class PersonViewModel(application: Application, personId: Long) : AndroidViewModel(application) {
-    private val repository = PersonItemRepositoryImpl(application) // TODO get rid of dependency to data layer
+    private val repository =
+        PersonItemRepositoryImpl(application) // TODO get rid of dependency to data layer
 
     private val getPersonUseCase = GetPersonByIdUseCase(repository)
     private val killPersonUseCase = KillPersonUseCase(repository)
@@ -43,12 +46,16 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
     }
 
     private fun getPersonItem(personId: Long) {
-        _personItem.value = getPersonUseCase(personId)
+        viewModelScope.launch {
+            getPersonUseCase(personId).let { _personItem.value = it }
+        }
     }
 
     fun killPerson(personId: Long) {
-        killPersonUseCase(personId)
-        finishWork()
+        viewModelScope.launch {
+            killPersonUseCase(personId)
+            finishWork()
+        }
     }
 
     fun editPersonItem(
@@ -62,14 +69,16 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
         val strength = parseStrength(inputStrength)
         val fieldsValid = validateInput(firstName, lastName, strength)
         if (fieldsValid) {
-            val personItem = getPersonUseCase(id)
-            personItem.apply {
-                this.firstName = firstName
-                this.lastName = lastName
-                this.strength = strength
+            viewModelScope.launch {
+                val personItem = getPersonUseCase(id)
+                personItem.apply {
+                    this.firstName = firstName
+                    this.lastName = lastName
+                    this.strength = strength
+                }
+                editPersonUseCase(personItem)
+                finishWork()
             }
-            editPersonUseCase(personItem)
-            finishWork()
         }
     }
 
