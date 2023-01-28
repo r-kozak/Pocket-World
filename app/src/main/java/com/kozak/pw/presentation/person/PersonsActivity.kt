@@ -34,10 +34,7 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
         setupRecyclerView()
         viewModel = ViewModelProvider(this)[PersonsViewModel::class.java]
         viewModel.personItemsList.observe(this) { personItems ->
-            // copy items because in PersonItemDiffCallback.areContentsTheSame() old and new items
-            // will be the same
-            // see: https://stackoverflow.com/questions/53156597/listadapter-with-diffutil-itemcallback-always-considers-objects-the-same
-            personsListAdapter.submitList(personItems.map { it.copy() })
+            personsListAdapter.submitList(personItems)
         }
     }
 

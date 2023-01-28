@@ -18,7 +18,6 @@ class MainViewModel : ViewModel() {
     val pwStateRefreshed: LiveData<Boolean>
         get() = _pwStateRefreshed
 
-
     fun refreshPwState() {
         viewModelScope.launch {
             _pwStateRefreshed.value = false
