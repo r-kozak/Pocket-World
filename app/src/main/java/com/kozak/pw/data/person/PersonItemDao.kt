@@ -9,8 +9,8 @@ import androidx.room.Query
 @Dao
 interface PersonItemDao {
 
-    @Query("SELECT * FROM person_items")
-    fun getPersonsList(): LiveData<List<PersonItemEntity>>
+    @Query("SELECT * FROM person_items WHERE isAlive")
+    fun getAlivePersonsList(): LiveData<List<PersonItemEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addOrUpdatePerson(personItemEntity: PersonItemEntity)

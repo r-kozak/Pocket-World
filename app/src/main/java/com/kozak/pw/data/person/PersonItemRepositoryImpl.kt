@@ -27,7 +27,7 @@ class PersonItemRepositoryImpl(application: Application) : PersonItemRepository 
     }
 
     override fun getPersonItemsList(): LiveData<List<PersonItem>> =
-        Transformations.map(personItemDao.getPersonsList()) {
+        Transformations.map(personItemDao.getAlivePersonsList()) {
             mapper.mapEntitiesListToItemsList(it)
         }
 }

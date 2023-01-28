@@ -1,8 +1,10 @@
 package com.kozak.pw.presentation.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityMainBinding
 import com.kozak.pw.presentation.CoroutinesActivity
 import com.kozak.pw.presentation.num_composition.NumCompositionActivity
@@ -25,8 +27,13 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        setupClickListeners()
+        viewModel.failToGeneratePerson.observe(this) { fail ->
+            if (fail) {
+                Toast.makeText(this, R.string.failed_to_refresh_pw_state, Toast.LENGTH_SHORT).show()
+            }
+        }
         viewModel.refreshPwState()
+        setupClickListeners()
     }
 
     private fun setupClickListeners() {
