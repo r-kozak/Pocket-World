@@ -1,6 +1,8 @@
 package com.kozak.pw
 
 import android.app.Application
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -36,8 +38,35 @@ class PwApp : Application() {
         instance = this
 
         doBackgroundPocketWorldChanges()
+        // TODO uncomment when implemented:
+        // doLifeInPw()
     }
 
+    /**
+     * Performs life processes in over the Pocket World
+     */
+    private fun doLifeInPw() {
+        // TODO: implement
+        val handler = Handler(Looper.getMainLooper())
+        val runnable: Runnable = object : Runnable {
+            override fun run() {
+                try {
+                    // TODO: give birth to children, make peace and war and other stuff
+                    // Log.d(PwConstants.LOG_TAG, "PwApp: doLifeInPw().")
+                } catch (e: Exception) {
+                    // TODO: handle exception
+                } finally {
+                    // also call the same runnable to call it at regular interval
+                    handler.postDelayed(this, 1000)
+                }
+            }
+        }
+        handler.post(runnable)
+    }
+
+    /**
+     * Runs service that do its work when device is idle.
+     */
     private fun doBackgroundPocketWorldChanges() = applicationScope.launch {
         val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
@@ -55,5 +84,4 @@ class PwApp : Application() {
             repeatingRequest
         )
     }
-
 }
