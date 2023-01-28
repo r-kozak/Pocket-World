@@ -4,14 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.kozak.pw.PwConstants.LOG_TAG
 import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityPersonsBinding
 
@@ -36,10 +34,7 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
         setupRecyclerView()
         viewModel = ViewModelProvider(this)[PersonsViewModel::class.java]
         viewModel.personItemsList.observe(this) { personItems ->
-            // copy items because in PersonItemDiffCallback.areContentsTheSame() old and new items
-            // will be the same
-            // see: https://stackoverflow.com/questions/53156597/listadapter-with-diffutil-itemcallback-always-considers-objects-the-same
-            personsListAdapter.submitList(personItems.map { it.copy() })
+            personsListAdapter.submitList(personItems)
         }
     }
 
@@ -103,7 +98,6 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
         }
 
         binding.buttonAddPerson.setOnClickListener {
-            Log.d(LOG_TAG, "Creating new person.")
             viewModel.createNewPerson()
         }
     }
