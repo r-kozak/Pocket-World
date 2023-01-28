@@ -58,5 +58,7 @@
     <string name="coroutines">Coroutines</string>
     <string name="loading_temperature_toast">Great Bavovna in %s city</string>
     <string name="add_person_description">Add a new person</string>
+    <string name="refreshing">refreshing...</string>
+    <string name="refresh_pw_state">Refresh</string>
     <!-- Coroutines  } -->
 </resources>
