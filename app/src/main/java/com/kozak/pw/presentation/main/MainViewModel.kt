@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import androidx.work.OneTimeWorkRequest
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.kozak.pw.PwConstants
@@ -45,6 +46,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
             val workRequest = OneTimeWorkRequest
                 .Builder(GeneratePersonsWorker::class.java)
+                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                 .build()
 
             val workRequestId = workRequest.id
