@@ -1,6 +1,7 @@
 package com.kozak.pw
 
 object PwConstants {
+    const val PERMISSION_REQUEST_CODE: Int = 345
     const val GENERATE_PERSON_EVERY_X_MINUTES = 15L
     const val PERSON_MAX_STRENGTH = 100
     const val DAYS_IN_YEAR = 365
