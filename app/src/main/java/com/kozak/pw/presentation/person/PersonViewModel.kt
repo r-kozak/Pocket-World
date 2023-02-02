@@ -5,16 +5,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.kozak.pw.data.person.PersonItemRepositoryImpl
-import com.kozak.pw.domain.person.EditPersonUseCase
-import com.kozak.pw.domain.person.GetPersonByIdUseCase
-import com.kozak.pw.domain.person.KillPersonUseCase
-import com.kozak.pw.domain.person.PersonItem
+import com.kozak.pw.domain.person.*
 import kotlinx.coroutines.launch
+import org.koin.java.KoinJavaComponent.inject
 
 class PersonViewModel(application: Application, personId: Long) : AndroidViewModel(application) {
-    private val repository =
-        PersonItemRepositoryImpl(application) // TODO get rid of dependency to data layer
+
+    private val repository: PersonItemRepository by inject(PersonItemRepository::class.java)
 
     private val getPersonUseCase = GetPersonByIdUseCase(repository)
     private val killPersonUseCase = KillPersonUseCase(repository)
