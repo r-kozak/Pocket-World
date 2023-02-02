@@ -63,5 +63,8 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.0"
     // worker
     implementation "androidx.work:work-runtime-ktx:2.7.1"
-
+    // koin
+    implementation "io.insert-koin:koin-core:3.3.2"
+    implementation "io.insert-koin:koin-android:3.3.2"
+    implementation "io.insert-koin:koin-androidx-compose:3.4.1"
 }

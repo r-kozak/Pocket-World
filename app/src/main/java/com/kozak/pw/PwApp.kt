@@ -8,10 +8,22 @@ import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.kozak.pw.data.num_composition.GameRepositoryImpl
 import com.kozak.pw.data.person.GeneratePersonsWorker
+import com.kozak.pw.data.person.PersonItemRepositoryImpl
+import com.kozak.pw.domain.num_composition.repository.GameRepository
+import com.kozak.pw.domain.person.PersonItemRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.module.dsl.createdAtStart
+import org.koin.core.module.dsl.named
+import org.koin.core.module.dsl.withOptions
+import org.koin.dsl.bind
+import org.koin.dsl.module
 import java.util.concurrent.TimeUnit
 
 class PwApp : Application() {
@@ -25,6 +37,17 @@ class PwApp : Application() {
     }
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
+
+    private val appKoinModule = module {
+        single { PersonItemRepositoryImpl(get()) } bind PersonItemRepository::class withOptions {
+            named("PersonItemRepository")
+            createdAtStart()
+        }
+        single { GameRepositoryImpl } bind GameRepository::class withOptions {
+            named("GameRepository")
+            createdAtStart()
+        }
+    }
 
     /**
      * onCreate is called before the first screen is shown to the user.
@@ -40,6 +63,17 @@ class PwApp : Application() {
         doBackgroundPocketWorldChanges()
         // TODO uncomment when implemented:
         // doLifeInPw()
+
+        startKoin()
+    }
+
+    private fun startKoin() = startKoin {
+        // Log Koin into Android logger
+        androidLogger()
+        // Reference Android context
+        androidContext(this@PwApp)
+        // Load modules
+        modules(appKoinModule)
     }
 
     /**
@@ -54,7 +88,7 @@ class PwApp : Application() {
                     // TODO: give birth to children, make peace and war and other stuff
                     // Log.d(PwConstants.LOG_TAG, "PwApp: doLifeInPw().")
                 } catch (e: Exception) {
-                    // TODO: handle exception
+                    Log.e(PwConstants.LOG_TAG, e.message ?: "")
                 } finally {
                     // also call the same runnable to call it at regular interval
                     handler.postDelayed(this, 1000)
