@@ -1,22 +1,23 @@
 package com.kozak.pw.domain.person
 
 import com.kozak.pw.PwConstants
+import com.kozak.pw.domain.planet.Animal
 import kotlinx.datetime.LocalDateTime
 
-data class Person(
-    val birthDate: LocalDateTime,
-    val sex: Sex,
+class Person(
+    birthDate: LocalDateTime,
+    sex: Sex,
+    intelligence: Int = 0,
+    beauty: Int = 0,
+    luck: Int = 0,
+    id: Long = PwConstants.DEFAULT_ITEM_ID,
+    strength: Int = PwConstants.DEFAULT_ANIMAL_STRENGTH,
+    isAlive: Boolean = true,
+    deathDate: LocalDateTime? = null,
     var firstName: String = "",
     var lastName: String = "",
-    var strength: Int = PwConstants.DEFAULT_PERSON_STRENGTH,
-    var id: Long = PwConstants.DEFAULT_ITEM_ID,
     var isFavorite: Boolean = false,
-    var isAlive: Boolean = true,
-    var deathDate: LocalDateTime? = null
-) {
-    enum class Sex {
-        MALE, FEMALE
-    }
+) : Animal(id, birthDate, sex, intelligence, beauty, luck, strength, isAlive, deathDate) {
 
     fun fullName() = "$firstName $lastName"
 }
