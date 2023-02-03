@@ -2,24 +2,24 @@ package com.kozak.pw.presentation.person
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.kozak.pw.databinding.ItemPersonFavoriteBinding
-import com.kozak.pw.databinding.ItemPersonNormalBinding
-import com.kozak.pw.domain.person.PersonItem
+import com.kozak.pw.databinding.PersonFavoriteBinding
+import com.kozak.pw.databinding.PersonNormalBinding
+import com.kozak.pw.domain.person.Person
 import com.kozak.pw.short
 
 class PersonsListViewHolder(val binding: ViewBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(personItem: PersonItem) {
-        if (binding is ItemPersonFavoriteBinding) {
+    fun bind(person: Person) {
+        if (binding is PersonFavoriteBinding) {
             with(binding) {
-                tvName.text = personItem.fullName()
-                tvBirthDate.text = personItem.birthDate.short()
+                tvName.text = person.fullName()
+                tvBirthDate.text = person.birthDate.short()
             }
-        } else if (binding is ItemPersonNormalBinding) {
+        } else if (binding is PersonNormalBinding) {
             with(binding) {
-                tvName.text = personItem.fullName()
-                tvBirthDate.text = personItem.birthDate.short()
+                tvName.text = person.fullName()
+                tvBirthDate.text = person.birthDate.short()
             }
         }
     }

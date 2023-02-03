@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kozak.pw.PwConstants
-import com.kozak.pw.data.person.PersonItemDao
-import com.kozak.pw.data.person.PersonItemEntity
+import com.kozak.pw.data.person.PersonDao
+import com.kozak.pw.data.person.PersonEntity
 
-@Database(entities = [PersonItemEntity::class], version = 1, exportSchema = false)
+@Database(entities = [PersonEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
@@ -33,5 +33,5 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    abstract fun personItemDao(): PersonItemDao
+    abstract fun personDao(): PersonDao
 }

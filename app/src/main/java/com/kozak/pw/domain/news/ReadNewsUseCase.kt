@@ -1,5 +1,5 @@
 package com.kozak.pw.domain.news
 
-class ReadNewsUseCase(private val newsItemRepository: NewsItemRepository) {
-    operator fun invoke(newsItemId: Long) = newsItemRepository.readNews(newsItemId)
+class ReadNewsUseCase(private val newsRepository: NewsRepository) {
+    operator fun invoke(newsId: Long) = newsRepository.readNews(newsId)
 }

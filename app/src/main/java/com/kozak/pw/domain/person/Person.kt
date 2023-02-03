@@ -3,7 +3,7 @@ package com.kozak.pw.domain.person
 import com.kozak.pw.PwConstants
 import kotlinx.datetime.LocalDateTime
 
-data class PersonItem(
+data class Person(
     val birthDate: LocalDateTime,
     val sex: Sex,
     var firstName: String = "",

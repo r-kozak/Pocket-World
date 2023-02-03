@@ -10,9 +10,9 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.kozak.pw.data.num_composition.GameRepositoryImpl
 import com.kozak.pw.data.person.GeneratePersonsWorker
-import com.kozak.pw.data.person.PersonItemRepositoryImpl
+import com.kozak.pw.data.person.PersonRepositoryImpl
 import com.kozak.pw.domain.num_composition.repository.GameRepository
-import com.kozak.pw.domain.person.PersonItemRepository
+import com.kozak.pw.domain.person.PersonRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,8 +39,8 @@ class PwApp : Application() {
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
     private val appKoinModule = module {
-        single { PersonItemRepositoryImpl(get()) } bind PersonItemRepository::class withOptions {
-            named("PersonItemRepository")
+        single { PersonRepositoryImpl(get()) } bind PersonRepository::class withOptions {
+            named("PersonRepository")
             createdAtStart()
         }
         single { GameRepositoryImpl } bind GameRepository::class withOptions {

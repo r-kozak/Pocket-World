@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="@id/guideline_middle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_person_normal" />
+            tools:listitem="@layout/person_normal" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_add_person"

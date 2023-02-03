@@ -16,9 +16,9 @@ class PersonActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedList
     companion object {
         private const val INTENT_PERSON_ID = "intent_person_id"
 
-        fun newEditPersonIntent(context: Context, personItemId: Long): Intent {
+        fun newEditPersonIntent(context: Context, personId: Long): Intent {
             val intent = Intent(context, PersonActivity::class.java)
-            intent.putExtra(INTENT_PERSON_ID, personItemId)
+            intent.putExtra(INTENT_PERSON_ID, personId)
             return intent
         }
     }

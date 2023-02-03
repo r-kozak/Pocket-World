@@ -9,14 +9,14 @@ import org.koin.java.KoinJavaComponent.inject
 
 class PersonsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: PersonItemRepository by inject(PersonItemRepository::class.java)
+    private val repository: PersonRepository by inject(PersonRepository::class.java)
 
     private val getPersonsUseCase = GetPersonsListUseCase(repository)
     private val killPersonUseCase = KillPersonUseCase(repository)
     private val togglePersonFavoriteUseCase = TogglePersonFavoriteUseCase(repository)
     private val createNewPersonUseCase = CreateNewPersonUseCase(repository)
 
-    val personItemsList = getPersonsUseCase()
+    val personsList = getPersonsUseCase()
 
     fun killPerson(personId: Long) {
         viewModelScope.launch {

@@ -7,7 +7,7 @@ import com.kozak.pw.PwConstants
  * User can mark or read news.
  * @author Roman Kozak, 2023/01/19
  */
-data class NewsItem(
+data class News(
     var title: String,
     var text: String,
     val priority: NewsPriority,

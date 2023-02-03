@@ -33,8 +33,8 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
         personContainer = binding.personContainer
         setupRecyclerView()
         viewModel = ViewModelProvider(this)[PersonsViewModel::class.java]
-        viewModel.personItemsList.observe(this) { personItems ->
-            personsListAdapter.submitList(personItems)
+        viewModel.personsList.observe(this) { persons ->
+            personsListAdapter.submitList(persons)
         }
     }
 
@@ -89,7 +89,7 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
     }
 
     private fun setupClickListener() {
-        personsListAdapter.onPersonItemClickListener = {
+        personsListAdapter.onPersonClickListener = {
             if (isNowPortraitMode()) {
                 startActivity(PersonActivity.newEditPersonIntent(this, it.id))
             } else {
@@ -103,7 +103,7 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
     }
 
     private fun setupLongClickListener() {
-        personsListAdapter.onPersonItemLongClickListener = {
+        personsListAdapter.onPersonLongClickListener = {
             viewModel.togglePersonFavorite(it.id)
         }
     }

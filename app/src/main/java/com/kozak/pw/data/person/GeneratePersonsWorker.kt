@@ -16,7 +16,7 @@ class GeneratePersonsWorker(context: Context, params: WorkerParameters) :
         const val WORK_NAME = "generate persons worker"
     }
 
-    private val repository = PersonItemRepositoryImpl(PwApp.getInstance())
+    private val repository = PersonRepositoryImpl(PwApp.getInstance())
 
     override suspend fun doWork(): Result {
         try {

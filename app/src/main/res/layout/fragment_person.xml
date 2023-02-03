@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/first_name_hint"
                 android:inputType="textCapWords"
-                android:text="@{viewModel.personItem.firstName}"
+                android:text="@{viewModel.person.firstName}"
                 tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/last_name_hint"
                 android:inputType="textCapWords"
-                android:text="@{viewModel.personItem.lastName}"
+                android:text="@{viewModel.person.lastName}"
                 tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/strength_hint"
                 android:inputType="number"
-                android:text="@{String.valueOf(viewModel.personItem.strength)}"
+                android:text="@{String.valueOf(viewModel.person.strength)}"
                 tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                app:localDateTimeToShort="@{viewModel.personItem.birthDate}"
+                app:localDateTimeToShort="@{viewModel.person.birthDate}"
                 tools:text="@string/birth_date_example" />
         </LinearLayout>
 
@@ -140,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@{viewModel.personItem.sex.toString()}"
+                android:text="@{viewModel.person.sex.toString()}"
                 tools:text="@string/sex_example" />
         </LinearLayout>
 
@@ -168,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@{String.valueOf(viewModel.personItem.alive)}"
+                android:text="@{String.valueOf(viewModel.person.alive)}"
                 tools:text="@string/is_alive_example" />
         </LinearLayout>
 
@@ -196,7 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@{String.valueOf(viewModel.personItem.favorite)}"
+                android:text="@{String.valueOf(viewModel.person.favorite)}"
                 tools:text="@string/is_favorite_example" />
         </LinearLayout>
 
@@ -224,7 +224,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                app:localDateTimeToShort="@{viewModel.personItem.deathDate}"
+                app:localDateTimeToShort="@{viewModel.person.deathDate}"
                 tools:text="@string/death_date_example" />
         </LinearLayout>
 
@@ -252,7 +252,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@{String.valueOf(viewModel.personItem.id)}"
+                android:text="@{String.valueOf(viewModel.person.id)}"
                 tools:text="@string/id_example" />
         </LinearLayout>
 

@@ -1,5 +1,5 @@
 package com.kozak.pw.domain.news
 
-class GetNewsListUseCase(private val newsItemRepository: NewsItemRepository) {
-    operator fun invoke(): List<NewsItem> = newsItemRepository.getNewsList()
+class GetNewsListUseCase(private val newsRepository: NewsRepository) {
+    operator fun invoke(): List<News> = newsRepository.getNewsList()
 }
