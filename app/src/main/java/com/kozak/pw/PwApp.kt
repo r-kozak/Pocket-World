@@ -108,8 +108,8 @@ class PwApp : Application() {
             .build()
 
         val repeatingRequest = PeriodicWorkRequestBuilder<GeneratePersonsWorker>(
-            PwConstants.GENERATE_PERSON_EVERY_X_MINUTES,
-            TimeUnit.MINUTES
+            PwConstants.GENERATE_PERSON_EVERY_X_HOURS,
+            TimeUnit.HOURS
         ).setConstraints(constraints).build()
 
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
