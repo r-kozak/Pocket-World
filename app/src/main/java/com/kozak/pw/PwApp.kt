@@ -8,7 +8,7 @@ import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.kozak.pw.data.NewsNotificationWorker
+import com.kozak.pw.data.news.NewsNotificationWorker
 import com.kozak.pw.data.news.NewsRepositoryImpl
 import com.kozak.pw.data.num_composition.GameRepositoryImpl
 import com.kozak.pw.data.person.PersonRepositoryImpl
@@ -69,7 +69,7 @@ class PwApp : Application() {
         super.onCreate()
         instance = this
 
-        doBackgroundPocketWorldChanges()
+        showNewsInNotifications()
         // TODO uncomment when implemented:
         // doLifeInPw()
 
@@ -108,9 +108,9 @@ class PwApp : Application() {
     }
 
     /**
-     * Runs service that do its work when device is idle.
+     * Runs periodic Worker that shows news in notification
      */
-    private fun doBackgroundPocketWorldChanges() = applicationScope.launch {
+    private fun showNewsInNotifications() = applicationScope.launch {
         val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
             .setRequiresDeviceIdle(true)

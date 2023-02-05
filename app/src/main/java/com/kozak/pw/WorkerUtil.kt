@@ -5,11 +5,9 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.kozak.pw.presentation.news.NewsActivity
 
 class WorkerUtil {
     companion object {
@@ -22,14 +20,18 @@ class WorkerUtil {
         /**
          * Create a Notification that is shown as a heads-up notification if possible.
          *
+         * @param notificationTitle Title of notification
          * @param message Message shown on the notification
          * @param context Context needed to create Toast
+         * @param pendingIntent intent to open activity on notification tap. If null - no action
+         * will be performed on tap
          */
         @SuppressLint("MissingPermission")
         fun makeStatusNotification(
             notificationTitle: CharSequence?,
             message: String,
-            context: Context
+            context: Context,
+            pendingIntent: PendingIntent? = null
         ) {
             // Make a channel if necessary
             // Create the NotificationChannel, but only on API 26+ because
@@ -45,12 +47,6 @@ class WorkerUtil {
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
             notificationManager?.createNotificationChannel(channel)
 
-            // create intent to open activity on notification tap
-            val intent = Intent(context, NewsActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-            val pendingIntent: PendingIntent =
-                PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
             // Create the notification
             val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -58,8 +54,11 @@ class WorkerUtil {
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setVibrate(LongArray(0))
-                .setContentIntent(pendingIntent)
 
+            pendingIntent?.let {
+                // set intent to open activity on notification tap
+                builder.setContentIntent(it)
+            }
             // Show the notification
             NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, builder.build())
         }

@@ -30,12 +30,6 @@ class GeneratePersonsWorker(context: Context, params: WorkerParameters) :
             val generatedPersonName = newPerson.fullName()
             Log.d(PwConstants.LOG_TAG, "Saved the person $generatedPersonName to DB.")
 
-            // TODO - move notification to another periodic worker, that responsible for notifications
-            // show notification that person was born (generated)
-            /*WorkerUtil.makeStatusNotification(
-                "Person $generatedPersonName was born",
-                applicationContext
-            )*/
             // create a news that person was born
             val news = News(
                 "Person was born",
@@ -44,6 +38,7 @@ class GeneratePersonsWorker(context: Context, params: WorkerParameters) :
             )
             newsRepository.addNews(news)
         } catch (e: Exception) {
+            Log.e(PwConstants.LOG_TAG, e.message ?: "Error occurred in GeneratePersonsWorker")
             return Result.failure()
         }
         return Result.success()
