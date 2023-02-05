@@ -13,6 +13,7 @@ import com.kozak.pw.PwConstants
 import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityMainBinding
 import com.kozak.pw.presentation.CoroutinesActivity
+import com.kozak.pw.presentation.news.NewsActivity
 import com.kozak.pw.presentation.num_composition.NumCompositionActivity
 import com.kozak.pw.presentation.person.PersonsActivity
 
@@ -74,6 +75,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.buttonRefreshPwState.setOnClickListener {
             viewModel.refreshPwState()
+        }
+        binding.buttonNews.setOnClickListener {
+            startActivity(NewsActivity.startIntent(this))
         }
     }
 }

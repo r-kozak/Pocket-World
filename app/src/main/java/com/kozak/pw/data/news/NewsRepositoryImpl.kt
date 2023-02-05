@@ -1,26 +1,33 @@
 package com.kozak.pw.data.news
 
-import com.kozak.pw.PwConstants
+import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.kozak.pw.data.AppDatabase
 import com.kozak.pw.domain.news.News
 import com.kozak.pw.domain.news.NewsRepository
 
-object NewsRepositoryImpl : NewsRepository {
-    private val news = mutableListOf<News>()
+class NewsRepositoryImpl(application: Application) : NewsRepository {
 
-    private var autoincrementId: Long = 1
+    private val newsDao = AppDatabase.getInstance(application).newsDao()
+    private val mapper = NewsMapper()
 
-    override fun addNews(news: News) {
-        if (news.id == PwConstants.DEFAULT_ITEM_ID) {
-            news.id = autoincrementId++
+    override fun getNewsList(): LiveData<List<News>> =
+        Transformations.map(newsDao.getNewsList()) {
+            mapper.mapEntitiesListToItemsList(it)
         }
-        this.news.add(news)
+
+    override suspend fun updateNews(news: News) = addOrUpdateNews(news)
+
+    override suspend fun addNews(news: News) = addOrUpdateNews(news)
+
+    private suspend fun addOrUpdateNews(news: News) {
+        val newsEntity = mapper.mapItemToEntity(news)
+        newsDao.addOrUpdateNews(newsEntity)
     }
 
-    override fun getNewsList(): List<News> {
-        return news.toList()
-    }
-
-    override fun readNews(newsId: Long) {
-        news.find { it.id == newsId }?.read = true
+    override suspend fun getNewsById(newsId: Long): News {
+        val newsEntity = newsDao.getNewsById(newsId)
+        return mapper.mapEntityToItem(newsEntity)
     }
 }

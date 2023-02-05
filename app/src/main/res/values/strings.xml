@@ -61,5 +61,6 @@
     <string name="refreshing">refreshing…</string>
     <string name="refresh_pw_state">Refresh</string>
     <string name="failed_to_refresh_pw_state">Failed to refresh PW state.</string>
+    <string name="news">News</string>
     <!-- Coroutines  } -->
 </resources>

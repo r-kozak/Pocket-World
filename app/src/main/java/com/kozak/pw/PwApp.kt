@@ -8,16 +8,20 @@ import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.kozak.pw.data.news.NewsRepositoryImpl
 import com.kozak.pw.data.num_composition.GameRepositoryImpl
 import com.kozak.pw.data.person.GeneratePersonsWorker
 import com.kozak.pw.data.person.PersonRepositoryImpl
+import com.kozak.pw.domain.news.NewsRepository
 import com.kozak.pw.domain.num_composition.repository.GameRepository
 import com.kozak.pw.domain.person.PersonRepository
+import com.kozak.pw.presentation.news.NewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.createdAtStart
 import org.koin.core.module.dsl.named
@@ -47,6 +51,11 @@ class PwApp : Application() {
             named("GameRepository")
             createdAtStart()
         }
+        single { NewsRepositoryImpl(get()) } bind NewsRepository::class withOptions {
+            named("NewsRepository")
+            createdAtStart()
+        }
+        viewModelOf(::NewsViewModel)
     }
 
     /**

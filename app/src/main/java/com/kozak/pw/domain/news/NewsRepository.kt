@@ -1,7 +1,10 @@
 package com.kozak.pw.domain.news
 
+import androidx.lifecycle.LiveData
+
 interface NewsRepository {
-    fun addNews(news: News)
-    fun getNewsList(): List<News>
-    fun readNews(newsId: Long)
+    suspend fun addNews(news: News)
+    suspend fun updateNews(news: News)
+    suspend fun getNewsById(newsId: Long): News
+    fun getNewsList(): LiveData<List<News>>
 }

@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kozak.pw.PwConstants
+import com.kozak.pw.data.news.NewsDao
 import com.kozak.pw.data.person.PersonDao
 import com.kozak.pw.data.person.PersonEntity
 
@@ -34,4 +35,5 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
     abstract fun personDao(): PersonDao
+    abstract fun newsDao(): NewsDao
 }
