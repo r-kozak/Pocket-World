@@ -10,7 +10,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.kozak.pw.PwApp
 import com.kozak.pw.PwConstants
-import com.kozak.pw.WorkerUtil
+import com.kozak.pw.domain.utils.WorkerUtil
 import com.kozak.pw.presentation.news.NewsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

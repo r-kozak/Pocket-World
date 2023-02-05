@@ -1,4 +1,4 @@
-package com.kozak.pw
+package com.kozak.pw.domain.utils
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
@@ -8,6 +8,8 @@ import android.content.Context
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.kozak.pw.PwConstants
+import com.kozak.pw.R
 
 class WorkerUtil {
     companion object {
