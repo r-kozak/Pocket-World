@@ -8,9 +8,9 @@ import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.kozak.pw.data.NewsNotificationWorker
 import com.kozak.pw.data.news.NewsRepositoryImpl
 import com.kozak.pw.data.num_composition.GameRepositoryImpl
-import com.kozak.pw.data.person.GeneratePersonsWorker
 import com.kozak.pw.data.person.PersonRepositoryImpl
 import com.kozak.pw.domain.news.NewsRepository
 import com.kozak.pw.domain.num_composition.repository.GameRepository
@@ -116,13 +116,13 @@ class PwApp : Application() {
             .setRequiresDeviceIdle(true)
             .build()
 
-        val repeatingRequest = PeriodicWorkRequestBuilder<GeneratePersonsWorker>(
-            PwConstants.GENERATE_PERSON_EVERY_X_HOURS,
+        val repeatingRequest = PeriodicWorkRequestBuilder<NewsNotificationWorker>(
+            PwConstants.SHOW_NEWS_NOTIFICATION_EVERY_X_HOURS,
             TimeUnit.HOURS
         ).setConstraints(constraints).build()
 
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
-            GeneratePersonsWorker.WORK_NAME,
+            NewsNotificationWorker.WORK_NAME,
             ExistingPeriodicWorkPolicy.KEEP,
             repeatingRequest
         )

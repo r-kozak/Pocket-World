@@ -9,14 +9,13 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.kozak.pw.presentation.CoroutinesActivity
+import com.kozak.pw.presentation.news.NewsActivity
 
 class WorkerUtil {
     companion object {
         private const val VERBOSE_NOTIFICATION_CHANNEL_NAME = "PW notifications channel"
         private const val VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION = "PW notifications description"
         private const val CHANNEL_ID = "PW-channel-id"
-        private const val NOTIFICATION_TITLE = "PW notification title"
         private const val NOTIFICATION_ID = 257
         private const val ONE_SECOND_IN_MILLIS = 1000
 
@@ -27,7 +26,11 @@ class WorkerUtil {
          * @param context Context needed to create Toast
          */
         @SuppressLint("MissingPermission")
-        fun makeStatusNotification(message: String, context: Context) {
+        fun makeStatusNotification(
+            notificationTitle: CharSequence?,
+            message: String,
+            context: Context
+        ) {
             // Make a channel if necessary
             // Create the NotificationChannel, but only on API 26+ because
             // the NotificationChannel class is new and not in the support library
@@ -43,7 +46,7 @@ class WorkerUtil {
             notificationManager?.createNotificationChannel(channel)
 
             // create intent to open activity on notification tap
-            val intent = Intent(context, CoroutinesActivity::class.java).apply {
+            val intent = Intent(context, NewsActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
             val pendingIntent: PendingIntent =
@@ -51,7 +54,7 @@ class WorkerUtil {
             // Create the notification
             val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle(NOTIFICATION_TITLE)
+                .setContentTitle(notificationTitle)
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setVibrate(LongArray(0))
