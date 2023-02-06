@@ -14,8 +14,8 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import com.kozak.pw.PwConstants
 import com.kozak.pw.R
-import com.kozak.pw.data.news.NewsNotificationWorker
 import com.kozak.pw.databinding.ActivityMainBinding
+import com.kozak.pw.domain.news.NewsNotificationWorker
 import com.kozak.pw.presentation.news.NewsActivity
 import com.kozak.pw.presentation.num_composition.NumCompositionActivity
 import com.kozak.pw.presentation.person.PersonsActivity

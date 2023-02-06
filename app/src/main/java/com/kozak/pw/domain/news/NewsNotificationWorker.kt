@@ -1,4 +1,4 @@
-package com.kozak.pw.data.news
+package com.kozak.pw.domain.news
 
 import android.app.PendingIntent
 import android.content.Context
@@ -8,13 +8,13 @@ import androidx.core.app.TaskStackBuilder
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.kozak.pw.PwApp
 import com.kozak.pw.PwConstants
 import com.kozak.pw.domain.utils.WorkerUtil
 import com.kozak.pw.presentation.news.NewsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.java.KoinJavaComponent.inject
 
 class NewsNotificationWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
 
@@ -24,8 +24,7 @@ class NewsNotificationWorker(context: Context, params: WorkerParameters) : Worke
 
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-    // TODO add Koin injection
-    private val newsRepository = NewsRepositoryImpl(PwApp.getInstance())
+    private val newsRepository: NewsRepository by inject(NewsRepository::class.java)
 
     override fun doWork(): Result {
         try {

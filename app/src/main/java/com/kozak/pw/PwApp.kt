@@ -8,10 +8,10 @@ import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.kozak.pw.data.news.NewsNotificationWorker
 import com.kozak.pw.data.news.NewsRepositoryImpl
 import com.kozak.pw.data.num_composition.GameRepositoryImpl
 import com.kozak.pw.data.person.PersonRepositoryImpl
+import com.kozak.pw.domain.news.NewsNotificationWorker
 import com.kozak.pw.domain.news.NewsRepository
 import com.kozak.pw.domain.num_composition.repository.GameRepository
 import com.kozak.pw.domain.person.PersonRepository
