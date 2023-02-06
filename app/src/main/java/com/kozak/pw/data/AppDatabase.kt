@@ -10,7 +10,7 @@ import com.kozak.pw.data.news.NewsEntity
 import com.kozak.pw.data.person.PersonDao
 import com.kozak.pw.data.person.PersonEntity
 
-@Database(entities = [PersonEntity::class, NewsEntity::class], version = 1, exportSchema = false)
+@Database(entities = [PersonEntity::class, NewsEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
@@ -28,7 +28,9 @@ abstract class AppDatabase : RoomDatabase() {
                     application,
                     AppDatabase::class.java,
                     PwConstants.APP_DATABASE_NAME
-                ).build()
+                )
+                    .fallbackToDestructiveMigration() // TODO remove on production
+                    .build()
                 INSTANCE = db
                 return db
             }
