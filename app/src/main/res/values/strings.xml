@@ -22,7 +22,7 @@
     <string name="error_input_strength">Strength must be greater that 0</string>
     <string name="error_input_first_name">First name can\'t be empty</string>
     <string name="error_input_last_name">Last name can\'t be empty</string>
-    <string name="person_saved_success">Person saved successfully</string>
+    <string name="person_saved_success">Сhanges applied</string>
     <!-- num composition { -->
     <string name="question_mark">\?</string>
     <string name="welcome_title">Number composition</string>
