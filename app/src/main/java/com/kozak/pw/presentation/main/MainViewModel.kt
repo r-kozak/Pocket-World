@@ -8,6 +8,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import com.kozak.pw.BuildConfig
 import com.kozak.pw.PwConstants
 import com.kozak.pw.domain.person.GeneratePersonsWorker
 import kotlinx.coroutines.launch
@@ -18,6 +19,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private val _pwStateRefreshed = MutableLiveData<Boolean>()
     val pwStateRefreshed: LiveData<Boolean>
         get() = _pwStateRefreshed
+
+    private val _appVersion = MutableLiveData<String>()
+    val appVersion: LiveData<String>
+        get() = _appVersion
 
     private val _failToGeneratePerson = MutableLiveData<Boolean>()
     val failToGeneratePerson: LiveData<Boolean>
@@ -56,6 +61,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             workManager.enqueue(workRequest)
             workManager.getWorkInfoByIdLiveData(workRequestId).observeForever(workManagerObserver)
         }
+    }
+
+    fun retrieveAppVersion() {
+        _appVersion.value = BuildConfig.VERSION_NAME
     }
 
     override fun onCleared() {

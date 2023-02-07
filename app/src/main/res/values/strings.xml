@@ -51,14 +51,6 @@
     <string name="progress_answers">Correct answers %s (minimum %s)</string>
     <!-- num composition } -->
 
-    <!-- Coroutines { -->
-    <string name="city">City</string>
-    <string name="temperature">Temperature, C</string>
-    <string name="download">Download</string>
-    <string name="coroutines">Coroutines</string>
-    <string name="loading_temperature_toast">Great Bavovna in %s city</string>
-    <!-- Coroutines  } -->
-
     <string name="add_person_description">Add a new person</string>
     <string name="refreshing">refreshing…</string>
     <string name="refresh_pw_state">Refresh</string>
