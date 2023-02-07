@@ -1,6 +1,7 @@
 package com.kozak.pw.domain.person
 
 import com.kozak.pw.PwConstants
+import com.kozak.pw.domain.planet.Animal
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -13,11 +14,11 @@ object PersonGenerator {
     private val femaleFirstNames = listOf("Olha", "Tetyana", "Katya", "Nataha", "Alina", "Anna")
     private val lastNames = listOf("Veresen", "Begins", "Petrenko", "Simpson", "Kremez", "Muzika")
 
-    fun generate(): PersonItem {
-        val sex = PersonItem.Sex.values().random()
+    fun generate(): Person {
+        val sex = Animal.Sex.values().random()
         val firstName = when (sex) {
-            PersonItem.Sex.MALE -> maleFirstNames.random()
-            PersonItem.Sex.FEMALE -> femaleFirstNames.random()
+            Animal.Sex.MALE -> maleFirstNames.random()
+            Animal.Sex.FEMALE -> femaleFirstNames.random()
         }
         val lastName = lastNames.random()
 
@@ -28,7 +29,7 @@ object PersonGenerator {
             .minus(Duration.parse("P${randomDays}D"))
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
-        return PersonItem(birthDate, sex).apply {
+        return Person(birthDate, sex).apply {
             this.firstName = firstName
             this.lastName = lastName
             this.strength = Random.nextInt(PwConstants.PERSON_MAX_STRENGTH + 1)

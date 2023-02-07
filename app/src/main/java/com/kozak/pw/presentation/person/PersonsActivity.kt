@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
     private lateinit var binding: ActivityPersonsBinding
     private lateinit var viewModel: PersonsViewModel
     private lateinit var personsListAdapter: PersonsListAdapter
-    private var personContainer: FragmentContainerView? = null
 
     companion object {
         fun intentShowPersons(context: Context): Intent {
@@ -30,11 +28,10 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
         binding = ActivityPersonsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        personContainer = binding.personContainer
         setupRecyclerView()
         viewModel = ViewModelProvider(this)[PersonsViewModel::class.java]
-        viewModel.personItemsList.observe(this) { personItems ->
-            personsListAdapter.submitList(personItems)
+        viewModel.personsList.observe(this) { persons ->
+            personsListAdapter.submitList(persons)
         }
     }
 
@@ -89,7 +86,7 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
     }
 
     private fun setupClickListener() {
-        personsListAdapter.onPersonItemClickListener = {
+        personsListAdapter.onPersonClickListener = {
             if (isNowPortraitMode()) {
                 startActivity(PersonActivity.newEditPersonIntent(this, it.id))
             } else {
@@ -103,7 +100,7 @@ class PersonsActivity : AppCompatActivity(), PersonFragment.OnEditingFinishedLis
     }
 
     private fun setupLongClickListener() {
-        personsListAdapter.onPersonItemLongClickListener = {
+        personsListAdapter.onPersonLongClickListener = {
             viewModel.togglePersonFavorite(it.id)
         }
     }

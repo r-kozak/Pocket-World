@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">Pocket-World</string>
+    <string name="persons">Люди</string>
+    <string name="number_composition">Композиція числа</string>
+    <string name="first_name_hint">Ім\'я</string>
+    <string name="last_name_hint">Прізвище</string>
+    <string name="strength_hint">Сила</string>
+    <string name="save_btn">Зберегти зміни</string>
+    <string name="kill_btn">Вбити</string>
+    <string name="label_birth_date">Дата народження:</string>
+    <string name="birth_date_example">01/12/22 13:15</string>
+    <string name="label_sex">Стать:</string>
+    <string name="sex_example">ЖІНОЧА</string>
+    <string name="label_is_alive">Живий:</string>
+    <string name="label_is_favorite">Обраний:</string>
+    <string name="is_alive_example">так</string>
+    <string name="is_favorite_example">ні</string>
+    <string name="label_death_date">Дата смерті:</string>
+    <string name="death_date_example">-</string>
+    <string name="label_id">ID:</string>
+    <string name="id_example">0</string>
+    <string name="error_input_strength">Сила повинна бути більшою за 0</string>
+    <string name="error_input_first_name">Ім\'я не може бути пустим</string>
+    <string name="error_input_last_name">Прізвище не може бути пустим</string>
+    <string name="person_saved_success">Зміни застосовані</string>
+    <!-- num composition { -->
+    <string name="question_mark">\?</string>
+    <string name="welcome_title">Композиція числа</string>
+    <string name="game_rules">
+        Rules of the game: you will have three figures in front of you, two from below and one from
+        above, two of them will have numbers. It is necessary that the sum of the numbers from the
+        two lower figures be equal to the number in the upper figure, to do this, you need to insert
+        the missing number.\n\nExample: the number 7 is in the upper circle, in one from the lower
+        question mark, and in the other the number 4. So in place of the question mark should be the
+        number 3 because 3 + 4 = 7
+    </string>
+    <string name="button_lets_go">Почнемо</string>
+    <string name="welcome_logo">Welcome logo</string>
+    <string name="choose_level_title">Обери рівень:</string>
+    <string name="easy_level">Легкий</string>
+    <string name="normal_level">Нормальний</string>
+    <string name="hard_level">Складний</string>
+    <string name="test_level">Test</string>
+    <string name="game_over">Гру закінчено</string>
+    <string name="score_answers">Твої бали: %s</string>
+    <string name="score_percentage">Відсоток правильних відповідей: %s</string>
+    <string name="retry">Спробувати знову</string>
+    <string name="right_answers">Правильних відповідей %s з необхідних %s</string>
+    <string name="required_percentage">Необхідний відсоток правильних відповідей: %s</string>
+    <string name="required_score">Необхідна кількість правильних відповідей: %s</string>
+    <string name="progress_answers">Правильних відповідей %s (мінімум %s)</string>
+    <!-- num composition } -->
+
+    <!-- Coroutines { -->
+    <string name="city">Місто</string>
+    <string name="temperature">Temperature, C</string>
+    <string name="download">Download</string>
+    <string name="coroutines">Coroutines</string>
+    <string name="loading_temperature_toast">Great Bavovna in %s city</string>
+    <string name="add_person_description">Додати нову людину</string>
+    <string name="refreshing">оновлення…</string>
+    <string name="refresh_pw_state">Оновити</string>
+    <string name="failed_to_refresh_pw_state">Не вдалося оновити PW стан.</string>
+    <string name="news">Новини</string>
+    <!-- Coroutines  } -->
+</resources>

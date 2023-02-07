@@ -1,13 +1,13 @@
 package com.kozak.pw.data.person
 
-import com.kozak.pw.domain.person.PersonItem
+import com.kozak.pw.domain.person.Person
 import kotlinx.datetime.LocalDateTime
 
-class PersonItemMapper {
+class PersonMapper {
 
-    fun mapEntityToItem(personItemEntity: PersonItemEntity): PersonItem {
-        return with(personItemEntity) {
-            PersonItem(
+    fun mapEntityToItem(personEntity: PersonEntity): Person {
+        return with(personEntity) {
+            Person(
                 id = id,
                 birthDate = LocalDateTime.parse(birthDate),
                 deathDate = deathDate?.let { LocalDateTime.parse(it) },
@@ -21,9 +21,9 @@ class PersonItemMapper {
         }
     }
 
-    fun mapItemToEntity(personItem: PersonItem): PersonItemEntity {
-        return with(personItem) {
-            PersonItemEntity(
+    fun mapItemToEntity(person: Person): PersonEntity {
+        return with(person) {
+            PersonEntity(
                 id = id,
                 birthDate = birthDate.toString(),
                 deathDate = deathDate?.toString(),
@@ -37,6 +37,6 @@ class PersonItemMapper {
         }
     }
 
-    fun mapEntitiesListToItemsList(entities: List<PersonItemEntity>) =
+    fun mapEntitiesListToItemsList(entities: List<PersonEntity>) =
         entities.map { mapEntityToItem(it) }
 }

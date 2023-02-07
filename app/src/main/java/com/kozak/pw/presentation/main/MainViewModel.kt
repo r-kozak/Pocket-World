@@ -9,7 +9,7 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.kozak.pw.PwConstants
-import com.kozak.pw.data.person.GeneratePersonsWorker
+import com.kozak.pw.domain.person.GeneratePersonsWorker
 import kotlinx.coroutines.launch
 import java.util.*
 

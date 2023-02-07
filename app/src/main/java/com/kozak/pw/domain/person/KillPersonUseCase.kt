@@ -4,12 +4,12 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
-class KillPersonUseCase(private val personItemRepository: PersonItemRepository) {
+class KillPersonUseCase(private val personRepository: PersonRepository) {
 
     suspend operator fun invoke(personId: Long) {
-        val personItem = personItemRepository.getPersonById(personId)
-        personItem.deathDate = Clock.System.now().toLocalDateTime(TimeZone.UTC)
-        personItem.isAlive = false
-        personItemRepository.updatePerson(personItem)
+        val person = personRepository.getPersonById(personId)
+        person.deathDate = Clock.System.now().toLocalDateTime(TimeZone.UTC)
+        person.isAlive = false
+        personRepository.updatePerson(person)
     }
 }

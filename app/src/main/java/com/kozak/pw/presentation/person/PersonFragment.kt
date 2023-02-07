@@ -91,7 +91,7 @@ class PersonFragment : Fragment() {
         }
         // Save button
         binding.saveButton.setOnClickListener {
-            viewModel.editPersonItem(
+            viewModel.editPerson(
                 currentPersonId,
                 binding.etFirstName.editableText.toString(),
                 binding.etLastName.editableText.toString(),

@@ -8,10 +8,26 @@ import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.kozak.pw.data.person.GeneratePersonsWorker
+import com.kozak.pw.data.news.NewsRepositoryImpl
+import com.kozak.pw.data.num_composition.GameRepositoryImpl
+import com.kozak.pw.data.person.PersonRepositoryImpl
+import com.kozak.pw.domain.news.NewsNotificationWorker
+import com.kozak.pw.domain.news.NewsRepository
+import com.kozak.pw.domain.num_composition.repository.GameRepository
+import com.kozak.pw.domain.person.PersonRepository
+import com.kozak.pw.presentation.news.NewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.dsl.viewModelOf
+import org.koin.core.context.startKoin
+import org.koin.core.module.dsl.createdAtStart
+import org.koin.core.module.dsl.named
+import org.koin.core.module.dsl.withOptions
+import org.koin.dsl.bind
+import org.koin.dsl.module
 import java.util.concurrent.TimeUnit
 
 class PwApp : Application() {
@@ -26,6 +42,22 @@ class PwApp : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
+    private val appKoinModule = module {
+        single { PersonRepositoryImpl(get()) } bind PersonRepository::class withOptions {
+            named("PersonRepository")
+            createdAtStart()
+        }
+        single { GameRepositoryImpl } bind GameRepository::class withOptions {
+            named("GameRepository")
+            createdAtStart()
+        }
+        single { NewsRepositoryImpl(get()) } bind NewsRepository::class withOptions {
+            named("NewsRepository")
+            createdAtStart()
+        }
+        viewModelOf(::NewsViewModel)
+    }
+
     /**
      * onCreate is called before the first screen is shown to the user.
      *
@@ -37,9 +69,20 @@ class PwApp : Application() {
         super.onCreate()
         instance = this
 
-        doBackgroundPocketWorldChanges()
+        showNewsInNotifications()
         // TODO uncomment when implemented:
         // doLifeInPw()
+
+        startKoin()
+    }
+
+    private fun startKoin() = startKoin {
+        // Log Koin into Android logger
+        androidLogger()
+        // Reference Android context
+        androidContext(this@PwApp)
+        // Load modules
+        modules(appKoinModule)
     }
 
     /**
@@ -54,7 +97,7 @@ class PwApp : Application() {
                     // TODO: give birth to children, make peace and war and other stuff
                     // Log.d(PwConstants.LOG_TAG, "PwApp: doLifeInPw().")
                 } catch (e: Exception) {
-                    // TODO: handle exception
+                    Log.e(PwConstants.LOG_TAG, e.message ?: "")
                 } finally {
                     // also call the same runnable to call it at regular interval
                     handler.postDelayed(this, 1000)
@@ -65,21 +108,21 @@ class PwApp : Application() {
     }
 
     /**
-     * Runs service that do its work when device is idle.
+     * Runs periodic Worker that shows news in notification
      */
-    private fun doBackgroundPocketWorldChanges() = applicationScope.launch {
+    private fun showNewsInNotifications() = applicationScope.launch {
         val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
             .setRequiresDeviceIdle(true)
             .build()
 
-        val repeatingRequest = PeriodicWorkRequestBuilder<GeneratePersonsWorker>(
-            PwConstants.GENERATE_PERSON_EVERY_X_MINUTES,
-            TimeUnit.MINUTES
+        val repeatingRequest = PeriodicWorkRequestBuilder<NewsNotificationWorker>(
+            PwConstants.SHOW_NEWS_NOTIFICATION_EVERY_X_HOURS,
+            TimeUnit.HOURS
         ).setConstraints(constraints).build()
 
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
-            GeneratePersonsWorker.WORK_NAME,
+            NewsNotificationWorker.WORK_NAME,
             ExistingPeriodicWorkPolicy.KEEP,
             repeatingRequest
         )

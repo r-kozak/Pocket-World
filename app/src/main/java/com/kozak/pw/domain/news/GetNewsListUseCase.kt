@@ -1,5 +1,7 @@
 package com.kozak.pw.domain.news
 
-class GetNewsListUseCase(private val newsItemRepository: NewsItemRepository) {
-    operator fun invoke(): List<NewsItem> = newsItemRepository.getNewsList()
+import androidx.lifecycle.LiveData
+
+class GetNewsListUseCase(private val newsRepository: NewsRepository) {
+    operator fun invoke(): LiveData<List<News>> = newsRepository.getNewsList()
 }

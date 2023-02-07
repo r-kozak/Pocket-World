@@ -5,24 +5,21 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.kozak.pw.data.person.PersonItemRepositoryImpl
-import com.kozak.pw.domain.person.EditPersonUseCase
-import com.kozak.pw.domain.person.GetPersonByIdUseCase
-import com.kozak.pw.domain.person.KillPersonUseCase
-import com.kozak.pw.domain.person.PersonItem
+import com.kozak.pw.domain.person.*
 import kotlinx.coroutines.launch
+import org.koin.java.KoinJavaComponent.inject
 
 class PersonViewModel(application: Application, personId: Long) : AndroidViewModel(application) {
-    private val repository =
-        PersonItemRepositoryImpl(application) // TODO get rid of dependency to data layer
+
+    private val repository: PersonRepository by inject(PersonRepository::class.java)
 
     private val getPersonUseCase = GetPersonByIdUseCase(repository)
     private val killPersonUseCase = KillPersonUseCase(repository)
     private val editPersonUseCase = EditPersonUseCase(repository)
 
-    private val _personItem = MutableLiveData<PersonItem>()
-    val personItem: LiveData<PersonItem>
-        get() = _personItem
+    private val _person = MutableLiveData<Person>()
+    val person: LiveData<Person>
+        get() = _person
 
     private val _errorInputFirstName = MutableLiveData<Boolean>()
     val errorInputFirstName: LiveData<Boolean>
@@ -42,12 +39,12 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
         get() = _shouldCloseScreen
 
     init {
-        getPersonItem(personId)
+        getPerson(personId)
     }
 
-    private fun getPersonItem(personId: Long) {
+    private fun getPerson(personId: Long) {
         viewModelScope.launch {
-            getPersonUseCase(personId).let { _personItem.value = it }
+            getPersonUseCase(personId).let { _person.value = it }
         }
     }
 
@@ -58,7 +55,7 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
         }
     }
 
-    fun editPersonItem(
+    fun editPerson(
         id: Long,
         inputFirstName: String?,
         inputLastName: String?,
@@ -70,13 +67,13 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
         val fieldsValid = validateInput(firstName, lastName, strength)
         if (fieldsValid) {
             viewModelScope.launch {
-                val personItem = getPersonUseCase(id)
-                personItem.apply {
+                val person = getPersonUseCase(id)
+                person.apply {
                     this.firstName = firstName
                     this.lastName = lastName
                     this.strength = strength
                 }
-                editPersonUseCase(personItem)
+                editPersonUseCase(person)
                 finishWork()
             }
         }
