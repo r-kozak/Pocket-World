@@ -27,11 +27,10 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="4dp"
-            android:contentDescription="@string/welcome_logo"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/pw_logo"
             app:layout_constraintBottom_toTopOf="@+id/tv_label_game"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_middle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
@@ -43,17 +42,23 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="32dp"
             android:gravity="center"
             android:text="@string/app_name"
             android:textSize="40sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/buttonContinue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_middle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_logo"
             app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
         <Button
             android:id="@+id/buttonContinue"
@@ -66,8 +71,8 @@
             android:text="@string/continue_label"
             app:layout_constraintBottom_toTopOf="@id/buttonNewGame"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_label_game"
+            app:layout_constraintStart_toStartOf="@+id/guideline_middle"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <Button
@@ -81,7 +86,7 @@
             android:text="@string/new_game"
             app:layout_constraintBottom_toTopOf="@id/buttonNumComposition"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_middle"
             app:layout_constraintTop_toBottomOf="@+id/buttonContinue"
             app:layout_constraintVertical_chainStyle="packed" />
 
@@ -92,11 +97,12 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="200dp"
+            android:layout_marginBottom="4dp"
             android:text="@string/number_composition"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline_middle"
             app:layout_constraintTop_toBottomOf="@+id/buttonNewGame"
             app:layout_constraintVertical_chainStyle="packed" />
 
@@ -108,7 +114,8 @@
             android:layout_marginBottom="4dp"
             android:text="@{viewModel.appVersion}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="v0.2"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
