@@ -117,8 +117,8 @@ class PwApp : Application() {
             .build()
 
         val repeatingRequest = PeriodicWorkRequestBuilder<NewsNotificationWorker>(
-            PwConstants.SHOW_NEWS_NOTIFICATION_EVERY_X_HOURS,
-            TimeUnit.HOURS
+            PwConstants.SHOW_NEWS_NOTIFICATION_EVERY_X_MINUTES,
+            TimeUnit.MINUTES
         ).setConstraints(constraints).build()
 
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
