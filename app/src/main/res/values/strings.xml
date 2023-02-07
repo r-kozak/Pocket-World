@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pocket-World</string>
+    <string name="app_name" translatable="false">Pocket World</string>
     <string name="persons">Persons</string>
     <string name="number_composition">Number Composition</string>
     <string name="first_name_hint">First name</string>
@@ -17,7 +17,7 @@
     <string name="is_favorite_example">false</string>
     <string name="label_death_date">Death date:</string>
     <string name="death_date_example">-</string>
-    <string name="label_id">ID:</string>
+    <string name="label_id" translatable="false">ID:</string>
     <string name="id_example">0</string>
     <string name="error_input_strength">Strength must be greater that 0</string>
     <string name="error_input_first_name">First name can\'t be empty</string>
@@ -57,10 +57,13 @@
     <string name="download">Download</string>
     <string name="coroutines">Coroutines</string>
     <string name="loading_temperature_toast">Great Bavovna in %s city</string>
+    <!-- Coroutines  } -->
+
     <string name="add_person_description">Add a new person</string>
     <string name="refreshing">refreshing…</string>
     <string name="refresh_pw_state">Refresh</string>
     <string name="failed_to_refresh_pw_state">Failed to refresh PW state.</string>
     <string name="news">News</string>
-    <!-- Coroutines  } -->
+    <string name="continue_label">Continue</string>
+    <string name="new_game">New Game</string>
 </resources>

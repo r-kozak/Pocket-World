@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Pocket-World</string>
     <string name="persons">Люди</string>
     <string name="number_composition">Композиція числа</string>
     <string name="first_name_hint">Ім\'я</string>
@@ -17,7 +16,6 @@
     <string name="is_favorite_example">ні</string>
     <string name="label_death_date">Дата смерті:</string>
     <string name="death_date_example">-</string>
-    <string name="label_id">ID:</string>
     <string name="id_example">0</string>
     <string name="error_input_strength">Сила повинна бути більшою за 0</string>
     <string name="error_input_first_name">Ім\'я не може бути пустим</string>
@@ -63,4 +61,6 @@
     <string name="failed_to_refresh_pw_state">Не вдалося оновити PW стан.</string>
     <string name="news">Новини</string>
     <!-- Coroutines  } -->
+    <string name="continue_label">Продовжити</string>
+    <string name="new_game">Нова гра</string>
 </resources>
