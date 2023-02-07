@@ -16,30 +16,35 @@
         android:theme="@style/Theme.PocketWorld"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.news.NewsActivity"
-            android:parentActivityName=".presentation.main.MainActivity"
+            android:name=".DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.num_composition.NumCompositionActivity"
-            android:parentActivityName=".presentation.main.MainActivity"
+            android:name=".presentation.news.NewsActivity"
             android:exported="false"
+            android:parentActivityName=".presentation.main.MainActivity" />
+        <activity
+            android:name=".presentation.num_composition.NumCompositionActivity"
+            android:exported="false"
+            android:parentActivityName=".presentation.main.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.person.PersonActivity"
-            android:parentActivityName=".presentation.person.PersonsActivity"
             android:exported="false"
+            android:parentActivityName=".presentation.person.PersonsActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.person.PersonsActivity"
-            android:parentActivityName=".presentation.main.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".presentation.main.MainActivity" />
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

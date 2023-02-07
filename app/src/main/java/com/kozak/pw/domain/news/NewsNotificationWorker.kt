@@ -40,7 +40,9 @@ class NewsNotificationWorker(context: Context, params: WorkerParameters) : Worke
 
             coroutineScope.launch {
                 Log.d(PwConstants.LOG_TAG, "NewsNotificationWorker: retrieving news...")
-                newsRepository.getNewsList().observe(ProcessLifecycleOwner.get()) {
+                val newsList = newsRepository.getNewsList()
+                val lifecycleOwner = ProcessLifecycleOwner.get()
+                newsList.observe(lifecycleOwner) {
                     it.random().let { randomNews ->
                         // show notification with a random news
                         WorkerUtil.makeStatusNotification(
@@ -49,6 +51,7 @@ class NewsNotificationWorker(context: Context, params: WorkerParameters) : Worke
                             applicationContext,
                             pendingIntent
                         )
+                        newsList.removeObservers(lifecycleOwner)
                     }
                 }
             }

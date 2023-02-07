@@ -9,16 +9,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.work.OneTimeWorkRequest
-import androidx.work.OutOfQuotaPolicy
-import androidx.work.WorkManager
 import com.kozak.pw.PwConstants
 import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityMainBinding
-import com.kozak.pw.domain.news.NewsNotificationWorker
-import com.kozak.pw.presentation.news.NewsActivity
 import com.kozak.pw.presentation.num_composition.NumCompositionActivity
-import com.kozak.pw.presentation.person.PersonsActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         binding.viewModel = viewModel
@@ -45,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         viewModel.refreshPwState()
+        viewModel.retrieveAppVersion()
         setupClickListeners()
     }
 
@@ -67,25 +63,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        binding.buttonPersons.setOnClickListener {
-            startActivity(PersonsActivity.intentShowPersons(this))
-        }
         binding.buttonNumComposition.setOnClickListener {
             startActivity(NumCompositionActivity.intentStartGame(this))
-        }
-        binding.buttonCoroutines.setOnClickListener {
-            val workRequest = OneTimeWorkRequest
-                .Builder(NewsNotificationWorker::class.java)
-                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-                .build()
-            val workManager = WorkManager.getInstance(this)
-            workManager.enqueue(workRequest)
-        }
-        binding.buttonRefreshPwState.setOnClickListener {
-            viewModel.refreshPwState()
-        }
-        binding.buttonNews.setOnClickListener {
-            startActivity(NewsActivity.startIntent(this))
         }
     }
 }

@@ -4,7 +4,6 @@ import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
@@ -111,15 +110,16 @@ class PwApp : Application() {
      * Runs periodic Worker that shows news in notification
      */
     private fun showNewsInNotifications() = applicationScope.launch {
-        val constraints = Constraints.Builder()
+        /*val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
             .setRequiresDeviceIdle(true)
-            .build()
+            .build()*/
 
         val repeatingRequest = PeriodicWorkRequestBuilder<NewsNotificationWorker>(
-            PwConstants.SHOW_NEWS_NOTIFICATION_EVERY_X_HOURS,
-            TimeUnit.HOURS
-        ).setConstraints(constraints).build()
+            PwConstants.SHOW_NEWS_NOTIFICATION_EVERY_X_MINUTES,
+            TimeUnit.MINUTES
+        )//.setConstraints(constraints)
+        .build()
 
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
             NewsNotificationWorker.WORK_NAME,
