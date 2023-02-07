@@ -17,6 +17,25 @@
         app:mainDataVisibility="@{viewModel.pwStateRefreshed}"
         tools:context=".presentation.main.MainActivity">
 
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="4dp"
+            android:contentDescription="@string/welcome_logo"
+            android:src="@drawable/pw_logo"
+            app:layout_constraintBottom_toTopOf="@+id/tv_label_game"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
         <TextView
             android:id="@+id/tv_label_game"
             android:layout_width="0dp"
@@ -31,8 +50,9 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/buttonContinue"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_logo"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <Button
@@ -72,7 +92,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="200dp"
             android:text="@string/number_composition"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
