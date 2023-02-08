@@ -14,6 +14,8 @@ import com.kozak.pw.domain.news.NewsNotificationWorker
 import com.kozak.pw.domain.news.NewsRepository
 import com.kozak.pw.domain.num_composition.repository.GameRepository
 import com.kozak.pw.domain.person.PersonRepository
+import com.kozak.pw.presentation.dashboard.DashboardViewModel
+import com.kozak.pw.presentation.main.MainViewModel
 import com.kozak.pw.presentation.news.NewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -41,7 +43,7 @@ class PwApp : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
-    private val appKoinModule = module {
+    private val repositoriesModule = module {
         single { PersonRepositoryImpl(get()) } bind PersonRepository::class withOptions {
             named("PersonRepository")
             createdAtStart()
@@ -54,7 +56,12 @@ class PwApp : Application() {
             named("NewsRepository")
             createdAtStart()
         }
+    }
+
+    private val viewModelsModule = module {
         viewModelOf(::NewsViewModel)
+        viewModelOf(::MainViewModel)
+        viewModelOf(::DashboardViewModel)
     }
 
     /**
@@ -81,7 +88,7 @@ class PwApp : Application() {
         // Reference Android context
         androidContext(this@PwApp)
         // Load modules
-        modules(appKoinModule)
+        modules(repositoriesModule, viewModelsModule)
     }
 
     /**

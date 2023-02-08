@@ -1,4 +1,4 @@
-package com.kozak.pw.presentation.main
+package com.kozak.pw.presentation.dashboard
 
 import android.view.View
 import android.widget.RelativeLayout

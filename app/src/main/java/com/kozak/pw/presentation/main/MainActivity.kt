@@ -5,14 +5,13 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.ViewModelProvider
 import com.kozak.pw.PwConstants
-import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityMainBinding
+import com.kozak.pw.presentation.dashboard.DashboardActivity
 import com.kozak.pw.presentation.num_composition.NumCompositionActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding
         get() = _binding ?: throw RuntimeException("ActivityMainBinding == null")
 
-    private lateinit var viewModel: MainViewModel
+    val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestPwPermissions()
@@ -30,16 +29,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.failToGeneratePerson.observe(this) { fail ->
-            if (fail) {
-                Toast.makeText(this, R.string.failed_to_refresh_pw_state, Toast.LENGTH_SHORT).show()
-            }
-        }
-        viewModel.refreshPwState()
         viewModel.retrieveAppVersion()
         setupClickListeners()
     }
@@ -65,6 +57,9 @@ class MainActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         binding.buttonNumComposition.setOnClickListener {
             startActivity(NumCompositionActivity.intentStartGame(this))
+        }
+        binding.buttonDashboard?.setOnClickListener {
+            startActivity(DashboardActivity.intentStartGame(this))
         }
     }
 }
