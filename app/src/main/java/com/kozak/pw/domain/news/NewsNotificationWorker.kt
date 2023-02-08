@@ -36,22 +36,7 @@ class NewsNotificationWorker(context: Context, params: WorkerParameters) :
             }
 
             Log.d(PwConstants.LOG_TAG, "NewsNotificationWorker: retrieving news...")
-            // live data list doesn't work in worker
-//                val newsList = newsRepository.getNewsLiveDataList()
-//                val lifecycleOwner = ProcessLifecycleOwner.get()
-//                newsList.observe(lifecycleOwner) {
-//                    it.random().let { randomNews ->
-//                        // show notification with a random news
-//                        WorkerUtil.makeStatusNotification(
-//                            randomNews.title,
-//                            randomNews.text,
-//                            applicationContext,
-//                            pendingIntent
-//                        )
-//                        newsList.removeObservers(lifecycleOwner)
-//                    }
-//                }
-            // use simple list
+            // live data list doesn't work in worker use simple list
             newsRepository.getNewsList().random().let { randomNews ->
                 // show notification with a random news
                 WorkerUtil.makeStatusNotification(
