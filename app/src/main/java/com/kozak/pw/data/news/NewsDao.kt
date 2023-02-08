@@ -10,11 +10,13 @@ import androidx.room.Query
 interface NewsDao {
 
     @Query("SELECT * FROM news WHERE read=:read")
-    fun getNewsList(read: Boolean = false): LiveData<List<NewsEntity>>
+    fun getNewsLiveDataList(read: Boolean = false): LiveData<List<NewsEntity>>
+
+    @Query("SELECT * FROM news WHERE read=:read")
+    fun getNewsList(read: Boolean = false): List<NewsEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addOrUpdateNews(newsEntity: NewsEntity)
-
     @Query("SELECT * FROM news WHERE id=:newsId LIMIT 1")
     suspend fun getNewsById(newsId: Long): NewsEntity
 }

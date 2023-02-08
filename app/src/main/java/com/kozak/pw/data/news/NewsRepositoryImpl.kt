@@ -12,10 +12,14 @@ class NewsRepositoryImpl(application: Application) : NewsRepository {
     private val newsDao = AppDatabase.getInstance(application).newsDao()
     private val mapper = NewsMapper()
 
-    override fun getNewsList(): LiveData<List<News>> =
-        Transformations.map(newsDao.getNewsList()) {
+    override fun getNewsLiveDataList(): LiveData<List<News>> =
+        Transformations.map(newsDao.getNewsLiveDataList()) {
             mapper.mapEntitiesListToItemsList(it)
         }
+
+    override fun getNewsList(): List<News> {
+        return mapper.mapEntitiesListToItemsList(newsDao.getNewsList())
+    }
 
     override suspend fun updateNews(news: News) = addOrUpdateNews(news)
 
