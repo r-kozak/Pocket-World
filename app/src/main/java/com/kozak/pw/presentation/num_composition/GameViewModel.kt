@@ -10,13 +10,13 @@ import com.kozak.pw.domain.num_composition.entity.GameResult
 import com.kozak.pw.domain.num_composition.entity.GameSettings
 import com.kozak.pw.domain.num_composition.entity.Level
 import com.kozak.pw.domain.num_composition.entity.Question
-import com.kozak.pw.domain.num_composition.repository.GameRepository
+import com.kozak.pw.domain.num_composition.repository.NumComposeGameRepository
 import com.kozak.pw.domain.num_composition.usecase.GenerateQuestionUseCase
 import org.koin.java.KoinJavaComponent.inject
 
 class GameViewModel(private val application: Application, private val level: Level) : ViewModel() {
 
-    private val repository: GameRepository by inject(GameRepository::class.java)
+    private val repository: NumComposeGameRepository by inject(NumComposeGameRepository::class.java)
 
     private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
     private var timer: CountDownTimer? = null

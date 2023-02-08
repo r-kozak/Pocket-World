@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         viewModel.retrieveAppVersion()
+        viewModel.retrieveGameStarted()
         setupClickListeners()
     }
 
@@ -55,11 +56,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
+        binding.buttonContinue.setOnClickListener {
+            startActivity(DashboardActivity.intentStartGame(this))
+        }
         binding.buttonNumComposition.setOnClickListener {
             startActivity(NumCompositionActivity.intentStartGame(this))
-        }
-        binding.buttonDashboard?.setOnClickListener {
-            startActivity(DashboardActivity.intentStartGame(this))
         }
     }
 }

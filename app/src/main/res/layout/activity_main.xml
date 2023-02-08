@@ -63,6 +63,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="4dp"
             android:text="@string/continue_label"
+            android:enabled="@{viewModel.gameStarted}"
             app:layout_constraintBottom_toTopOf="@id/buttonNewGame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,19 +109,6 @@
             android:text="@{viewModel.appVersion}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
-            android:id="@+id/buttonDashboard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:text="Dashboard"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonNumComposition" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

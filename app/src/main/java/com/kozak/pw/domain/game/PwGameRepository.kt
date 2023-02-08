@@ -2,5 +2,7 @@ package com.kozak.pw.domain.game
 
 interface PwGameRepository {
 
-    fun getGameInfo(): PwGameEntity?
+    suspend fun getGameInfo(): PwGame?
+
+    suspend fun deleteGamesInfo()
 }
