@@ -15,6 +15,8 @@ enum class GameSpeed(val speedCoefficient: Double) {
 
     companion object {
         private const val REAL_MINUTES_IN_1_PW_YEAR_NORMAL_SPEED = 126
+
+        fun defaultSpeedIndex(): Int = GameSpeed.values().indexOf(NORMAL)
     }
 
     fun realMinutesCountIn1PwYear(): Double =
@@ -24,4 +26,6 @@ enum class GameSpeed(val speedCoefficient: Double) {
      * @return game speed in String representation with "x" prefix
      */
     fun representation() = "x$speedCoefficient"
+
+
 }

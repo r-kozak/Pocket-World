@@ -13,7 +13,7 @@ import com.kozak.pw.presentation.dashboard.DashboardActivity
 import com.kozak.pw.presentation.num_composition.NumCompositionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), StartGameDialogFragment.StartGameDialogListener {
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding
@@ -57,10 +57,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         binding.buttonContinue.setOnClickListener {
-            startActivity(DashboardActivity.intentStartGame(this))
+            startActivity(DashboardActivity.intentContinueGame(this))
+        }
+        binding.buttonNewGame.setOnClickListener {
+            val startGameFragment = StartGameDialogFragment()
+            startGameFragment.show(supportFragmentManager, "start-game")
         }
         binding.buttonNumComposition.setOnClickListener {
             startActivity(NumCompositionActivity.intentStartGame(this))
         }
+    }
+
+    override fun onStartNewGameClick(gameSpeedIndex: Int) {
+        startActivity(DashboardActivity.intentStartNewGame(this, gameSpeedIndex))
     }
 }

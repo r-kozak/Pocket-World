@@ -6,13 +6,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter("mainDataVisibility")
-fun bindMainDataVisibility(constraintLayout: ConstraintLayout, isStateRefreshed: Boolean) {
-    if (isStateRefreshed) constraintLayout.visibility = View.VISIBLE
-    else constraintLayout.visibility = View.GONE
+fun bindMainDataVisibility(constraintLayout: ConstraintLayout, isLoading: Boolean) {
+    if (isLoading) constraintLayout.visibility = View.GONE
+    else constraintLayout.visibility = View.VISIBLE
 }
 
 @BindingAdapter("stateRefreshingProgressVisibility")
-fun bindStateRefreshingProgressVisibility(relativeLayout: RelativeLayout, isStateRefreshed: Boolean) {
-    if (isStateRefreshed) relativeLayout.visibility = View.GONE
-    else relativeLayout.visibility = View.VISIBLE
+fun bindStateRefreshingProgressVisibility(relativeLayout: RelativeLayout, isLoading: Boolean) {
+    if (isLoading) relativeLayout.visibility = View.VISIBLE
+    else relativeLayout.visibility = View.GONE
 }

@@ -56,4 +56,7 @@
     <string name="news">Новини</string>
     <string name="continue_label">Продовжити</string>
     <string name="new_game">Нова гра</string>
+    <string name="cancel">Відміна</string>
+    <string name="select_speed">Оберіть швидкість</string>
+    <string name="failed_to_start_new_game">Не вдалося почати нову гру</string>
 </resources>
