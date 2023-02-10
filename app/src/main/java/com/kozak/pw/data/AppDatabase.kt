@@ -15,7 +15,7 @@ import com.kozak.pw.domain.game.PwGameEntity
 @Database(
     entities = [PersonEntity::class, NewsEntity::class, PwGameEntity::class],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -35,7 +35,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     PwConstants.APP_DATABASE_NAME
                 )
-                    .fallbackToDestructiveMigration() // TODO remove on production
+                    //.fallbackToDestructiveMigration() // TODO remove on production
                     .build()
                 INSTANCE = db
                 return db
