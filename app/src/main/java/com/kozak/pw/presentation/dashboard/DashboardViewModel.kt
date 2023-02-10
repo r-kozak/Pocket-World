@@ -51,10 +51,12 @@ class DashboardViewModel : ViewModel() {
     private var startGameObserver: Observer<WorkInfo> = Observer { workInfo ->
         when (workInfo?.state) {
             WorkInfo.State.FAILED -> {
+                Log.d(PwConstants.LOG_TAG, "StartNewGameWorker: FAILED")
                 _failToStartNewGame.value = true
                 _isLoading.value = false // to hide progress bar
             }
             WorkInfo.State.SUCCEEDED -> {
+                Log.d(PwConstants.LOG_TAG, "StartNewGameWorker: SUCCEEDED")
                 _isLoading.value = false
                 _failToStartNewGame.value = false
             }
@@ -99,6 +101,8 @@ class DashboardViewModel : ViewModel() {
 
                 workManager.enqueue(workRequest)
                 workManager.getWorkInfoByIdLiveData(workRequestId).observeForever(startGameObserver)
+            } else {
+                _failToStartNewGame.value = true
             }
         }
     }
