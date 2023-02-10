@@ -17,4 +17,8 @@ class PwGameRepositoryImpl(application: Application) : PwGameRepository {
     override suspend fun deleteGamesInfo() {
         gameDao.deleteGamesInfo()
     }
+
+    override fun addNewPwGame(newPwGame: PwGame) {
+        gameDao.insertGameInfo(mapper.mapItemToEntity(newPwGame))
+    }
 }

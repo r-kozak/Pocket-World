@@ -56,7 +56,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun playGame() {
         if (isStartNewGame) {
-            viewModel.startNewGame()
+            viewModel.startNewGame(newGameSpeed)
         } else {
             viewModel.refreshPwState()
         }

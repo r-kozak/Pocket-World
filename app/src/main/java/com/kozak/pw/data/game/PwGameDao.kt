@@ -1,6 +1,7 @@
 package com.kozak.pw.data.game
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import com.kozak.pw.domain.game.PwGameEntity
 
@@ -12,4 +13,7 @@ interface PwGameDao {
 
     @Query("DELETE FROM game")
     suspend fun deleteGamesInfo()
+
+    @Insert
+    fun insertGameInfo(newPwGame: PwGameEntity)
 }

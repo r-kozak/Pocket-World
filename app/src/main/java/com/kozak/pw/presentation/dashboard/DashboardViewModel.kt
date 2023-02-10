@@ -1,18 +1,23 @@
 package com.kozak.pw.presentation.dashboard
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.kozak.pw.PwApp
 import com.kozak.pw.PwConstants
+import com.kozak.pw.domain.game.GameSpeed
 import com.kozak.pw.domain.game.IsGameStartedUseCase
 import com.kozak.pw.domain.game.PwGameRepository
-import com.kozak.pw.domain.game.StartNewGameWorker
+import com.kozak.pw.domain.game.StartNewGameUseCase
 import com.kozak.pw.domain.person.GeneratePersonsWorker
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 import java.util.*
@@ -33,6 +38,7 @@ class DashboardViewModel : ViewModel() {
 
     private val repository: PwGameRepository by inject(PwGameRepository::class.java)
     private val isGameStartedUseCase = IsGameStartedUseCase(repository)
+    private val startNewGameUseCase = StartNewGameUseCase(repository)
 
     private var refreshPwStateObserver: Observer<WorkInfo> = Observer { workInfo ->
         when (workInfo?.state) {
@@ -48,25 +54,8 @@ class DashboardViewModel : ViewModel() {
         }
     }
 
-    private var startGameObserver: Observer<WorkInfo> = Observer { workInfo ->
-        when (workInfo?.state) {
-            WorkInfo.State.FAILED -> {
-                Log.d(PwConstants.LOG_TAG, "StartNewGameWorker: FAILED")
-                _failToStartNewGame.value = true
-                _isLoading.value = false // to hide progress bar
-            }
-            WorkInfo.State.SUCCEEDED -> {
-                Log.d(PwConstants.LOG_TAG, "StartNewGameWorker: SUCCEEDED")
-                _isLoading.value = false
-                _failToStartNewGame.value = false
-            }
-            else -> Log.d(PwConstants.LOG_TAG, "StartNewGameWorker state: ${workInfo?.state}")
-        }
-    }
-
     private val workManager = WorkManager.getInstance(PwApp.getInstance().applicationContext)
     private var refreshPwStateRequestsIds = mutableListOf<UUID>()
-    private lateinit var startGameRequestId: UUID
 
     fun refreshPwState() {
         _isLoading.value = true
@@ -84,25 +73,20 @@ class DashboardViewModel : ViewModel() {
         workManager.getWorkInfoByIdLiveData(workRequestId).observeForever(refreshPwStateObserver)
     }
 
-    fun startNewGame() {
-        viewModelScope.launch {
-            val gameStarted = isGameStartedUseCase()
-            if (!gameStarted) {
-                _isLoading.value = true
+    fun startNewGame(gameSpeed: GameSpeed) {
+        _isLoading.value = true
+        Log.d(PwConstants.LOG_TAG, "start Loading...")
 
-                val workRequest = OneTimeWorkRequest
-                    .Builder(StartNewGameWorker::class.java)
-                    .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-                    .build()
+        CoroutineScope(Dispatchers.IO).launch {
+            if (!isGameStartedUseCase()) {
+                val gameStarted = startNewGameUseCase(gameSpeed)
+                _failToStartNewGame.postValue(!gameStarted)
 
-                val workRequestId = workRequest.id
-                startGameRequestId = workRequestId
-                Log.d(PwConstants.LOG_TAG, "To list added workRequestId: $workRequestId")
-
-                workManager.enqueue(workRequest)
-                workManager.getWorkInfoByIdLiveData(workRequestId).observeForever(startGameObserver)
+                Log.d(PwConstants.LOG_TAG, "stop Loading...")
+                _isLoading.postValue(false)
             } else {
-                _failToStartNewGame.value = true
+                _failToStartNewGame.postValue(true)
+                _isLoading.postValue(false)
             }
         }
     }
@@ -112,9 +96,6 @@ class DashboardViewModel : ViewModel() {
         refreshPwStateRequestsIds.forEach {
             workManager.getWorkInfoByIdLiveData(it).removeObserver(refreshPwStateObserver)
             Log.d(PwConstants.LOG_TAG, "Removed observer for workRequestId: $it")
-        }
-        if (this::startGameRequestId.isInitialized) {
-            workManager.getWorkInfoByIdLiveData(startGameRequestId).removeObserver(startGameObserver)
         }
     }
 }

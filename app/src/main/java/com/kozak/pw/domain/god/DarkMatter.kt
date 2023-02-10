@@ -5,5 +5,4 @@ import com.kozak.pw.domain.PwAny
 class DarkMatter : PwAny() {
 
     val hell = Hell()
-
 }

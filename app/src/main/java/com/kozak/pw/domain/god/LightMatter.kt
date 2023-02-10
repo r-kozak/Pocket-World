@@ -6,5 +6,4 @@ import com.kozak.pw.domain.space.Universe
 class LightMatter : PwAny() {
 
     val universes = mutableListOf<Universe>()
-
 }
