@@ -1,8 +1,8 @@
 package com.kozak.pw.domain.game
 
-interface PwGameRepository {
+import com.kozak.pw.domain.BaseRepository
+
+interface PwGameRepository : BaseRepository<PwGame> {
 
     suspend fun getGameInfo(): PwGame?
-    suspend fun deleteGamesInfo()
-    suspend fun addNewPwGame(newPwGame: PwGame)
 }

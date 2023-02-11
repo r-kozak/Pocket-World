@@ -47,10 +47,10 @@ abstract class BaseDao<T : BaseEntity>(
     protected abstract fun getEntitySync(query: SupportSQLiteQuery): List<T>?
 
     fun getEntitySync(id: Long): T? {
-        return getEntitySync(listOf(id))?.firstOrNull()
+        return getEntitiesSync(listOf(id))?.firstOrNull()
     }
 
-    fun getEntitySync(ids: List<Long>): List<T>? {
+    fun getEntitiesSync(ids: List<Long>): List<T>? {
         val result = StringBuilder()
         for (index in ids.indices) {
             if (index != 0) {
@@ -83,7 +83,7 @@ abstract class BaseDao<T : BaseEntity>(
                     }
                     roomDatabase.invalidationTracker.addWeakObserver(observer as InvalidationTracker.Observer)
                 }
-                return getEntitySync(ids)
+                return getEntitiesSync(ids)
             }
         }.liveData
     }
