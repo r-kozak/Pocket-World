@@ -19,7 +19,7 @@ class StartNewGameUseCase(private val pwGameRepository: PwGameRepository) {
      * @return
      *      true - if game started successful, otherwise - false
      */
-    operator fun invoke(gameSpeed: GameSpeed): Boolean {
+    suspend operator fun invoke(gameSpeed: GameSpeed): Boolean {
         return try {
             Log.d(PwConstants.LOG_TAG, "Starting new game with speed: $gameSpeed")
 

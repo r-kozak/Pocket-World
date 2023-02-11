@@ -15,5 +15,5 @@ interface PwGameDao {
     suspend fun deleteGamesInfo()
 
     @Insert
-    fun insertGameInfo(newPwGame: PwGameEntity)
+    suspend fun insertGameInfo(newPwGame: PwGameEntity)
 }

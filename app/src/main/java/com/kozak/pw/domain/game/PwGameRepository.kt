@@ -4,5 +4,5 @@ interface PwGameRepository {
 
     suspend fun getGameInfo(): PwGame?
     suspend fun deleteGamesInfo()
-    fun addNewPwGame(newPwGame: PwGame)
+    suspend fun addNewPwGame(newPwGame: PwGame)
 }
