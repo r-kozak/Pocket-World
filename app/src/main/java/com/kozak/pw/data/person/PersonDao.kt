@@ -1,23 +1,14 @@
 package com.kozak.pw.data.person
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.kozak.pw.data.BaseDao
+import com.kozak.pw.data.TablesNamesConstants
 
 @Dao
-interface PersonDao {
+abstract class PersonDao(roomDatabase: RoomDatabase) :
+    BaseDao<PersonEntity>(TablesNamesConstants.PERSON_ENTITY_TABLE_NAME, roomDatabase) {
 
     @Query("SELECT * FROM persons WHERE isAlive")
-    fun getAlivePersonsList(): LiveData<List<PersonEntity>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addOrUpdatePerson(personEntity: PersonEntity)
-
-    @Query("DELETE FROM persons WHERE id=:personId")
-    suspend fun deletePerson(personId: Long)
-
-    @Query("SELECT * FROM persons WHERE id=:personId LIMIT 1")
-    suspend fun getPersonById(personId: Long): PersonEntity
+    abstract fun getAlivePersonsList(): LiveData<List<PersonEntity>>
 }

@@ -15,7 +15,7 @@ class PwGameRepositoryImpl(application: Application) : PwGameRepository {
     }
 
     override suspend fun deleteGamesInfo() {
-        gameDao.deleteGamesInfo()
+        gameDao.deleteAll()
     }
 
     override suspend fun addNewPwGame(newPwGame: PwGame) {

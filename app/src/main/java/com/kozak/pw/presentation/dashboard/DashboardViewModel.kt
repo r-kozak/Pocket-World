@@ -1,10 +1,8 @@
 package com.kozak.pw.presentation.dashboard
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkInfo
@@ -16,8 +14,6 @@ import com.kozak.pw.domain.game.IsGameStartedUseCase
 import com.kozak.pw.domain.game.PwGameRepository
 import com.kozak.pw.domain.game.StartNewGameUseCase
 import com.kozak.pw.domain.person.GeneratePersonsWorker
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 import java.util.*
@@ -77,7 +73,7 @@ class DashboardViewModel : ViewModel() {
         _isLoading.value = true
         Log.d(PwConstants.LOG_TAG, "start Loading...")
 
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             if (!isGameStartedUseCase()) {
                 val gameStarted = startNewGameUseCase(gameSpeed)
                 _failToStartNewGame.postValue(!gameStarted)

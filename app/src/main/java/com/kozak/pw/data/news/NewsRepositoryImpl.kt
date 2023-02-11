@@ -21,13 +21,14 @@ class NewsRepositoryImpl(application: Application) : NewsRepository {
         return mapper.mapEntitiesListToItemsList(newsDao.getNewsList())
     }
 
-    override suspend fun updateNews(news: News) = addOrUpdateNews(news)
-
-    override suspend fun addNews(news: News) = addOrUpdateNews(news)
-
-    private suspend fun addOrUpdateNews(news: News) {
+    override suspend fun addNews(news: News) {
         val newsEntity = mapper.mapItemToEntity(news)
-        newsDao.addOrUpdateNews(newsEntity)
+        newsDao.insert(newsEntity)
+    }
+
+    override suspend fun updateNews(news: News) {
+        val newsEntity = mapper.mapItemToEntity(news)
+        newsDao.update(newsEntity)
     }
 
     override suspend fun getNewsById(newsId: Long): News {

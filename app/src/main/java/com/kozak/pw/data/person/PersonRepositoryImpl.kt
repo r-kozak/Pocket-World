@@ -12,13 +12,14 @@ class PersonRepositoryImpl(application: Application) : PersonRepository {
     private val personDao = AppDatabase.getInstance(application).personDao()
     private val mapper = PersonMapper()
 
-    override suspend fun addPerson(person: Person) = addOrUpdatePerson(person)
-
-    override suspend fun updatePerson(person: Person) = addOrUpdatePerson(person)
-
-    private suspend fun addOrUpdatePerson(person: Person) {
+    override suspend fun addPerson(person: Person) {
         val personEntity = mapper.mapItemToEntity(person)
-        personDao.addOrUpdatePerson(personEntity)
+        personDao.insert(personEntity)
+    }
+
+    override suspend fun updatePerson(person: Person) {
+        val personEntity = mapper.mapItemToEntity(person)
+        personDao.update(personEntity)
     }
 
     override suspend fun getPersonById(personId: Long): Person {
