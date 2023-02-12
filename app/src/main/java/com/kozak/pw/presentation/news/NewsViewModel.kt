@@ -12,14 +12,14 @@ class NewsViewModel : ViewModel() {
 
     private val repository: NewsRepository by inject(NewsRepository::class.java)
 
-    private val getNewsUseCase = GetNewsListUseCase(repository)
-    private val readNewsUseCase = ReadNewsUseCase(repository)
+    private val invokeGetNews = GetNewsListUseCase(repository)
+    private val invokeReadNews = ReadNewsUseCase(repository)
 
-    val newsList = getNewsUseCase()
+    val newsList = invokeGetNews()
 
     fun readNews(newsId: Long) {
         viewModelScope.launch {
-            readNewsUseCase(newsId)
+            invokeReadNews(newsId)
         }
     }
 }

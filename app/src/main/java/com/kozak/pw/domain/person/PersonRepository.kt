@@ -1,10 +1,9 @@
 package com.kozak.pw.domain.person
 
 import androidx.lifecycle.LiveData
+import com.kozak.pw.domain.BaseRepository
 
-interface PersonRepository {
-    suspend fun addPerson(person: Person)
-    suspend fun updatePerson(person: Person)
-    suspend fun getPersonById(personId: Long): Person
-    fun getPersonsList(): LiveData<List<Person>>
+interface PersonRepository : BaseRepository<Person> {
+
+    fun getAlivePersonsList(): LiveData<List<Person>>
 }

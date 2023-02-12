@@ -8,19 +8,23 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import com.kozak.pw.PwConstants
 import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityMainBinding
+import com.kozak.pw.presentation.dashboard.DashboardActivity
 import com.kozak.pw.presentation.num_composition.NumCompositionActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    StartGameDialogFragment.StartGameDialogListener,
+    AskDestroyCurrentWorldDialogFragment.AskDestroyCurrentWorldDialogListener {
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding
         get() = _binding ?: throw RuntimeException("ActivityMainBinding == null")
 
-    private lateinit var viewModel: MainViewModel
+    val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestPwPermissions()
@@ -30,18 +34,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.failToGeneratePerson.observe(this) { fail ->
-            if (fail) {
-                Toast.makeText(this, R.string.failed_to_refresh_pw_state, Toast.LENGTH_SHORT).show()
-            }
-        }
-        viewModel.refreshPwState()
         viewModel.retrieveAppVersion()
         setupClickListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // to refresh state of NewGame button after world was created
+        viewModel.retrieveGameStarted()
     }
 
     private fun requestPwPermissions() {
@@ -63,8 +66,49 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
+        binding.buttonContinue.setOnClickListener {
+            startActivity(DashboardActivity.intentContinueGame(this))
+        }
+        binding.buttonNewGame.setOnClickListener {
+            // check that if game is already been started
+            var startedGameObserver: Observer<Boolean>? = null
+            startedGameObserver = Observer<Boolean> { started ->
+                if (started) {
+                    AskDestroyCurrentWorldDialogFragment().show(
+                        supportFragmentManager,
+                        AskDestroyCurrentWorldDialogFragment.TAG_NAME
+                    )
+                } else {
+                    showNewGameFragment()
+                }
+                Log.d(PwConstants.LOG_TAG, "startedGameObserver = $startedGameObserver")
+                startedGameObserver?.let { viewModel.gameStarted.removeObserver(it) }
+            }
+            viewModel.gameStarted.observe(this, startedGameObserver)
+            viewModel.retrieveGameStarted()
+        }
         binding.buttonNumComposition.setOnClickListener {
             startActivity(NumCompositionActivity.intentStartGame(this))
         }
+    }
+
+    private fun showNewGameFragment() =
+        StartGameDialogFragment().show(supportFragmentManager, StartGameDialogFragment.TAG_NAME)
+
+    override fun onStartNewGameClick(gameSpeedIndex: Int) {
+        startActivity(DashboardActivity.intentStartNewGame(this, gameSpeedIndex))
+    }
+
+    override fun onDestroyCurrentWorldClick() {
+        viewModel.currentWorldDestroyed.observe(this) { dropped ->
+            if (dropped) {
+                showNewGameFragment()
+            } else {
+                Toast.makeText(this, R.string.failed_to_destroy_current_world, Toast.LENGTH_SHORT)
+                    .show()
+            }
+            viewModel.currentWorldDestroyed.removeObservers(this)
+        }
+        viewModel.destroyCurrentWorld()
     }
 }

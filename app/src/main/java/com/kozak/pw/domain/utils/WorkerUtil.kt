@@ -56,6 +56,7 @@ class WorkerUtil {
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setVibrate(LongArray(0))
+                .setAutoCancel(true)
 
             pendingIntent?.let {
                 // set intent to open activity on notification tap

@@ -14,7 +14,6 @@
         android:id="@+id/main_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:mainDataVisibility="@{viewModel.pwStateRefreshed}"
         tools:context=".presentation.main.MainActivity">
 
         <ImageView
@@ -57,12 +56,13 @@
 
         <Button
             android:id="@+id/buttonContinue"
-            android:layout_width="0dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="4dp"
+            android:enabled="@{viewModel.gameStarted}"
             android:text="@string/continue_label"
             app:layout_constraintBottom_toTopOf="@id/buttonNewGame"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
 
         <Button
             android:id="@+id/buttonNewGame"
-            android:layout_width="0dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
@@ -87,7 +87,7 @@
 
         <Button
             android:id="@+id/buttonNumComposition"
-            android:layout_width="0dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
@@ -109,6 +109,7 @@
             android:text="@{viewModel.appVersion}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

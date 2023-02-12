@@ -19,7 +19,7 @@ class GeneratePersonsWorker(context: Context, params: WorkerParameters) :
         try {
             Log.d(PwConstants.LOG_TAG, "GeneratePersonWorker: generating a person.")
             val newPerson = PersonGenerator.generate()
-            personRepository.addPerson(newPerson)
+            personRepository.insert(newPerson)
 
             val generatedPersonName = newPerson.fullName()
             Log.d(PwConstants.LOG_TAG, "Saved the person $generatedPersonName to DB.")
@@ -30,7 +30,7 @@ class GeneratePersonsWorker(context: Context, params: WorkerParameters) :
                 "Person '$generatedPersonName' was born.\nFull info: $newPerson",
                 News.NewsPriority.MIDDLE
             )
-            newsRepository.addNews(news)
+            newsRepository.insert(news)
         } catch (e: Exception) {
             Log.e(PwConstants.LOG_TAG, e.message ?: "Error occurred in GeneratePersonsWorker")
             return Result.failure()

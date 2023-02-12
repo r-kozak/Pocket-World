@@ -25,12 +25,11 @@
     <string name="question_mark">\?</string>
     <string name="welcome_title">Композиція числа</string>
     <string name="game_rules">
-        Rules of the game: you will have three figures in front of you, two from below and one from
-        above, two of them will have numbers. It is necessary that the sum of the numbers from the
-        two lower figures be equal to the number in the upper figure, to do this, you need to insert
-        the missing number.\n\nExample: the number 7 is in the upper circle, in one from the lower
-        question mark, and in the other the number 4. So in place of the question mark should be the
-        number 3 because 3 + 4 = 7
+        Правила гри: перед вами буде три фігурки, дві знизу і одна зверху, дві з них будуть мати
+        номери. Необхідно, щоб сума чисел з двох нижніх чисел дорівнювала числу на верхній фігурі,
+        для цього потрібно обрати пропущене число.\n\nПриклад: цифра 7 у верхньому колі, в одному з
+        нижнього знак питання, а в іншому цифра 4. Отже, на місці знака питання має стояти номер 3,
+        тому що 3 + 4 = 7
     </string>
     <string name="button_lets_go">Почнемо</string>
     <string name="welcome_logo">Welcome logo</string>
@@ -56,4 +55,11 @@
     <string name="news">Новини</string>
     <string name="continue_label">Продовжити</string>
     <string name="new_game">Нова гра</string>
+    <string name="cancel">Відміна</string>
+    <string name="select_speed">Оберіть швидкість</string>
+    <string name="failed_to_start_new_game">Не вдалося почати нову гру</string>
+    <string name="destroy_current_world_question">
+        Поточний світ буде знищено.\nВи впевнені, що хочете почати нову гру?
+    </string>
+    <string name="failed_to_destroy_current_world">Не вдалося знищити поточний світ</string>
 </resources>

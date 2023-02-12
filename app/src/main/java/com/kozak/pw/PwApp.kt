@@ -4,16 +4,21 @@ import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.kozak.pw.data.game.PwGameRepositoryImpl
 import com.kozak.pw.data.news.NewsRepositoryImpl
-import com.kozak.pw.data.num_composition.GameRepositoryImpl
+import com.kozak.pw.data.num_composition.NumComposeGameRepositoryImpl
 import com.kozak.pw.data.person.PersonRepositoryImpl
+import com.kozak.pw.domain.game.PwGameRepository
 import com.kozak.pw.domain.news.NewsNotificationWorker
 import com.kozak.pw.domain.news.NewsRepository
-import com.kozak.pw.domain.num_composition.repository.GameRepository
+import com.kozak.pw.domain.num_composition.repository.NumComposeGameRepository
 import com.kozak.pw.domain.person.PersonRepository
+import com.kozak.pw.presentation.dashboard.DashboardViewModel
+import com.kozak.pw.presentation.main.MainViewModel
 import com.kozak.pw.presentation.news.NewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,9 +27,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.context.startKoin
-import org.koin.core.module.dsl.createdAtStart
-import org.koin.core.module.dsl.named
-import org.koin.core.module.dsl.withOptions
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import java.util.concurrent.TimeUnit
@@ -41,20 +43,17 @@ class PwApp : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
-    private val appKoinModule = module {
-        single { PersonRepositoryImpl(get()) } bind PersonRepository::class withOptions {
-            named("PersonRepository")
-            createdAtStart()
-        }
-        single { GameRepositoryImpl } bind GameRepository::class withOptions {
-            named("GameRepository")
-            createdAtStart()
-        }
-        single { NewsRepositoryImpl(get()) } bind NewsRepository::class withOptions {
-            named("NewsRepository")
-            createdAtStart()
-        }
+    private val repositoriesModule = module {
+        single { PersonRepositoryImpl(get()) } bind PersonRepository::class
+        single { NumComposeGameRepositoryImpl } bind NumComposeGameRepository::class
+        single { NewsRepositoryImpl(get()) } bind NewsRepository::class
+        single { PwGameRepositoryImpl(get()) } bind PwGameRepository::class
+    }
+
+    private val viewModelsModule = module {
         viewModelOf(::NewsViewModel)
+        viewModelOf(::MainViewModel)
+        viewModelOf(::DashboardViewModel)
     }
 
     /**
@@ -81,7 +80,7 @@ class PwApp : Application() {
         // Reference Android context
         androidContext(this@PwApp)
         // Load modules
-        modules(appKoinModule)
+        modules(repositoriesModule, viewModelsModule)
     }
 
     /**
@@ -110,16 +109,15 @@ class PwApp : Application() {
      * Runs periodic Worker that shows news in notification
      */
     private fun showNewsInNotifications() = applicationScope.launch {
-        /*val constraints = Constraints.Builder()
+        val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
             .setRequiresDeviceIdle(true)
-            .build()*/
+            .build()
 
         val repeatingRequest = PeriodicWorkRequestBuilder<NewsNotificationWorker>(
-            PwConstants.SHOW_NEWS_NOTIFICATION_EVERY_X_MINUTES,
-            TimeUnit.MINUTES
-        )//.setConstraints(constraints)
-        .build()
+            PwConstants.SHOW_NEWS_NOTIFICATION_EVERY_X_HOURS,
+            TimeUnit.HOURS
+        ).setConstraints(constraints).build()
 
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
             NewsNotificationWorker.WORK_NAME,

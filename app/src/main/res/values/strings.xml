@@ -34,7 +34,7 @@
         question mark, and in the other the number 4. So in place of the question mark should be the
         number 3 because 3 + 4 = 7
     </string>
-    <string name="button_lets_go">Let\'s go</string>
+    <string name="button_lets_go">Start game</string>
     <string name="welcome_logo">Welcome logo</string>
     <string name="choose_level_title">Choose level:</string>
     <string name="easy_level">Easy</string>
@@ -58,4 +58,11 @@
     <string name="news">News</string>
     <string name="continue_label">Continue</string>
     <string name="new_game">New Game</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_speed">Select speed</string>
+    <string name="failed_to_start_new_game">Failed to start a new game</string>
+    <string name="destroy_current_world_question">
+        Current world will be destroyed.\nAre you sure you want to start a new game?
+    </string>
+    <string name="failed_to_destroy_current_world">Failed to destroy current world</string>
 </resources>

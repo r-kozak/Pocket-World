@@ -3,12 +3,12 @@ package com.kozak.pw.data.num_composition
 import com.kozak.pw.domain.num_composition.entity.GameSettings
 import com.kozak.pw.domain.num_composition.entity.Level
 import com.kozak.pw.domain.num_composition.entity.Question
-import com.kozak.pw.domain.num_composition.repository.GameRepository
+import com.kozak.pw.domain.num_composition.repository.NumComposeGameRepository
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 
-object GameRepositoryImpl : GameRepository {
+object NumComposeGameRepositoryImpl : NumComposeGameRepository {
 
     private const val MIN_SUM_VALUE = 2
     private const val MIN_ANSWER_VALUE = 1

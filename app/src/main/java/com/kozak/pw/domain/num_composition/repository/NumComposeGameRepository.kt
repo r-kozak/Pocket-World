@@ -4,7 +4,7 @@ import com.kozak.pw.domain.num_composition.entity.GameSettings
 import com.kozak.pw.domain.num_composition.entity.Level
 import com.kozak.pw.domain.num_composition.entity.Question
 
-interface GameRepository {
+interface NumComposeGameRepository {
 
     fun generateQuestion(maxSumValue: Int, countOfOptions: Int): Question
 

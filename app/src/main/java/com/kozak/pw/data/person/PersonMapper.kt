@@ -1,12 +1,13 @@
 package com.kozak.pw.data.person
 
+import com.kozak.pw.data.PwMapper
 import com.kozak.pw.domain.person.Person
 import kotlinx.datetime.LocalDateTime
 
-class PersonMapper {
+class PersonMapper : PwMapper<PersonEntity, Person> {
 
-    fun mapEntityToItem(personEntity: PersonEntity): Person {
-        return with(personEntity) {
+    override fun mapEntityToItem(entity: PersonEntity): Person {
+        return with(entity) {
             Person(
                 id = id,
                 birthDate = LocalDateTime.parse(birthDate),
@@ -21,8 +22,8 @@ class PersonMapper {
         }
     }
 
-    fun mapItemToEntity(person: Person): PersonEntity {
-        return with(person) {
+    override fun mapItemToEntity(item: Person): PersonEntity {
+        return with(item) {
             PersonEntity(
                 id = id,
                 birthDate = birthDate.toString(),
@@ -36,7 +37,4 @@ class PersonMapper {
             )
         }
     }
-
-    fun mapEntitiesListToItemsList(entities: List<PersonEntity>) =
-        entities.map { mapEntityToItem(it) }
 }

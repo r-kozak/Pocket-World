@@ -5,6 +5,5 @@ import com.kozak.pw.domain.PwAny
 class PwGod : PwAny() {
 
     val lightMatter = LightMatter()
-
     val darkMatter = DarkMatter()
 }

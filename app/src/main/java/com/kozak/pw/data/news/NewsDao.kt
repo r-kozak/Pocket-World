@@ -1,20 +1,17 @@
 package com.kozak.pw.data.news
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.kozak.pw.data.BaseDao
+import com.kozak.pw.data.TablesNamesConstants
 
 @Dao
-interface NewsDao {
+abstract class NewsDao(roomDatabase: RoomDatabase) :
+    BaseDao<NewsEntity>(TablesNamesConstants.NEWS_ENTITY_TABLE_NAME, roomDatabase) {
 
     @Query("SELECT * FROM news WHERE read=:read")
-    fun getNewsList(read: Boolean = false): LiveData<List<NewsEntity>>
+    abstract fun getNewsList(read: Boolean = false): LiveData<List<NewsEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addOrUpdateNews(newsEntity: NewsEntity)
-
-    @Query("SELECT * FROM news WHERE id=:newsId LIMIT 1")
-    suspend fun getNewsById(newsId: Long): NewsEntity
+    @Query("SELECT * FROM news WHERE read=:read")
+    abstract suspend fun getNewsListSync(read: Boolean = false): List<NewsEntity>
 }

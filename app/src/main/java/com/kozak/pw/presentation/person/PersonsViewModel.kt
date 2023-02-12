@@ -11,28 +11,28 @@ class PersonsViewModel(application: Application) : AndroidViewModel(application)
 
     private val repository: PersonRepository by inject(PersonRepository::class.java)
 
-    private val getPersonsUseCase = GetPersonsListUseCase(repository)
-    private val killPersonUseCase = KillPersonUseCase(repository)
-    private val togglePersonFavoriteUseCase = TogglePersonFavoriteUseCase(repository)
-    private val createNewPersonUseCase = CreateNewPersonUseCase(repository)
+    private val invokeGetPersons = GetPersonsListUseCase(repository)
+    private val invokeKillPerson = KillPersonUseCase(repository)
+    private val invokeTogglePersonFavorite = TogglePersonFavoriteUseCase(repository)
+    private val invokeCreateNewPerson = CreateNewPersonUseCase(repository)
 
-    val personsList = getPersonsUseCase()
+    val personsList = invokeGetPersons()
 
     fun killPerson(personId: Long) {
         viewModelScope.launch {
-            killPersonUseCase(personId)
+            invokeKillPerson(personId)
         }
     }
 
     fun togglePersonFavorite(personId: Long) {
         viewModelScope.launch {
-            togglePersonFavoriteUseCase(personId)
+            invokeTogglePersonFavorite(personId)
         }
     }
 
     fun createNewPerson() {
         viewModelScope.launch {
-            createNewPersonUseCase()
+            invokeCreateNewPerson()
         }
     }
 }

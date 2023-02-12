@@ -5,5 +5,4 @@ import com.kozak.pw.domain.PwAny
 class Universe : PwAny() {
 
     val galaxies = mutableListOf<Galaxy>()
-
 }

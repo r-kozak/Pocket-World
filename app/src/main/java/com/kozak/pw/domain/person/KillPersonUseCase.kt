@@ -7,9 +7,10 @@ import kotlinx.datetime.toLocalDateTime
 class KillPersonUseCase(private val personRepository: PersonRepository) {
 
     suspend operator fun invoke(personId: Long) {
-        val person = personRepository.getPersonById(personId)
-        person.deathDate = Clock.System.now().toLocalDateTime(TimeZone.UTC)
-        person.isAlive = false
-        personRepository.updatePerson(person)
+        personRepository.getItemSync(personId)?.let {
+            it.deathDate = Clock.System.now().toLocalDateTime(TimeZone.UTC)
+            it.isAlive = false
+            personRepository.update(it)
+        }
     }
 }

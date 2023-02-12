@@ -1,77 +1,51 @@
 package com.kozak.pw.presentation.main
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
-import androidx.lifecycle.Observer
-import androidx.work.OneTimeWorkRequest
-import androidx.work.OutOfQuotaPolicy
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
+import android.annotation.SuppressLint
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kozak.pw.BuildConfig
-import com.kozak.pw.PwConstants
-import com.kozak.pw.domain.person.GeneratePersonsWorker
+import com.kozak.pw.domain.game.DestroyCurrentWorldUseCase
+import com.kozak.pw.domain.game.IsGameStartedUseCase
+import com.kozak.pw.domain.game.PwGameRepository
 import kotlinx.coroutines.launch
-import java.util.*
+import org.koin.java.KoinJavaComponent.inject
 
-class MainViewModel(app: Application) : AndroidViewModel(app) {
+class MainViewModel : ViewModel() {
 
-    private val _pwStateRefreshed = MutableLiveData<Boolean>()
-    val pwStateRefreshed: LiveData<Boolean>
-        get() = _pwStateRefreshed
+    private val repository: PwGameRepository by inject(PwGameRepository::class.java)
+
+    private val invokeIsGameStarted = IsGameStartedUseCase(repository)
+    private val invokeDestroyCurrentWorld = DestroyCurrentWorldUseCase(repository)
+
+    private val _gameStarted = MutableLiveData<Boolean>()
+    val gameStarted: LiveData<Boolean>
+        get() = _gameStarted
+
+    private val _currentWorldDestroyed = MutableLiveData<Boolean>()
+    val currentWorldDestroyed: LiveData<Boolean>
+        get() = _currentWorldDestroyed
 
     private val _appVersion = MutableLiveData<String>()
     val appVersion: LiveData<String>
         get() = _appVersion
 
-    private val _failToGeneratePerson = MutableLiveData<Boolean>()
-    val failToGeneratePerson: LiveData<Boolean>
-        get() = _failToGeneratePerson
-
-    private var workManagerObserver: Observer<WorkInfo> = Observer { workInfo ->
-        when (workInfo?.state) {
-            WorkInfo.State.FAILED -> {
-                _failToGeneratePerson.value = true
-                _pwStateRefreshed.value = true // to hide progress bar
-            }
-            WorkInfo.State.SUCCEEDED -> {
-                _pwStateRefreshed.value = true
-                _failToGeneratePerson.value = false
-            }
-            else -> Log.d(PwConstants.LOG_TAG, "GeneratePersonWorker state: ${workInfo?.state}")
-        }
-    }
-
-    private val workManager = WorkManager.getInstance(app.applicationContext)
-    private var workRequestsIds = mutableListOf<UUID>()
-
-    fun refreshPwState() {
-        viewModelScope.launch {
-            _pwStateRefreshed.value = false
-
-            val workRequest = OneTimeWorkRequest
-                .Builder(GeneratePersonsWorker::class.java)
-                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-                .build()
-
-            val workRequestId = workRequest.id
-            workRequestsIds.add(workRequest.id)
-            Log.d(PwConstants.LOG_TAG, "To list added workRequestId: $workRequestId")
-
-            workManager.enqueue(workRequest)
-            workManager.getWorkInfoByIdLiveData(workRequestId).observeForever(workManagerObserver)
-        }
-    }
-
     fun retrieveAppVersion() {
         _appVersion.value = BuildConfig.VERSION_NAME
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        workRequestsIds.forEach {
-            workManager.getWorkInfoByIdLiveData(it).removeObserver(workManagerObserver)
-            Log.d(PwConstants.LOG_TAG, "Removed observer for workRequestId: $it")
+    @SuppressLint("NullSafeMutableLiveData")
+    fun retrieveGameStarted() {
+        viewModelScope.launch {
+            _gameStarted.value = invokeIsGameStarted()
+        }
+    }
+
+    fun destroyCurrentWorld() {
+        viewModelScope.launch {
+            invokeDestroyCurrentWorld()
+            _currentWorldDestroyed.value = true
         }
     }
 }
