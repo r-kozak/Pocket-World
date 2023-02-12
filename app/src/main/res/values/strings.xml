@@ -61,4 +61,8 @@
     <string name="cancel">Cancel</string>
     <string name="select_speed">Select speed</string>
     <string name="failed_to_start_new_game">Failed to start a new game</string>
+    <string name="destroy_current_world_question">
+        Current world will be destroyed.\nAre you sure you want to start a new game?
+    </string>
+    <string name="failed_to_destroy_current_world">Failed to destroy current world</string>
 </resources>
