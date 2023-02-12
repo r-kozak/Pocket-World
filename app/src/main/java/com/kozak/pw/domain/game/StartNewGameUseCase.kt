@@ -25,7 +25,7 @@ class StartNewGameUseCase(private val pwGameRepository: PwGameRepository) {
 
             Log.d(PwConstants.LOG_TAG, "Creating PwGame object")
             val newPwGame = PwGame(Clock.System.now().toLocalDateTime(TimeZone.UTC), gameSpeed)
-            pwGameRepository.addNewPwGame(newPwGame)
+            pwGameRepository.insert(newPwGame)
 
             Log.d(PwConstants.LOG_TAG, "Generating Universes")
             repeat(Random.nextInt(UNIVERSES_COUNT_RANGE)) {

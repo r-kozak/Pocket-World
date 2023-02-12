@@ -67,13 +67,13 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
         val fieldsValid = validateInput(firstName, lastName, strength)
         if (fieldsValid) {
             viewModelScope.launch {
-                val person = getPersonUseCase(id)
-                person.apply {
+                getPersonUseCase(id)?.apply {
                     this.firstName = firstName
                     this.lastName = lastName
                     this.strength = strength
+                }?.let {
+                    editPersonUseCase(it)
                 }
-                editPersonUseCase(person)
                 finishWork()
             }
         }
