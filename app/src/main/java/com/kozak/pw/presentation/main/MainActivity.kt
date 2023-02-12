@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onDestroyCurrentWorldClick() {
-        viewModel.destroyCurrentWorld().observe(this) { dropped ->
+        viewModel.currentWorldDestroyed.observe(this) { dropped ->
             if (dropped) {
                 showNewGameFragment()
             } else {
@@ -109,5 +109,6 @@ class MainActivity : AppCompatActivity(),
             }
             viewModel.currentWorldDestroyed.removeObservers(this)
         }
+        viewModel.destroyCurrentWorld()
     }
 }

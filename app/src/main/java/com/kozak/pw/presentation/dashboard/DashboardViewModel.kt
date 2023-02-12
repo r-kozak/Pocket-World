@@ -33,8 +33,8 @@ class DashboardViewModel : ViewModel() {
         get() = _failToStartNewGame
 
     private val repository: PwGameRepository by inject(PwGameRepository::class.java)
-    private val isGameStartedUseCase = IsGameStartedUseCase(repository)
-    private val startNewGameUseCase = StartNewGameUseCase(repository)
+    private val isGameStarted = IsGameStartedUseCase(repository)
+    private val invokeStartNewGame = StartNewGameUseCase(repository)
 
     private var refreshPwStateObserver: Observer<WorkInfo> = Observer { workInfo ->
         when (workInfo?.state) {
@@ -74,8 +74,8 @@ class DashboardViewModel : ViewModel() {
         Log.d(PwConstants.LOG_TAG, "start Loading...")
 
         viewModelScope.launch {
-            if (!isGameStartedUseCase()) {
-                val gameStarted = startNewGameUseCase(gameSpeed)
+            if (!isGameStarted()) {
+                val gameStarted = invokeStartNewGame(gameSpeed)
                 _failToStartNewGame.postValue(!gameStarted)
 
                 Log.d(PwConstants.LOG_TAG, "stop Loading...")

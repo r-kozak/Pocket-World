@@ -13,9 +13,9 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
 
     private val repository: PersonRepository by inject(PersonRepository::class.java)
 
-    private val getPersonUseCase = GetPersonByIdUseCase(repository)
-    private val killPersonUseCase = KillPersonUseCase(repository)
-    private val editPersonUseCase = EditPersonUseCase(repository)
+    private val invokeGetPerson = GetPersonByIdUseCase(repository)
+    private val invokeKillPerson = KillPersonUseCase(repository)
+    private val invokeEditPerson = EditPersonUseCase(repository)
 
     private val _person = MutableLiveData<Person>()
     val person: LiveData<Person>
@@ -44,13 +44,13 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
 
     private fun getPerson(personId: Long) {
         viewModelScope.launch {
-            getPersonUseCase(personId).let { _person.value = it }
+            invokeGetPerson(personId).let { _person.value = it }
         }
     }
 
     fun killPerson(personId: Long) {
         viewModelScope.launch {
-            killPersonUseCase(personId)
+            invokeKillPerson(personId)
             finishWork()
         }
     }
@@ -67,12 +67,12 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
         val fieldsValid = validateInput(firstName, lastName, strength)
         if (fieldsValid) {
             viewModelScope.launch {
-                getPersonUseCase(id)?.apply {
+                invokeGetPerson(id)?.apply {
                     this.firstName = firstName
                     this.lastName = lastName
                     this.strength = strength
                 }?.let {
-                    editPersonUseCase(it)
+                    invokeEditPerson(it)
                 }
                 finishWork()
             }

@@ -15,8 +15,9 @@ import org.koin.java.KoinJavaComponent.inject
 class MainViewModel : ViewModel() {
 
     private val repository: PwGameRepository by inject(PwGameRepository::class.java)
-    private val isGameStartedUseCase = IsGameStartedUseCase(repository)
-    private val destroyCurrentWorldUseCase = DestroyCurrentWorldUseCase(repository)
+
+    private val invokeIsGameStarted = IsGameStartedUseCase(repository)
+    private val invokeDestroyCurrentWorld = DestroyCurrentWorldUseCase(repository)
 
     private val _gameStarted = MutableLiveData<Boolean>()
     val gameStarted: LiveData<Boolean>
@@ -35,18 +36,16 @@ class MainViewModel : ViewModel() {
     }
 
     @SuppressLint("NullSafeMutableLiveData")
-    fun retrieveGameStarted(): LiveData<Boolean> {
+    fun retrieveGameStarted() {
         viewModelScope.launch {
-            _gameStarted.value = isGameStartedUseCase()
+            _gameStarted.value = invokeIsGameStarted()
         }
-        return gameStarted
     }
 
-    fun destroyCurrentWorld(): LiveData<Boolean> {
+    fun destroyCurrentWorld() {
         viewModelScope.launch {
-            destroyCurrentWorldUseCase()
+            invokeDestroyCurrentWorld()
             _currentWorldDestroyed.value = true
         }
-        return currentWorldDestroyed
     }
 }
