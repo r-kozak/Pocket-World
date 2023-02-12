@@ -1,38 +1,14 @@
 package com.kozak.pw.data.news
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.kozak.pw.data.AppDatabase
+import com.kozak.pw.data.BaseRepositoryImpl
 import com.kozak.pw.domain.news.News
 import com.kozak.pw.domain.news.NewsRepository
 
-class NewsRepositoryImpl(application: Application) : NewsRepository {
+class NewsRepositoryImpl(application: Application) :
+    BaseRepositoryImpl<NewsEntity, News>(), NewsRepository {
 
-    private val newsDao = AppDatabase.getInstance(application).newsDao()
-    private val mapper = NewsMapper()
-
-    override fun getNewsLiveDataList(): LiveData<List<News>> =
-        Transformations.map(newsDao.getNewsLiveDataList()) {
-            mapper.mapEntitiesListToItemsList(it)
-        }
-
-    override fun getNewsList(): List<News> {
-        return mapper.mapEntitiesListToItemsList(newsDao.getNewsList())
-    }
-
-    override suspend fun addNews(news: News) {
-        val newsEntity = mapper.mapItemToEntity(news)
-        newsDao.insert(newsEntity)
-    }
-
-    override suspend fun updateNews(news: News) {
-        val newsEntity = mapper.mapItemToEntity(news)
-        newsDao.update(newsEntity)
-    }
-
-    override suspend fun getNewsById(newsId: Long): News {
-        val newsEntity = newsDao.getNewsById(newsId)
-        return mapper.mapEntityToItem(newsEntity)
-    }
+    override val dao = AppDatabase.getInstance(application).newsDao()
+    override val mapper = NewsMapper()
 }

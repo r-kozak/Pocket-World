@@ -10,11 +10,8 @@ abstract class NewsDao(roomDatabase: RoomDatabase) :
     BaseDao<NewsEntity>(TablesNamesConstants.NEWS_ENTITY_TABLE_NAME, roomDatabase) {
 
     @Query("SELECT * FROM news WHERE read=:read")
-    abstract fun getNewsLiveDataList(read: Boolean = false): LiveData<List<NewsEntity>>
+    abstract fun getNewsList(read: Boolean = false): LiveData<List<NewsEntity>>
 
     @Query("SELECT * FROM news WHERE read=:read")
-    abstract fun getNewsList(read: Boolean = false): List<NewsEntity>
-
-    @Query("SELECT * FROM news WHERE id=:newsId LIMIT 1")
-    abstract suspend fun getNewsById(newsId: Long): NewsEntity
+    abstract fun getNewsListSync(read: Boolean = false): List<NewsEntity>
 }

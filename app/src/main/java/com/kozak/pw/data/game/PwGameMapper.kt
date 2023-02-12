@@ -1,13 +1,14 @@
 package com.kozak.pw.data.game
 
+import com.kozak.pw.data.PwMapper
 import com.kozak.pw.domain.game.PwGame
 import com.kozak.pw.domain.game.PwGameEntity
 import kotlinx.datetime.LocalDateTime
 
-class PwGameMapper {
+class PwGameMapper : PwMapper<PwGameEntity, PwGame> {
 
-    fun mapEntityToItem(pwGameEntity: PwGameEntity): PwGame {
-        return with(pwGameEntity) {
+    override fun mapEntityToItem(entity: PwGameEntity): PwGame {
+        return with(entity) {
             PwGame(
                 id = id,
                 createdAt = LocalDateTime.parse(createdAt),
@@ -16,8 +17,8 @@ class PwGameMapper {
         }
     }
 
-    fun mapItemToEntity(pwGame: PwGame): PwGameEntity {
-        return with(pwGame) {
+    override fun mapItemToEntity(item: PwGame): PwGameEntity {
+        return with(item) {
             PwGameEntity(
                 id = id,
                 createdAt = LocalDateTime.toString(),

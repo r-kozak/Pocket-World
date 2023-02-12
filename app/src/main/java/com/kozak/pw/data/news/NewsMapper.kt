@@ -1,11 +1,12 @@
 package com.kozak.pw.data.news
 
+import com.kozak.pw.data.PwMapper
 import com.kozak.pw.domain.news.News
 
-class NewsMapper {
+class NewsMapper : PwMapper<NewsEntity, News> {
 
-    fun mapEntityToItem(newsEntity: NewsEntity): News {
-        return with(newsEntity) {
+    override fun mapEntityToItem(entity: NewsEntity): News {
+        return with(entity) {
             News(
                 id = id,
                 title = title,
@@ -16,8 +17,8 @@ class NewsMapper {
         }
     }
 
-    fun mapItemToEntity(news: News): NewsEntity {
-        return with(news) {
+    override fun mapItemToEntity(item: News): NewsEntity {
+        return with(item) {
             NewsEntity(
                 id = id,
                 title = title,
@@ -27,7 +28,4 @@ class NewsMapper {
             )
         }
     }
-
-    fun mapEntitiesListToItemsList(entities: List<NewsEntity>) =
-        entities.map { mapEntityToItem(it) }
 }

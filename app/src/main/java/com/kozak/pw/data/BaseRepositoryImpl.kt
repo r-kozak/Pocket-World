@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.kozak.pw.domain.BaseRepository
 
-class BaseRepositoryImpl<E : BaseEntity, I>(val dao: BaseDao<E>, val mapper: BaseMapper<E, I>) :
-    BaseRepository<I> {
+abstract class BaseRepositoryImpl<E : BaseEntity, I> : BaseRepository<I> {
+
+    abstract val dao: BaseDao<E>
+    abstract val mapper: PwMapper<E, I>
 
     override fun insert(item: I): Long {
         return dao.insert(mapper.mapItemToEntity(item))
