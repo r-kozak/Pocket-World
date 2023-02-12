@@ -1,6 +1,5 @@
 package com.kozak.pw.presentation.main
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,10 +34,10 @@ class MainViewModel : ViewModel() {
         _appVersion.value = BuildConfig.VERSION_NAME
     }
 
-    @SuppressLint("NullSafeMutableLiveData")
     fun retrieveGameStarted() {
         viewModelScope.launch {
-            _gameStarted.value = invokeIsGameStarted()
+            val gameStarted = invokeIsGameStarted()
+            _gameStarted.value = gameStarted
         }
     }
 
