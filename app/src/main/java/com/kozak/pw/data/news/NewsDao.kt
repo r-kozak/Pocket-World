@@ -13,5 +13,5 @@ abstract class NewsDao(roomDatabase: RoomDatabase) :
     abstract fun getNewsList(read: Boolean = false): LiveData<List<NewsEntity>>
 
     @Query("SELECT * FROM news WHERE read=:read")
-    abstract fun getNewsListSync(read: Boolean = false): List<NewsEntity>
+    abstract suspend fun getNewsListSync(read: Boolean = false): List<NewsEntity>
 }

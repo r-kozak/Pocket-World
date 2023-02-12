@@ -18,39 +18,44 @@ abstract class BaseDao<T : BaseEntity>(
 ) {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun insert(entity: T): Long
+    abstract suspend fun insert(entity: T): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun insert(entities: List<T>): List<Long>
+    abstract suspend fun insert(entities: List<T>): List<Long>
 
     @Update
-    abstract fun update(entity: T)
+    abstract suspend fun update(entity: T)
 
     @Update
-    abstract fun update(entities: List<T>)
+    abstract suspend fun update(entities: List<T>)
 
     @Delete
-    abstract fun delete(entity: T)
+    abstract suspend fun delete(entity: T)
 
     @Delete
-    abstract fun delete(entities: List<T>)
+    abstract suspend fun delete(entities: List<T>)
 
     @RawQuery
-    protected abstract fun deleteAll(query: SupportSQLiteQuery): Long
+    protected abstract suspend fun deleteAll(query: SupportSQLiteQuery): Long
 
-    fun deleteAll() {
+    suspend fun deleteAll() {
         val query = SimpleSQLiteQuery("DELETE FROM $tableName")
         deleteAll(query)
     }
 
     @RawQuery
-    protected abstract fun getEntitySync(query: SupportSQLiteQuery): List<T>?
+    protected abstract suspend fun getEntitiesSync(query: SupportSQLiteQuery): List<T>?
 
-    fun getEntitySync(id: Long): T? {
+    suspend fun getEntitySync(id: Long): T? {
         return getEntitiesSync(listOf(id))?.firstOrNull()
     }
 
-    fun getEntitiesSync(ids: List<Long>): List<T>? {
+    suspend fun getEntitiesSync(ids: List<Long>): List<T>? {
+        val query = buildQueryWithIds(ids)
+        return getEntitiesSync(query)
+    }
+
+    private fun buildQueryWithIds(ids: List<Long>): SimpleSQLiteQuery {
         val result = StringBuilder()
         for (index in ids.indices) {
             if (index != 0) {
@@ -58,8 +63,7 @@ abstract class BaseDao<T : BaseEntity>(
             }
             result.append("'").append(ids[index]).append("'")
         }
-        val query = SimpleSQLiteQuery("SELECT * FROM $tableName WHERE id IN ($result);")
-        return getEntitySync(query)
+        return SimpleSQLiteQuery("SELECT * FROM $tableName WHERE id IN ($result);")
     }
 
     fun getEntity(id: Long): LiveData<T> {
@@ -69,6 +73,9 @@ abstract class BaseDao<T : BaseEntity>(
         }
         return resultLiveData
     }
+
+    @RawQuery
+    protected abstract fun getEntities(query: SupportSQLiteQuery): List<T>?
 
     @SuppressLint("RestrictedApi")
     fun getEntities(ids: List<Long>): LiveData<List<T>> {
@@ -83,7 +90,8 @@ abstract class BaseDao<T : BaseEntity>(
                     }
                     roomDatabase.invalidationTracker.addWeakObserver(observer as InvalidationTracker.Observer)
                 }
-                return getEntitiesSync(ids)
+                val query = buildQueryWithIds(ids)
+                return getEntities(query)
             }
         }.liveData
     }

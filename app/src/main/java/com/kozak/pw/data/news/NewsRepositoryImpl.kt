@@ -20,7 +20,7 @@ class NewsRepositoryImpl(application: Application) :
         }
     }
 
-    override fun getNewsListSync(): List<News> {
+    override suspend fun getNewsListSync(): List<News> {
         return mapper.mapEntitiesListToItemsList(dao.getNewsListSync())
     }
 }

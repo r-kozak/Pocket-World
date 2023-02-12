@@ -4,25 +4,25 @@ import androidx.lifecycle.LiveData
 
 interface BaseRepository<T> {
 
-    fun insert(item: T): Long
+    suspend fun insert(item: T): Long
 
-    fun insert(items: List<T>): List<Long>
+    suspend fun insert(items: List<T>): List<Long>
 
-    fun update(item: T)
+    suspend fun update(item: T)
 
-    fun update(items: List<T>)
+    suspend fun update(items: List<T>)
 
-    fun delete(item: T)
+    suspend fun delete(item: T)
 
-    fun delete(items: List<T>)
+    suspend fun delete(items: List<T>)
 
-    fun deleteAll()
+    suspend fun deleteAll()
 
-    fun getItemSync(id: Long): T?
+    suspend fun getItemSync(id: Long): T?
 
-    fun getItemsSync(ids: List<Long>): List<T>?
+    suspend fun getItemsSync(ids: List<Long>): List<T>?
 
-    fun getItem(id: Long): LiveData<T>
+    suspend fun getItem(id: Long): LiveData<T>
 
-    fun getItems(ids: List<Long>): LiveData<List<T>>
+    suspend fun getItems(ids: List<Long>): LiveData<List<T>>
 }

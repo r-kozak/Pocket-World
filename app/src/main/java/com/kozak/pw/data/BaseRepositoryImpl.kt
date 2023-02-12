@@ -9,56 +9,56 @@ abstract class BaseRepositoryImpl<E : BaseEntity, I> : BaseRepository<I> {
     abstract val dao: BaseDao<E>
     abstract val mapper: PwMapper<E, I>
 
-    override fun insert(item: I): Long {
+    override suspend fun insert(item: I): Long {
         return dao.insert(mapper.mapItemToEntity(item))
     }
 
-    override fun update(item: I) {
+    override suspend fun update(item: I) {
         dao.update(mapper.mapItemToEntity(item))
     }
 
-    override fun delete(item: I) {
+    override suspend fun delete(item: I) {
         dao.delete(mapper.mapItemToEntity(item))
     }
 
-    override fun deleteAll() {
+    override suspend fun deleteAll() {
         dao.deleteAll()
     }
 
-    override fun getItemSync(id: Long): I? {
+    override suspend fun getItemSync(id: Long): I? {
         return dao.getEntitySync(id)?.let {
             mapper.mapEntityToItem(it)
         }
     }
 
-    override fun getItemsSync(ids: List<Long>): List<I>? {
+    override suspend fun getItemsSync(ids: List<Long>): List<I>? {
         val entities = dao.getEntitiesSync(ids)
         return entities?.let { mapper.mapEntitiesListToItemsList(it) }
     }
 
-    override fun getItem(id: Long): LiveData<I> {
+    override suspend fun getItem(id: Long): LiveData<I> {
         return Transformations.map(dao.getEntity(id)) {
             mapper.mapEntityToItem(it)
         }
     }
 
-    override fun getItems(ids: List<Long>): LiveData<List<I>> {
+    override suspend fun getItems(ids: List<Long>): LiveData<List<I>> {
         return Transformations.map(dao.getEntities(ids)) {
             mapper.mapEntitiesListToItemsList(it)
         }
     }
 
-    override fun delete(items: List<I>) {
+    override suspend fun delete(items: List<I>) {
         val entities = mapper.mapItemsListToEntitiesList(items)
         dao.delete(entities)
     }
 
-    override fun update(items: List<I>) {
+    override suspend fun update(items: List<I>) {
         val entities = mapper.mapItemsListToEntitiesList(items)
         dao.update(entities)
     }
 
-    override fun insert(items: List<I>): List<Long> {
+    override suspend fun insert(items: List<I>): List<Long> {
         val entities = mapper.mapItemsListToEntitiesList(items)
         return dao.insert(entities)
     }

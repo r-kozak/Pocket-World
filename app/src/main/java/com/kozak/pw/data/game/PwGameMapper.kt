@@ -21,7 +21,7 @@ class PwGameMapper : PwMapper<PwGameEntity, PwGame> {
         return with(item) {
             PwGameEntity(
                 id = id,
-                createdAt = LocalDateTime.toString(),
+                createdAt = item.createdAt.toString(),
                 gameSpeed = gameSpeed
             )
         }

@@ -7,5 +7,5 @@ interface NewsRepository : BaseRepository<News> {
 
     fun getNewsList(): LiveData<List<News>>
 
-    fun getNewsListSync(): List<News>
+    suspend fun getNewsListSync(): List<News>
 }
