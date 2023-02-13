@@ -2,6 +2,7 @@ package com.kozak.pw.presentation.dashboard
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -45,8 +46,11 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDashboardBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         parseIntent()
+
+        val drawView = HexagonMaskView(this) //DrawView(this)
+        drawView.setBackgroundColor(Color.WHITE)
+        setContentView(drawView)
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
