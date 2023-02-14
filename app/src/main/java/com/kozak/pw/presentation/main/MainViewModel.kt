@@ -23,7 +23,11 @@ class MainViewModel : ViewModel() {
     val startNewGameResult: LiveData<Boolean?>
         get() = _startNewGameResult
 
-    fun onUsedStartNewGameResult() {
+    /**
+     * Set value to null to avoid immediately trigger Observer.onChanged() method, when LiveData has
+     * has any value and LiveData.observe() was invoked
+     */
+    fun afterUseStartNewGameResult() {
         _startNewGameResult.value = null
     }
 
@@ -31,9 +35,17 @@ class MainViewModel : ViewModel() {
     val gameStarted: LiveData<Boolean>
         get() = _gameStarted
 
-    private val _currentWorldDestroyed = MutableLiveData<Boolean>()
-    val currentWorldDestroyed: LiveData<Boolean>
-        get() = _currentWorldDestroyed
+    private val _destroyCurrentWorldResult = MutableLiveData<Boolean?>()
+    val destroyCurrentWorldResult: LiveData<Boolean?>
+        get() = _destroyCurrentWorldResult
+
+    /**
+     * Set value to null to avoid immediately trigger Observer.onChanged() method, when LiveData has
+     * has any value and LiveData.observe() was invoked
+     */
+    fun afterUseDestroyCurrentWorldResult() {
+        _destroyCurrentWorldResult.value = null
+    }
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -75,7 +87,7 @@ class MainViewModel : ViewModel() {
     fun destroyCurrentWorld() {
         viewModelScope.launch {
             invokeDestroyCurrentWorld()
-            _currentWorldDestroyed.value = true
+            _destroyCurrentWorldResult.value = true
             _gameStarted.value = false
         }
     }
