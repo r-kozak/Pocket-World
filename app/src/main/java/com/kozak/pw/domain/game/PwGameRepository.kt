@@ -6,5 +6,7 @@ interface PwGameRepository : BaseRepository<PwGame> {
 
     suspend fun getGameInfo(): PwGame?
 
+    suspend fun gameInstanceExists() = getGameInfo() != null
+
     suspend fun destroyCurrentWorld()
 }

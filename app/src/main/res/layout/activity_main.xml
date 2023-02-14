@@ -11,105 +11,143 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.main.MainActivity">
 
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_margin="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="4dp"
-            android:contentDescription="@string/welcome_logo"
-            android:src="@drawable/pw_logo"
-            app:layout_constraintBottom_toTopOf="@+id/tv_label_game"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mainDataVisibility="@{viewModel.isLoading}">
 
-        <TextView
-            android:id="@+id/tv_label_game"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="4dp"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/buttonContinue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_logo"
-            app:layout_constraintVertical_chainStyle="packed" />
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_margin="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="4dp"
+                android:contentDescription="@string/welcome_logo"
+                android:src="@drawable/pw_logo"
+                app:layout_constraintBottom_toTopOf="@+id/tv_label_game"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <Button
-            android:id="@+id/buttonContinue"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="4dp"
-            android:enabled="@{viewModel.gameStarted}"
-            android:text="@string/continue_label"
-            app:layout_constraintBottom_toTopOf="@id/buttonNewGame"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_label_game"
-            app:layout_constraintVertical_chainStyle="packed" />
+            <TextView
+                android:id="@+id/tv_label_game"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="4dp"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/buttonContinue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_logo"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <Button
-            android:id="@+id/buttonNewGame"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="4dp"
-            android:text="@string/new_game"
-            app:layout_constraintBottom_toTopOf="@id/buttonNumComposition"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonContinue"
-            app:layout_constraintVertical_chainStyle="packed" />
+            <Button
+                android:id="@+id/buttonContinue"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="4dp"
+                android:enabled="@{viewModel.gameStarted}"
+                android:text="@string/continue_label"
+                app:layout_constraintBottom_toTopOf="@id/buttonNewGame"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_label_game"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <Button
-            android:id="@+id/buttonNumComposition"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="200dp"
-            android:text="@string/number_composition"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonNewGame"
-            app:layout_constraintVertical_chainStyle="packed" />
+            <Button
+                android:id="@+id/buttonNewGame"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/new_game"
+                app:layout_constraintBottom_toTopOf="@id/buttonNumComposition"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonContinue"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <TextView
-            android:id="@+id/tv_app_version"
+            <Button
+                android:id="@+id/buttonNumComposition"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="200dp"
+                android:text="@string/number_composition"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonNewGame"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_app_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="@{viewModel.appVersion}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            android:text="@{viewModel.appVersion}"
+            android:layout_margin="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:stateRefreshingProgressVisibility="@{viewModel.isLoading}">
 
+            <ProgressBar
+                android:id="@+id/refreshing_pw_state_progress_bar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:indeterminate="true"
+                android:max="100"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/refreshing_pw_state_label"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="0dp"
+                android:layout_toEndOf="@+id/refreshing_pw_state_progress_bar"
+                android:gravity="center"
+                android:text="@string/refreshing" />
+        </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -16,7 +16,6 @@
         tools:context=".presentation.dashboard.DashboardActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/main_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:mainDataVisibility="@{viewModel.isLoading}">

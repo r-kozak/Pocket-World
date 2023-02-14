@@ -17,10 +17,10 @@ abstract class BaseDao<T : BaseEntity>(
     private val roomDatabase: RoomDatabase
 ) {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     abstract suspend fun insert(entity: T): Long
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     abstract suspend fun insert(entities: List<T>): List<Long>
 
     @Update

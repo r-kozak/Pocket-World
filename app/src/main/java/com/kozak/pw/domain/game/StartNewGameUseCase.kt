@@ -21,6 +21,9 @@ class StartNewGameUseCase(private val pwGameRepository: PwGameRepository) {
      */
     suspend operator fun invoke(gameSpeed: GameSpeed): Boolean {
         return try {
+            if (pwGameRepository.gameInstanceExists()) {
+                throw RuntimeException("Game instance already exists! Delete all old data before creating a new world!")
+            }
             Log.d(PwConstants.LOG_TAG, "Starting new game with speed: $gameSpeed")
 
             Log.d(PwConstants.LOG_TAG, "Creating PwGame object")
