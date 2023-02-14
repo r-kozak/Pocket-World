@@ -1,21 +1,17 @@
 package com.kozak.pw.presentation.dashboard
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.kozak.pw.PwApp
 import com.kozak.pw.PwConstants
-import com.kozak.pw.domain.game.GameSpeed
-import com.kozak.pw.domain.game.IsGameStartedUseCase
-import com.kozak.pw.domain.game.PwGameRepository
-import com.kozak.pw.domain.game.StartNewGameUseCase
 import com.kozak.pw.domain.person.GeneratePersonsWorker
-import kotlinx.coroutines.launch
-import org.koin.java.KoinJavaComponent.inject
 import java.util.*
 
 class DashboardViewModel : ViewModel() {
@@ -27,14 +23,6 @@ class DashboardViewModel : ViewModel() {
     private val _failToRefreshPwState = MutableLiveData<Boolean>()
     val failToRefreshPwState: LiveData<Boolean>
         get() = _failToRefreshPwState
-
-    private val _failToStartNewGame = MutableLiveData<Boolean>()
-    val failToStartNewGame: LiveData<Boolean>
-        get() = _failToStartNewGame
-
-    private val repository: PwGameRepository by inject(PwGameRepository::class.java)
-    private val isGameStarted = IsGameStartedUseCase(repository)
-    private val invokeStartNewGame = StartNewGameUseCase(repository)
 
     private var refreshPwStateObserver: Observer<WorkInfo> = Observer { workInfo ->
         when (workInfo?.state) {
@@ -69,23 +57,6 @@ class DashboardViewModel : ViewModel() {
         workManager.getWorkInfoByIdLiveData(workRequestId).observeForever(refreshPwStateObserver)
     }
 
-    fun startNewGame(gameSpeed: GameSpeed) {
-        _isLoading.value = true
-        Log.d(PwConstants.LOG_TAG, "start Loading...")
-
-        viewModelScope.launch {
-            if (!isGameStarted()) {
-                val gameStarted = invokeStartNewGame(gameSpeed)
-                _failToStartNewGame.postValue(!gameStarted)
-
-                Log.d(PwConstants.LOG_TAG, "stop Loading...")
-                _isLoading.postValue(false)
-            } else {
-                _failToStartNewGame.postValue(true)
-                _isLoading.postValue(false)
-            }
-        }
-    }
 
     override fun onCleared() {
         super.onCleared()
