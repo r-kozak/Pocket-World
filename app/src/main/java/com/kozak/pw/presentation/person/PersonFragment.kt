@@ -105,6 +105,7 @@ class PersonFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.resetErrorInputFirstName()
+                viewModel.person.value?.firstName = s.toString()
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -113,6 +114,7 @@ class PersonFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.resetErrorInputLastName()
+                viewModel.person.value?.lastName = s.toString()
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -121,6 +123,7 @@ class PersonFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.resetErrorInputStrength()
+                viewModel.person.value?.strength = s.toString().toInt()
             }
 
             override fun afterTextChanged(s: Editable?) {}
