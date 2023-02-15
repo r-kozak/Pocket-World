@@ -1,7 +1,7 @@
 package com.kozak.pw
 
+import com.kozak.pw.domain.utils.markov_ng.MarkovGenerator
 import com.kozak.pw.domain.utils.markov_ng.MarkovGeneratorImpl
-import com.ppolivka.namegenerator.MarkovGenerator
 import org.junit.Assert
 import org.junit.Test
 import java.io.File

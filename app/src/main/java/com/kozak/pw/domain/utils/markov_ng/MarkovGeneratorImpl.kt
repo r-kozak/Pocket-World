@@ -1,6 +1,6 @@
 package com.kozak.pw.domain.utils.markov_ng
 
-import com.ppolivka.namegenerator.MarkovGenerator
+import java.util.*
 
 /**
  * A procedural word generator that uses Markov chains built from a user-provided array of words.
@@ -68,7 +68,9 @@ class MarkovGeneratorImpl(data: Set<String>, order: Int = 2, prior: Float = 0.00
         }
         val result = word.substring(order)
 
-        return if (result.length in lengthRange) result
+        return if (result.length in lengthRange) result.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
+        }
         else generate(lengthRange)
     }
 
