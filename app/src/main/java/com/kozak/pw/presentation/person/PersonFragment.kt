@@ -81,6 +81,15 @@ class PersonFragment : Fragment() {
         super.onStart()
         setClickListeners()
         addTextChangeListeners()
+        addOnCheckedListeners()
+    }
+
+    private fun addOnCheckedListeners() {
+        binding.cbIsFavorite.apply {
+            setOnCheckedChangeListener { _, isChecked ->
+                viewModel.person.value?.isFavorite = isChecked
+            }
+        }
     }
 
     private fun parseParams() {
@@ -100,7 +109,8 @@ class PersonFragment : Fragment() {
                 currentPersonId,
                 binding.etFirstName.editableText.toString(),
                 binding.etLastName.editableText.toString(),
-                binding.etStrength.editableText.toString()
+                binding.etStrength.editableText.toString(),
+                binding.cbIsFavorite.isChecked
             )
         }
     }

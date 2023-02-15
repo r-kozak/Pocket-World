@@ -12,7 +12,7 @@
     <string name="label_sex">Sex:</string>
     <string name="sex_example">FEMALE</string>
     <string name="label_is_alive">Alive:</string>
-    <string name="label_is_favorite">Favorite:</string>
+    <string name="label_is_favorite">Favorite</string>
     <string name="is_alive_example">true</string>
     <string name="is_favorite_example">false</string>
     <string name="label_death_date">Death date:</string>

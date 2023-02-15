@@ -11,7 +11,7 @@
     <string name="label_sex">Стать:</string>
     <string name="sex_example">ЖІНОЧА</string>
     <string name="label_is_alive">Живий:</string>
-    <string name="label_is_favorite">Обраний:</string>
+    <string name="label_is_favorite">Обраний</string>
     <string name="is_alive_example">так</string>
     <string name="is_favorite_example">ні</string>
     <string name="label_death_date">Дата смерті:</string>

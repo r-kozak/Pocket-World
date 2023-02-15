@@ -184,20 +184,12 @@
             app:layout_constraintTop_toBottomOf="@+id/isAliveLayout"
             app:layout_constraintVertical_chainStyle="packed">
 
-            <TextView
-                android:id="@+id/tvLabelIsFavorite"
-                android:layout_width="wrap_content"
+            <CheckBox
+                android:id="@+id/cbIsFavorite"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:checked="@{viewModel.person.favorite}"
                 android:text="@string/label_is_favorite" />
-
-            <TextView
-                android:id="@+id/tvIsFavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@{String.valueOf(viewModel.person.favorite)}"
-                tools:text="@string/is_favorite_example" />
         </LinearLayout>
 
         <LinearLayout

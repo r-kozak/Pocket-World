@@ -59,7 +59,8 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
         id: Long,
         inputFirstName: String?,
         inputLastName: String?,
-        inputStrength: String?
+        inputStrength: String?,
+        inputFavorite: Boolean
     ) {
         val firstName = parseName(inputFirstName)
         val lastName = parseName(inputLastName)
@@ -71,6 +72,7 @@ class PersonViewModel(application: Application, personId: Long) : AndroidViewMod
                     this.firstName = firstName
                     this.lastName = lastName
                     this.strength = strength
+                    this.isFavorite = inputFavorite
                 }?.let {
                     invokeEditPerson(it)
                 }
