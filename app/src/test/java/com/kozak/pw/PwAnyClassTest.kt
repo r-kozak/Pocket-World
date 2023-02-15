@@ -20,13 +20,13 @@ class PwAnyClassTest {
         const val COUNTRY_RESOURCE_MASS = 9999L
     }
 
-    class PwAnyTest : PwAny() {
+    class PwAnyTest(override val nameLengthRange: IntRange) : PwAny() {
         var testProperty = PW_ANY_TEST_TEST_PROPERTY
     }
 
     @Test
     fun pwAnyDescendants() {
-        val pwAnyTest = PwAnyTest()
+        val pwAnyTest = PwAnyTest(IntRange(5, 10))
         pwAnyTest.health = PW_ANY_HEALTH
         pwAnyTest.mass = Long.MAX_VALUE
         pwAnyTest.testProperty = PW_ANY_TEST_TEST_PROPERTY
