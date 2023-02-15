@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,12 +71,16 @@ class PersonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        setClickListeners()
-        addTextChangeListeners()
 
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
             onEditingFinishedListener.onEditingFinished()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setClickListeners()
+        addTextChangeListeners()
     }
 
     private fun parseParams() {
@@ -106,6 +111,7 @@ class PersonFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.resetErrorInputFirstName()
                 viewModel.person.value?.firstName = s.toString()
+                Log.d(PwConstants.LOG_TAG, "etFirstName.onTextChanged()")
             }
 
             override fun afterTextChanged(s: Editable?) {}
