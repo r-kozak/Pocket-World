@@ -32,8 +32,9 @@ class StartNewGameUseCase(private val pwGameRepository: PwGameRepository) {
 
             Log.d(PwConstants.LOG_TAG, "Generating Universes")
             repeat(Random.nextInt(UNIVERSES_COUNT_RANGE)) {
-                Log.d(PwConstants.LOG_TAG, "Generating Universe object")
+                Log.d(PwConstants.LOG_TAG, "Generating Universe object...")
                 val newUniverse = Universe()
+                Log.d(PwConstants.LOG_TAG, "Name of new Universe = ${newUniverse.name}")
                 // TODO save to DB and get its ID to put into dependant objects (galaxies)
             }
 //            Log.d(PwConstants.LOG_TAG, "Generating PwGod object")
@@ -41,7 +42,7 @@ class StartNewGameUseCase(private val pwGameRepository: PwGameRepository) {
 
             true
         } catch (e: Exception) {
-            Log.e(PwConstants.LOG_TAG, e.message ?: "Error occurred while starting new game")
+            Log.e(PwConstants.LOG_TAG, e.stackTraceToString())
             false
         }
     }
