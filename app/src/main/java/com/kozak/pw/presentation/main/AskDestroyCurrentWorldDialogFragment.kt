@@ -34,11 +34,11 @@ class AskDestroyCurrentWorldDialogFragment : DialogFragment() {
         super.onAttach(context)
         // Verify that the host activity implements the callback interface
         try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
+            // Instantiate the AskDestroyCurrentWorldDialogListener so we can send events to the host
             listener = context as AskDestroyCurrentWorldDialogListener
         } catch (e: ClassCastException) {
             // The activity doesn't implement the interface, throw exception
-            throw ClassCastException(("$context must implement NoticeDialogListener"))
+            throw ClassCastException(("$context must implement StartGameDialogListener"))
         }
     }
 

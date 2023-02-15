@@ -35,11 +35,11 @@ class StartGameDialogFragment : DialogFragment() {
         super.onAttach(context)
         // Verify that the host activity implements the callback interface
         try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
+            // Instantiate the StartGameDialogListener so we can send events to the host
             listener = context as StartGameDialogListener
         } catch (e: ClassCastException) {
             // The activity doesn't implement the interface, throw exception
-            throw ClassCastException(("$context must implement NoticeDialogListener"))
+            throw ClassCastException(("$context must implement StartGameDialogListener"))
         }
     }
 
