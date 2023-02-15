@@ -1,6 +1,7 @@
 package com.kozak.pw.presentation.main
 
 import android.Manifest
+import android.app.ActivityOptions
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -96,7 +97,8 @@ class MainActivity : AppCompatActivity(),
 
     private fun setupClickListeners() {
         binding.buttonContinue.setOnClickListener {
-            startActivity(DashboardActivity.createIntent(this))
+            val options = ActivityOptions.makeClipRevealAnimation(it, 0, 0, it.width, it.height)
+            startActivity(DashboardActivity.createIntent(this), options.toBundle())
         }
         binding.buttonNewGame.setOnClickListener {
             // check that if game is already been started
@@ -117,8 +119,8 @@ class MainActivity : AppCompatActivity(),
     private fun showNewGameFragment() =
         StartGameDialogFragment().show(supportFragmentManager, StartGameDialogFragment.TAG_NAME)
 
-    private fun showToast(id: Int) {
-        Toast.makeText(this, id, Toast.LENGTH_SHORT).show()
+    private fun showToast(stringResId: Int) {
+        Toast.makeText(this, stringResId, Toast.LENGTH_SHORT).show()
     }
 
     override fun onStartNewGameClick(gameSpeedIndex: Int) {
