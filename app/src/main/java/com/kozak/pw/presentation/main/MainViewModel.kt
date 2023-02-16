@@ -17,7 +17,7 @@ class MainViewModel : ViewModel() {
 
     private val invokeIsGameStarted = IsGameStartedUseCase(repository)
     private val invokeDestroyCurrentWorld = DestroyCurrentWorldUseCase(repository)
-    private val invokeStartNewGame = StartNewGameUseCase(repository)
+    private val invokeStartNewGame = StartNewGameUseCase()
 
     private val _startNewGameResult = MutableLiveData<Boolean?>()
     val startNewGameResult: LiveData<Boolean?>

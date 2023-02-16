@@ -8,15 +8,19 @@ import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.kozak.pw.data.galaxy.GalaxyRepositoryImpl
 import com.kozak.pw.data.game.PwGameRepositoryImpl
 import com.kozak.pw.data.news.NewsRepositoryImpl
 import com.kozak.pw.data.num_composition.NumComposeGameRepositoryImpl
 import com.kozak.pw.data.person.PersonRepositoryImpl
+import com.kozak.pw.data.universe.UniverseRepositoryImpl
 import com.kozak.pw.domain.game.PwGameRepository
 import com.kozak.pw.domain.news.NewsNotificationWorker
 import com.kozak.pw.domain.news.NewsRepository
 import com.kozak.pw.domain.num_composition.repository.NumComposeGameRepository
 import com.kozak.pw.domain.person.PersonRepository
+import com.kozak.pw.domain.space.GalaxyRepository
+import com.kozak.pw.domain.space.UniverseRepository
 import com.kozak.pw.presentation.dashboard.DashboardViewModel
 import com.kozak.pw.presentation.main.MainViewModel
 import com.kozak.pw.presentation.news.NewsViewModel
@@ -48,6 +52,8 @@ class PwApp : Application() {
         single { NumComposeGameRepositoryImpl } bind NumComposeGameRepository::class
         single { NewsRepositoryImpl(get()) } bind NewsRepository::class
         single { PwGameRepositoryImpl(get()) } bind PwGameRepository::class
+        single { UniverseRepositoryImpl(get()) } bind UniverseRepository::class
+        single { GalaxyRepositoryImpl(get()) } bind GalaxyRepository::class
     }
 
     private val viewModelsModule = module {

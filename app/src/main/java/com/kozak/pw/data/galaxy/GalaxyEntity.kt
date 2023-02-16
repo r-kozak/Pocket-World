@@ -13,5 +13,6 @@ data class GalaxyEntity(
     override var name: String,
     override var health: Int,
     override var mass: Long,
+    // TODO add ForeignKey param to Entity annotation to implement relations
     val universeId: Long
 ) : PwAnyEntity()
