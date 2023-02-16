@@ -13,9 +13,9 @@ import kotlinx.datetime.toLocalDateTime
  */
 data class News(
     var title: String,
-    var createdAt: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
     var text: String,
     val priority: NewsPriority,
+    var createdAt: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
     var id: Long = PwConstants.DEFAULT_ITEM_ID,
     var read: Boolean = false
 ) {

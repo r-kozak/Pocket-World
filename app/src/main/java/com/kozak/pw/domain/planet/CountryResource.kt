@@ -8,4 +8,9 @@ class CountryResource(
     val coordinate: Coordinate,
     mass: Long,
     health: Int
-) : PwAny(mass, health)
+) : PwAny(mass = mass, health = health) {
+
+    override fun calculateMass(): Long {
+        TODO("Not yet implemented")
+    }
+}
