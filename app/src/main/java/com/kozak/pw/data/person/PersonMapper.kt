@@ -9,7 +9,6 @@ class PersonMapper : PwMapper<PersonEntity, Person> {
     override fun mapEntityToItem(entity: PersonEntity): Person {
         return with(entity) {
             Person(
-                id = id,
                 birthDate = LocalDateTime.parse(birthDate),
                 deathDate = deathDate?.let { LocalDateTime.parse(it) },
                 firstName = firstName,
@@ -18,7 +17,10 @@ class PersonMapper : PwMapper<PersonEntity, Person> {
                 lastName = lastName,
                 sex = sex,
                 strength = strength
-            )
+            ).apply {
+                id = entity.id
+                createdAt = LocalDateTime.parse(entity.createdAt)
+            }
         }
     }
 
@@ -26,6 +28,7 @@ class PersonMapper : PwMapper<PersonEntity, Person> {
         return with(item) {
             PersonEntity(
                 id = id,
+                createdAt = createdAt.toString(),
                 birthDate = birthDate.toString(),
                 deathDate = deathDate?.toString(),
                 firstName = firstName,

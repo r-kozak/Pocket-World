@@ -10,7 +10,7 @@ import kotlinx.datetime.toLocalDateTime
 
 abstract class PwAny(
     var id: Long = PwConstants.DEFAULT_ITEM_ID,
-    val createdAt: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
+    var createdAt: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
     name: String = PwConstants.DEFAULT_ITEM_NAME,
     mass: Long = PwConstants.DEFAULT_ITEM_MASS,
     var health: Int = 0
