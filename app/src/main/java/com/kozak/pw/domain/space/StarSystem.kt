@@ -2,11 +2,12 @@ package com.kozak.pw.domain.space
 
 import com.kozak.pw.domain.Size
 
-class StarSystem(name: String, size: Size) : HeavenlyBody(name) {
+class StarSystem(mass: Long, val size: Size) : HeavenlyBody(mass) {
 
-    val stars = mutableListOf<HeavenlyBodyResource>()
-
+    val stars = mutableListOf<Star>()
     val planets = listOf<Planet>()
 
-    val size = size
+    override fun calculateMass(): Long {
+        return planets.sumOf { mass } + stars.sumOf { mass }
+    }
 }

@@ -10,6 +10,7 @@ import com.kozak.pw.domain.planet.Animal
 data class PersonEntity(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
+    override val createdAt: String,
     val birthDate: String,
     val sex: Animal.Sex,
     var firstName: String,

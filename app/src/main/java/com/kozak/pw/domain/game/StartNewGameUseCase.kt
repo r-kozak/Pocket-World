@@ -31,9 +31,10 @@ class StartNewGameUseCase(private val pwGameRepository: PwGameRepository) {
             pwGameRepository.insert(newPwGame)
 
             Log.d(PwConstants.LOG_TAG, "Generating Universes")
+            // val newUniverses =
             repeat(Random.nextInt(UNIVERSES_COUNT_RANGE)) {
                 Log.d(PwConstants.LOG_TAG, "Generating Universe object...")
-                val newUniverse = Universe()
+                val newUniverse = Universe(Random.nextInt(Universe.INITIAL_HEALTH))
                 Log.d(PwConstants.LOG_TAG, "Name of new Universe = ${newUniverse.name}")
                 // TODO save to DB and get its ID to put into dependant objects (galaxies)
             }

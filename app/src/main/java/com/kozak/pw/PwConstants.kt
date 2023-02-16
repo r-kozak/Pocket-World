@@ -1,6 +1,8 @@
 package com.kozak.pw
 
 object PwConstants {
+    const val DEFAULT_ITEM_MASS: Long = 0L
+    const val DEFAULT_ITEM_NAME: String = ""
     const val PERCENTS_100 = 100
     const val PERMISSION_REQUEST_CODE: Int = 345
     const val SHOW_NEWS_NOTIFICATION_EVERY_X_HOURS = 2L

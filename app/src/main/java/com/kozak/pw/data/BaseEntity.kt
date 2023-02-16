@@ -7,4 +7,5 @@ package com.kozak.pw.data
 abstract class BaseEntity {
 
     abstract val id: Long
+    abstract val createdAt: String
 }

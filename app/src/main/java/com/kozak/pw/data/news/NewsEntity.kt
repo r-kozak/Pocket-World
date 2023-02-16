@@ -15,6 +15,7 @@ import com.kozak.pw.domain.news.News
 data class NewsEntity(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
+    override val createdAt: String,
     var title: String,
     var text: String,
     val priority: News.NewsPriority,

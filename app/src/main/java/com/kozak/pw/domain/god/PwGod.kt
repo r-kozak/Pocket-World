@@ -6,4 +6,8 @@ class PwGod : PwAny() {
 
     val lightMatter = LightMatter()
     val darkMatter = DarkMatter()
+
+    override fun calculateMass(): Long {
+        TODO("Not yet implemented")
+    }
 }

@@ -3,18 +3,31 @@ package com.kozak.pw.domain
 import android.util.Log
 import com.kozak.pw.PwConstants
 import com.kozak.pw.domain.utils.markov_ng.MarkovGenerator
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 abstract class PwAny(
-    var mass: Long = 0,
-    var health: Int = 0,
-    name: String = "",
     var id: Long = PwConstants.DEFAULT_ITEM_ID,
+    val createdAt: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
+    name: String = PwConstants.DEFAULT_ITEM_NAME,
+    mass: Long = PwConstants.DEFAULT_ITEM_MASS,
+    var health: Int = 0
 ) {
     open val nameLengthRange: IntRange = IntRange(NAME_DEFAULT_LENGTH_FROM, NAME_DEFAULT_LENGTH_TO)
 
+    var mass = mass
+        get() {
+            if (field == PwConstants.DEFAULT_ITEM_MASS) return calculateMass()
+            return field
+        }
+
+    abstract fun calculateMass(): Long
+
     var name: String = name
         get() {
-            if (field.isBlank()) field = generateName()
+            if (field == PwConstants.DEFAULT_ITEM_NAME) field = generateName()
             return field
         }
 

@@ -2,12 +2,8 @@ package com.kozak.pw.domain.space
 
 import com.kozak.pw.domain.Size
 
-class Star(name: String, size: Size) : HeavenlyBody(name) {
+class Star(mass: Long, val size: Size) : HeavenlyBody(mass = mass) {
 
     val resources = mutableListOf<HeavenlyBodyResource>()
-
-    val size = size
-
-    val temperature = 0
-
+    val temperature: Int = 0
 }

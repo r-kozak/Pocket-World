@@ -1,6 +1,10 @@
 package com.kozak.pw.domain.news
 
 import com.kozak.pw.PwConstants
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 /**
  * Model to store information about news.
@@ -9,6 +13,7 @@ import com.kozak.pw.PwConstants
  */
 data class News(
     var title: String,
+    var createdAt: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
     var text: String,
     val priority: NewsPriority,
     var id: Long = PwConstants.DEFAULT_ITEM_ID,
