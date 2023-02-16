@@ -1,16 +1,17 @@
-package com.kozak.pw.data.universe
+package com.kozak.pw.data.galaxy
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kozak.pw.data.PwAnyEntity
 import com.kozak.pw.data.TablesNamesConstants
 
-@Entity(tableName = TablesNamesConstants.UNIVERSE_ENTITY_TABLE_NAME)
-data class UniverseEntity(
+@Entity(tableName = TablesNamesConstants.GALAXY_ENTITY_TABLE_NAME)
+data class GalaxyEntity(
     @PrimaryKey
     override val id: Long,
-    override var name: String,
     override val createdAt: String,
+    override var name: String,
     override var health: Int,
-    override var mass: Long
+    override var mass: Long,
+    val universeId: Long
 ) : PwAnyEntity()

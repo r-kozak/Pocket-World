@@ -5,6 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kozak.pw.PwConstants
+import com.kozak.pw.data.galaxy.GalaxyDao
+import com.kozak.pw.data.galaxy.GalaxyEntity
 import com.kozak.pw.data.game.PwGameDao
 import com.kozak.pw.data.news.NewsDao
 import com.kozak.pw.data.news.NewsEntity
@@ -16,7 +18,8 @@ import com.kozak.pw.domain.game.PwGameEntity
 import kotlin.reflect.KFunction0
 
 @Database(
-    entities = [PersonEntity::class, NewsEntity::class, PwGameEntity::class, UniverseEntity::class],
+    entities = [PersonEntity::class, NewsEntity::class, PwGameEntity::class, UniverseEntity::class,
+        GalaxyEntity::class],
     version = 1,
     exportSchema = true
 )
@@ -50,11 +53,12 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun newsDao(): NewsDao
     abstract fun gameDao(): PwGameDao
     abstract fun universeDao(): UniverseDao
+    abstract fun galaxyDao(): GalaxyDao
 
     // TODO on adding a DAO's function - add it to this list too for deletion DAO's table data while world recreation
     fun getAllDAOs(): List<KFunction0<BaseDao<out BaseEntity>>> {
         return listOf(
-            ::personDao, ::newsDao, ::gameDao, ::universeDao
+            ::personDao, ::newsDao, ::gameDao, ::universeDao, ::galaxyDao
         )
     }
 }
