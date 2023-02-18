@@ -7,7 +7,7 @@ import com.kozak.pw.data.TablesNamesConstants
 
 @Entity(tableName = TablesNamesConstants.GALAXY_ENTITY_TABLE_NAME)
 data class GalaxyEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     override val id: Long,
     override val createdAt: String,
     override var name: String,

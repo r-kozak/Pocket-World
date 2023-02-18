@@ -7,7 +7,7 @@ import com.kozak.pw.data.TablesNamesConstants
 
 @Entity(tableName = TablesNamesConstants.PW_GAME_ENTITY_TABLE_NAME)
 data class PwGameEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     override val id: Long = 1,
     override val createdAt: String,
     val gameSpeed: GameSpeed

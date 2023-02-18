@@ -24,6 +24,6 @@ class Universe(
     val galaxies = mutableListOf<Galaxy>()
 
     override fun calculateMass(): Long {
-        TODO("Not yet implemented")
+        return galaxies.sumOf { mass }
     }
 }

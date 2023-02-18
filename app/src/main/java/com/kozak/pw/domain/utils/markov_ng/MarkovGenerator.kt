@@ -3,6 +3,7 @@ package com.kozak.pw.domain.utils.markov_ng
 import com.kozak.pw.PwApp
 import com.kozak.pw.R
 import com.kozak.pw.domain.PwAny
+import com.kozak.pw.domain.space.Galaxy
 import com.kozak.pw.domain.space.Universe
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -17,6 +18,7 @@ interface MarkovGenerator {
         fun createForClass(clazz: Class<PwAny>) =
             when (clazz) {
                 Universe::class.java -> MarkovGeneratorImpl(getExampleNames(R.raw.universes_en))
+                Galaxy::class.java -> MarkovGeneratorImpl(getExampleNames(R.raw.roman_places))
                 else -> throw Exception("I don't know how to deal with $clazz.")
             }
 

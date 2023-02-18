@@ -7,7 +7,7 @@ import com.kozak.pw.data.TablesNamesConstants
 
 @Entity(tableName = TablesNamesConstants.UNIVERSE_ENTITY_TABLE_NAME)
 data class UniverseEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     override val id: Long,
     override var name: String,
     override val createdAt: String,
