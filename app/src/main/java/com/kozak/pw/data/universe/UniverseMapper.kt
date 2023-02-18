@@ -7,14 +7,10 @@ import kotlinx.datetime.LocalDateTime
 class UniverseMapper : PwMapper<UniverseEntity, Universe> {
 
     override fun mapEntityToItem(entity: UniverseEntity): Universe {
-        return with(entity) {
-            Universe(
-                id = id,
-                createdAt = LocalDateTime.parse(createdAt),
-                name = name,
-                mass = mass,
-                health = health
-            )
+        return Universe().apply {
+            createdAt = LocalDateTime.parse(entity.createdAt)
+            name = name
+            mass = mass
         }
     }
 

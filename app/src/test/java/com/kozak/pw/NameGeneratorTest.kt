@@ -1,16 +1,16 @@
 package com.kozak.pw
 
-import com.kozak.pw.domain.utils.markov_ng.MarkovGenerator
-import com.kozak.pw.domain.utils.markov_ng.MarkovGeneratorImpl
+import com.kozak.pw.domain.utils.markov_ng.NameGenerator
+import com.kozak.pw.domain.utils.markov_ng.NameGeneratorImpl
 import org.junit.Assert
 import org.junit.Test
 import java.io.File
 
-class MarkovGeneratorTest {
+class NameGeneratorTest {
 
     private val names: Set<String> = File("src/test/resources/names.txt").readLines().toSet()
 
-    private val generator: MarkovGenerator = MarkovGeneratorImpl(names, 2, 0.001f)
+    private val generator: NameGenerator = NameGeneratorImpl(names, 2, 0.001f)
 
     private val nameLengthRange = 3..10
 

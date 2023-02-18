@@ -13,12 +13,12 @@ class PersonsListViewHolder(val binding: ViewBinding) :
     fun bind(person: Person) {
         if (binding is PersonFavoriteBinding) {
             with(binding) {
-                tvName.text = person.fullName()
+                tvName.text = person.name
                 tvBirthDate.text = person.birthDate.short()
             }
         } else if (binding is PersonNormalBinding) {
             with(binding) {
-                tvName.text = person.fullName()
+                tvName.text = person.name
                 tvBirthDate.text = person.birthDate.short()
             }
         }

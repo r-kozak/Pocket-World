@@ -5,10 +5,8 @@ import com.kozak.pw.domain.PwAny
 
 class HeavenlyBodyResource(
     val type: HeavenlyBodyResourceType,
-    val coordinate: Coordinate,
-    mass: Long,
-    health: Int
-) : PwAny(mass = mass, health = health) {
+    val coordinate: Coordinate
+) : PwAny() {
 
     override fun calculateMass(): Long {
         return mass

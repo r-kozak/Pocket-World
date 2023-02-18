@@ -10,7 +10,7 @@ import java.util.*
  * @param   prior   The dirichlet prior, an additive smoothing "randomness" factor. Must be in the range 0 to 1.
  * @param   alphabet    The alphabet of the training data i.e. the set of unique symbols used in the training data.
  */
-class MarkovModel(data: List<String>, order: Int = 2, prior: Float = 1.0f, alphabet: List<String>) {
+class NameModel(data: List<String>, order: Int = 2, prior: Float = 1.0f, alphabet: List<String>) {
 
     /**
      * The order of the model i.e. how many characters this model looks back.

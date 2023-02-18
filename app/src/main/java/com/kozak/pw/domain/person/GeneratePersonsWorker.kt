@@ -21,7 +21,7 @@ class GeneratePersonsWorker(context: Context, params: WorkerParameters) :
             val newPerson = PersonGenerator.generate()
             personRepository.insert(newPerson)
 
-            val generatedPersonName = newPerson.fullName()
+            val generatedPersonName = newPerson.name
             Log.d(PwConstants.LOG_TAG, "Saved the person $generatedPersonName to DB.")
 
             // create a news that person was born

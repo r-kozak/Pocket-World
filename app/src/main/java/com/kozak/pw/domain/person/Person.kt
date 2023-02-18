@@ -14,20 +14,33 @@ class Person(
     strength: Int = PwConstants.DEFAULT_ANIMAL_STRENGTH,
     isAlive: Boolean = true,
     deathDate: LocalDateTime? = null,
-    var firstName: String = "",
-    var lastName: String = "",
     var isFavorite: Boolean = false,
 ) : Animal(birthDate, sex, intelligence, beauty, luck, strength, isAlive, deathDate) {
 
-    fun fullName() = "$firstName $lastName"
+    var firstName: String = PwConstants.DEFAULT_ITEM_NAME
+        get() = name.split(" ")[0]
+        set(value) {
+            field = value
+            name = "$value $lastName"
+        }
 
+    var lastName: String = PwConstants.DEFAULT_ITEM_NAME
+        get() = name.split(" ")[1]
+        set(value) {
+            field = value
+            name = "$firstName $value"
+        }
+
+    // TODO implement
     override fun calculateMass(): Long {
-        TODO("Not yet implemented")
+        return 0
     }
 
     override fun toString(): String {
-        return "name: ${fullName()}, birthDate: ${birthDate.short()}, sex: $sex, " +
+        return "name: ${name}, birthDate: ${birthDate.short()}, sex: $sex, " +
                 "intelligence: $intelligence, beauty: $beauty, luck: $luck, strength: $strength"
     }
+
+    // TODO override equals and hashCode
 }
 

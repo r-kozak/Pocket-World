@@ -11,15 +11,14 @@ class PersonMapper : PwMapper<PersonEntity, Person> {
             Person(
                 birthDate = LocalDateTime.parse(birthDate),
                 deathDate = deathDate?.let { LocalDateTime.parse(it) },
-                firstName = firstName,
                 isAlive = isAlive,
                 isFavorite = isFavorite,
-                lastName = lastName,
                 sex = sex,
                 strength = strength
             ).apply {
                 id = entity.id
                 createdAt = LocalDateTime.parse(entity.createdAt)
+                name = entity.name
             }
         }
     }
@@ -31,12 +30,13 @@ class PersonMapper : PwMapper<PersonEntity, Person> {
                 createdAt = createdAt.toString(),
                 birthDate = birthDate.toString(),
                 deathDate = deathDate?.toString(),
-                firstName = firstName,
                 isAlive = isAlive,
                 isFavorite = isFavorite,
-                lastName = lastName,
                 sex = sex,
-                strength = strength
+                strength = strength,
+                health = health,
+                mass = mass,
+                name = name
             )
         }
     }

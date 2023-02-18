@@ -1,7 +1,9 @@
 package com.kozak.pw.domain.planet
 
+import android.util.Log
 import com.kozak.pw.PwConstants
 import com.kozak.pw.domain.PwAny
+import com.kozak.pw.domain.utils.markov_ng.NameGenerator
 import kotlinx.datetime.LocalDateTime
 
 abstract class Animal (
@@ -16,5 +18,14 @@ abstract class Animal (
 ) : PwAny() {
     enum class Sex {
         MALE, FEMALE
+    }
+
+    override fun generateName(): String {
+        val generatedName = NameGenerator.createForClass(this.javaClass, sex).generate(nameLengthRange)
+        Log.d(
+            PwConstants.LOG_TAG,
+            "Generated name for new ${this.javaClass.simpleName} - $generatedName"
+        )
+        return generatedName
     }
 }

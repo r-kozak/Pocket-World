@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "bbcb50f513842eceeaeb9645247e1f71",
+    "identityHash": "6c5a1321678be1e648940fc5ef01b324",
     "entities": [
       {
         "tableName": "persons",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `birthDate` TEXT NOT NULL, `sex` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `strength` INTEGER NOT NULL, `isFavorite` INTEGER NOT NULL, `isAlive` INTEGER NOT NULL, `deathDate` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `name` TEXT NOT NULL, `mass` INTEGER NOT NULL, `health` INTEGER NOT NULL, `birthDate` TEXT NOT NULL, `sex` TEXT NOT NULL, `strength` INTEGER NOT NULL, `isFavorite` INTEGER NOT NULL, `isAlive` INTEGER NOT NULL, `deathDate` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,6 +21,24 @@
             "notNull": true
           },
           {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mass",
+            "columnName": "mass",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "health",
+            "columnName": "health",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "birthDate",
             "columnName": "birthDate",
             "affinity": "TEXT",
@@ -29,18 +47,6 @@
           {
             "fieldPath": "sex",
             "columnName": "sex",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "firstName",
-            "columnName": "firstName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastName",
-            "columnName": "lastName",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -258,7 +264,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bbcb50f513842eceeaeb9645247e1f71')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6c5a1321678be1e648940fc5ef01b324')"
     ]
   }
 }

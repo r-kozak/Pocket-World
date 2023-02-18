@@ -5,10 +5,8 @@ import com.kozak.pw.domain.PwAny
 
 class CountryResource(
     val type: CountryResourceType,
-    val coordinate: Coordinate,
-    mass: Long,
-    health: Int
-) : PwAny(mass = mass, health = health) {
+    val coordinate: Coordinate
+) : PwAny() {
 
     override fun calculateMass(): Long {
         TODO("Not yet implemented")

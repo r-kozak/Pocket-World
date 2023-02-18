@@ -2,31 +2,28 @@ package com.kozak.pw.domain
 
 import android.util.Log
 import com.kozak.pw.PwConstants
-import com.kozak.pw.domain.utils.markov_ng.MarkovGenerator
+import com.kozak.pw.domain.utils.markov_ng.NameGenerator
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
-abstract class PwAny(
-    var id: Long = PwConstants.DEFAULT_ITEM_ID,
-    var createdAt: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
-    name: String = PwConstants.DEFAULT_ITEM_NAME,
-    mass: Long = PwConstants.DEFAULT_ITEM_MASS,
-    var health: Int = 0
-) {
-    open val nameLengthRange: IntRange = IntRange(NAME_DEFAULT_LENGTH_FROM, NAME_DEFAULT_LENGTH_TO)
+abstract class PwAny {
 
-    var mass = mass
+    open val nameLengthRange: IntRange = IntRange(NAME_DEFAULT_LENGTH_FROM, NAME_DEFAULT_LENGTH_TO)
+    var id: Long = PwConstants.DEFAULT_ITEM_ID
+    var createdAt: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC)
+    var health: Int = 0
+
+    var mass = PwConstants.DEFAULT_ITEM_MASS
         get() {
             if (field == PwConstants.DEFAULT_ITEM_MASS) return calculateMass()
             return field
         }
 
-    abstract fun calculateMass(): Long
-
-    var name: String = name
+    open var name: String = PwConstants.DEFAULT_ITEM_NAME
         get() {
+            Log.d(PwConstants.LOG_TAG, "Current person name: $field")
             if (field == PwConstants.DEFAULT_ITEM_NAME) field = generateName()
             return field
         }
@@ -36,8 +33,10 @@ abstract class PwAny(
         const val NAME_DEFAULT_LENGTH_TO = 10
     }
 
-    private fun generateName(): String {
-        val generatedName = MarkovGenerator.createForClass(this.javaClass).generate(nameLengthRange)
+    abstract fun calculateMass(): Long
+
+    protected open fun generateName(): String {
+        val generatedName = NameGenerator.createForClass(this.javaClass).generate(nameLengthRange)
         Log.d(
             PwConstants.LOG_TAG,
             "Generated name for new ${this.javaClass.simpleName} - $generatedName"

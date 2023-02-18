@@ -7,7 +7,7 @@ import com.kozak.pw.domain.planet.Animal
 import com.kozak.pw.domain.planet.Country
 import com.kozak.pw.domain.planet.Plant
 
-class Planet(mass: Long, val size: Size) : HeavenlyBody(mass = mass) {
+class Planet(mass: Long, val size: Size) : HeavenlyBody() {
 
     val countries = mutableListOf<Country>()
 
@@ -31,8 +31,4 @@ class Planet(mass: Long, val size: Size) : HeavenlyBody(mass = mass) {
 
     val landPercent = PwConstants.PERCENTS_100 - waterPercent
 
-    // TODO Implement as sum of planet + animals, persons, resources and so on
-    override fun calculateMass(): Long {
-        return super.calculateMass()
-    }
 }

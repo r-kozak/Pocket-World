@@ -52,7 +52,9 @@ class StartNewGameUseCase {
         val newUniversesIds = mutableListOf<Long>()
         repeat(Random.nextInt(UNIVERSES_COUNT_RANGE)) {
             Log.d(PwConstants.LOG_TAG, "Generating Universe object...")
-            val newUniverse = Universe(Random.nextInt(Universe.INITIAL_HEALTH))
+            val newUniverse = Universe().apply {
+                health = Random.nextInt(Universe.INITIAL_HEALTH)
+            }
             Log.d(PwConstants.LOG_TAG, "Name of new Universe = ${newUniverse.name}")
             // save universe to DB and get its ID to put into dependant objects (galaxies)
             val id = universeRepository.insert(newUniverse)

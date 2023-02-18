@@ -18,10 +18,14 @@ class PwAnyClassTest {
         const val COORDINATE_X = 149
         const val COORDINATE_Y = 850
         const val COUNTRY_RESOURCE_MASS = 9999L
+        const val PW_ANY_MASS = 159L
     }
 
     class PwAnyTest(override val nameLengthRange: IntRange) : PwAny() {
         var testProperty = PW_ANY_TEST_TEST_PROPERTY
+        override fun calculateMass(): Long {
+            return PW_ANY_MASS
+        }
     }
 
     @Test
@@ -40,9 +44,7 @@ class PwAnyClassTest {
     fun creationOfCountryResourceObject() {
         val countryResource = CountryResource(
             CountryResourceType.FOOD,
-            Coordinate(COORDINATE_X, COORDINATE_Y),
-            COUNTRY_RESOURCE_MASS,
-            PW_ANY_HEALTH
+            Coordinate(COORDINATE_X, COORDINATE_Y)
         )
         assertEquals(CountryResourceType.FOOD.name, countryResource.type.name)
         assertEquals(COORDINATE_X, countryResource.coordinate.x)

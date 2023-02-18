@@ -17,13 +17,13 @@ import java.util.*
  * @see "https://en.wikipedia.org/wiki/Katz%27s_back-off_model"
  * @see "https://en.wikipedia.org/wiki/Additive_smoothing"
  */
-class MarkovGeneratorImpl(data: Set<String>, order: Int = 2, prior: Float = 0.001f) :
-    MarkovGenerator {
+class NameGeneratorImpl(data: Set<String>, order: Int = 2, prior: Float = 0.001f) :
+    NameGenerator {
 
     /**
      * The set of Markov models used by this generator, starting from highest order to lowest order.
      */
-    private var models: MutableSet<MarkovModel> = LinkedHashSet()
+    private var models: MutableSet<NameModel> = LinkedHashSet()
 
     /**
      * The highest order model used by this generator.
@@ -53,7 +53,7 @@ class MarkovGeneratorImpl(data: Set<String>, order: Int = 2, prior: Float = 0.00
         domain.add("#")
         domain.addAll(letters.sorted())
         for (i in 0..order) {
-            models.add(MarkovModel(data.map { it }, order - i, prior, domain))
+            models.add(NameModel(data.map { it }, order - i, prior, domain))
         }
     }
 
