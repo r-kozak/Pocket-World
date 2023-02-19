@@ -41,6 +41,49 @@ class Person(
                 "intelligence: $intelligence, beauty: $beauty, luck: $luck, strength: $strength"
     }
 
-    // TODO override equals and hashCode
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Person
+
+        if (id != other.id) return false
+
+        if (createdAt != other.createdAt) return false
+        if (health != other.health) return false
+        if (mass != other.mass) return false
+        if (birthDate != other.birthDate) return false
+        if (sex != other.sex) return false
+        if (intelligence != other.intelligence) return false
+        if (beauty != other.beauty) return false
+        if (luck != other.luck) return false
+        if (strength != other.strength) return false
+        if (isAlive != other.isAlive) return false
+        if (deathDate != other.deathDate) return false
+        if (name != other.name) return false
+        if (isFavorite != other.isFavorite) return false
+        if (firstName != other.firstName) return false
+        if (lastName != other.lastName) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = isFavorite.hashCode()
+        result = 31 * result + createdAt.hashCode()
+        result = 31 * result + health.hashCode()
+        result = 31 * result + mass.hashCode()
+        result = 31 * result + sex.hashCode()
+        result = 31 * result + intelligence.hashCode()
+        result = 31 * result + beauty.hashCode()
+        result = 31 * result + luck.hashCode()
+        result = 31 * result + strength.hashCode()
+        result = 31 * result + isAlive.hashCode()
+        result = 31 * result + deathDate.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + isFavorite.hashCode()
+        result = 31 * result + firstName.hashCode()
+        result = 31 * result + lastName.hashCode()
+        return result
+    }
 }
 
