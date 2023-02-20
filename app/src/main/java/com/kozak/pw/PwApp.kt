@@ -13,14 +13,16 @@ import com.kozak.pw.data.game.PwGameRepositoryImpl
 import com.kozak.pw.data.news.NewsRepositoryImpl
 import com.kozak.pw.data.num_composition.NumComposeGameRepositoryImpl
 import com.kozak.pw.data.person.PersonRepositoryImpl
+import com.kozak.pw.data.star.PlanetRepositoryImpl
+import com.kozak.pw.data.star.StarRepositoryImpl
+import com.kozak.pw.data.star_system.StarSystemRepositoryImpl
 import com.kozak.pw.data.universe.UniverseRepositoryImpl
 import com.kozak.pw.domain.game.PwGameRepository
 import com.kozak.pw.domain.news.NewsNotificationWorker
 import com.kozak.pw.domain.news.NewsRepository
 import com.kozak.pw.domain.num_composition.repository.NumComposeGameRepository
 import com.kozak.pw.domain.person.PersonRepository
-import com.kozak.pw.domain.space.GalaxyRepository
-import com.kozak.pw.domain.space.UniverseRepository
+import com.kozak.pw.domain.space.*
 import com.kozak.pw.presentation.dashboard.DashboardViewModel
 import com.kozak.pw.presentation.main.MainViewModel
 import com.kozak.pw.presentation.news.NewsViewModel
@@ -54,6 +56,9 @@ class PwApp : Application() {
         single { PwGameRepositoryImpl(get()) } bind PwGameRepository::class
         single { UniverseRepositoryImpl(get()) } bind UniverseRepository::class
         single { GalaxyRepositoryImpl(get()) } bind GalaxyRepository::class
+        single { StarSystemRepositoryImpl(get()) } bind StarSystemRepository::class
+        single { StarRepositoryImpl(get()) } bind StarRepository::class
+        single { PlanetRepositoryImpl(get()) } bind PlanetRepository::class
     }
 
     private val viewModelsModule = module {
