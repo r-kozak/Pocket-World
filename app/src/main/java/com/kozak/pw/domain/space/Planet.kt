@@ -7,7 +7,7 @@ import com.kozak.pw.domain.planet.Animal
 import com.kozak.pw.domain.planet.Country
 import com.kozak.pw.domain.planet.Plant
 
-class Planet(mass: Long, val size: Size) : HeavenlyBody() {
+class Planet(mass: Long, val size: Size, val starSystemId: Long) : HeavenlyBody() {
 
     val countries = mutableListOf<Country>()
 

@@ -19,9 +19,9 @@ data class GalaxyEntity(
     @PrimaryKey(autoGenerate = true)
     override val id: Long,
     override val createdAt: String,
-    override var name: String,
-    override var health: Int,
-    override var mass: Long,
+    override val name: String,
+    override val health: Int,
+    override val mass: Long,
     // ForeignKey of Universe to set relation
     val universeId: Long
 ) : PwAnyEntity()

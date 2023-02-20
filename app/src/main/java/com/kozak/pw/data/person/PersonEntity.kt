@@ -9,15 +9,15 @@ import com.kozak.pw.domain.planet.Animal
 @Entity(tableName = TablesNamesConstants.PERSON_ENTITY_TABLE_NAME)
 data class PersonEntity(
     @PrimaryKey(autoGenerate = true)
-    override var id: Long,
+    override val id: Long,
     override val createdAt: String,
-    override var name: String,
-    override var mass: Long,
-    override var health: Int,
+    override val name: String,
+    override val mass: Long,
+    override val health: Int,
     val birthDate: String,
     val sex: Animal.Sex,
-    var strength: Int,
-    var isFavorite: Boolean,
-    var isAlive: Boolean,
-    var deathDate: String? = null,
+    val strength: Int,
+    val isFavorite: Boolean,
+    val isAlive: Boolean,
+    val deathDate: String? = null,
 ) : PwAnyEntity()

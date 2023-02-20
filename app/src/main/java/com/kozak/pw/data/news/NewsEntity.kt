@@ -14,10 +14,10 @@ import com.kozak.pw.domain.news.News
 @Entity(tableName = TablesNamesConstants.NEWS_ENTITY_TABLE_NAME)
 data class NewsEntity(
     @PrimaryKey(autoGenerate = true)
-    override var id: Long,
+    override val id: Long,
     override val createdAt: String,
-    var title: String,
-    var text: String,
+    val title: String,
+    val text: String,
     val priority: News.NewsPriority,
-    var read: Boolean
+    val read: Boolean
 ) : BaseEntity()

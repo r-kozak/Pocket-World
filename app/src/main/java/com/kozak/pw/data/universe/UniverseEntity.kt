@@ -9,8 +9,8 @@ import com.kozak.pw.data.TablesNamesConstants
 data class UniverseEntity(
     @PrimaryKey(autoGenerate = true)
     override val id: Long,
-    override var name: String,
+    override val name: String,
     override val createdAt: String,
-    override var health: Int,
-    override var mass: Long
+    override val health: Int,
+    override val mass: Long
 ) : PwAnyEntity()
