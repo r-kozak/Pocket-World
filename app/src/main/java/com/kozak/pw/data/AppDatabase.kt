@@ -15,6 +15,7 @@ import com.kozak.pw.data.person.PersonEntity
 import com.kozak.pw.data.star.PlanetDao
 import com.kozak.pw.data.star.PlanetEntity
 import com.kozak.pw.data.star.StarDao
+import com.kozak.pw.data.star.StarEntity
 import com.kozak.pw.data.star_system.StarSystemDao
 import com.kozak.pw.data.star_system.StarSystemEntity
 import com.kozak.pw.data.universe.UniverseDao
@@ -24,7 +25,7 @@ import kotlin.reflect.KFunction0
 
 @Database(
     entities = [PersonEntity::class, NewsEntity::class, PwGameEntity::class, UniverseEntity::class,
-        GalaxyEntity::class, StarSystemEntity::class, PlanetEntity::class],
+        GalaxyEntity::class, StarSystemEntity::class, StarEntity::class, PlanetEntity::class],
     version = 1,
     exportSchema = true
 )
