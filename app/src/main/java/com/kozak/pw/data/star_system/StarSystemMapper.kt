@@ -9,12 +9,13 @@ class StarSystemMapper : PwMapper<StarSystemEntity, StarSystem> {
 
     override fun mapEntityToItem(entity: StarSystemEntity): StarSystem {
         return with(entity) {
-            StarSystem(mass, Size(sizeWidth, sizeHeight), galaxyId).apply {
+            StarSystem(galaxyId).apply {
                 id = entity.id
                 createdAt = LocalDateTime.parse(entity.createdAt)
                 name = entity.name
                 mass = entity.mass
                 health = entity.health
+                size = Size(entity.sizeWidth, entity.sizeHeight)
             }
         }
     }

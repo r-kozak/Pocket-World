@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "775dea88c669b88ada0a3dd2ceb9f9b8",
+    "identityHash": "c1951cd855cc6b1dc56e0c3ff3155938",
     "entities": [
       {
         "tableName": "persons",
@@ -274,7 +274,7 @@
       },
       {
         "tableName": "star_systems",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `name` TEXT NOT NULL, `health` INTEGER NOT NULL, `mass` INTEGER NOT NULL, `sizeWidth` INTEGER NOT NULL, `sizeHeigth` INTEGER NOT NULL, `galaxyId` INTEGER NOT NULL, FOREIGN KEY(`galaxyId`) REFERENCES `galaxies`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `name` TEXT NOT NULL, `health` INTEGER NOT NULL, `mass` INTEGER NOT NULL, `sizeWidth` INTEGER NOT NULL, `sizeHeight` INTEGER NOT NULL, `galaxyId` INTEGER NOT NULL, FOREIGN KEY(`galaxyId`) REFERENCES `galaxies`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -313,8 +313,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "sizeHeigth",
-            "columnName": "sizeHeigth",
+            "fieldPath": "sizeHeight",
+            "columnName": "sizeHeight",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -345,12 +345,160 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "stars",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `name` TEXT NOT NULL, `health` INTEGER NOT NULL, `mass` INTEGER NOT NULL, `sizeWidth` INTEGER NOT NULL, `sizeHeight` INTEGER NOT NULL, `starSystemId` INTEGER NOT NULL, FOREIGN KEY(`starSystemId`) REFERENCES `star_systems`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "health",
+            "columnName": "health",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mass",
+            "columnName": "mass",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sizeWidth",
+            "columnName": "sizeWidth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sizeHeight",
+            "columnName": "sizeHeight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "starSystemId",
+            "columnName": "starSystemId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "star_systems",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "starSystemId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "planets",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `name` TEXT NOT NULL, `health` INTEGER NOT NULL, `mass` INTEGER NOT NULL, `sizeWidth` INTEGER NOT NULL, `sizeHeight` INTEGER NOT NULL, `starSystemId` INTEGER NOT NULL, FOREIGN KEY(`starSystemId`) REFERENCES `star_systems`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "health",
+            "columnName": "health",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mass",
+            "columnName": "mass",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sizeWidth",
+            "columnName": "sizeWidth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sizeHeight",
+            "columnName": "sizeHeight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "starSystemId",
+            "columnName": "starSystemId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "star_systems",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "starSystemId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '775dea88c669b88ada0a3dd2ceb9f9b8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c1951cd855cc6b1dc56e0c3ff3155938')"
     ]
   }
 }
