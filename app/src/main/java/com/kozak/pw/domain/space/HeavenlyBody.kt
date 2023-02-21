@@ -5,6 +5,8 @@ import com.kozak.pw.domain.Size
 
 open class HeavenlyBody(mass: Long, size: Size) : PwAny(mass, size) {
 
+    open lateinit var size: Size
+
     override fun calculateMass(): Long {
         return mass
     }
