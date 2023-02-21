@@ -20,4 +20,6 @@ data class PersonEntity(
     val isFavorite: Boolean,
     val isAlive: Boolean,
     val deathDate: String? = null,
+    override val sizeWidth: Int?,
+    override val sizeHeight: Int?
 ) : PwAnyEntity()

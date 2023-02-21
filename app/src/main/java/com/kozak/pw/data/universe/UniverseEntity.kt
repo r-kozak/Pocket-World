@@ -12,5 +12,7 @@ data class UniverseEntity(
     override val name: String,
     override val createdAt: String,
     override val health: Int,
-    override val mass: Long
+    override val mass: Long,
+    override val sizeWidth: Int?,
+    override val sizeHeight: Int?
 ) : PwAnyEntity()

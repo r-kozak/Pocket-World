@@ -12,8 +12,8 @@ import com.kozak.pw.data.news.NewsDao
 import com.kozak.pw.data.news.NewsEntity
 import com.kozak.pw.data.person.PersonDao
 import com.kozak.pw.data.person.PersonEntity
-import com.kozak.pw.data.star.PlanetDao
-import com.kozak.pw.data.star.PlanetEntity
+import com.kozak.pw.data.planet.PlanetDao
+import com.kozak.pw.data.planet.PlanetEntity
 import com.kozak.pw.data.star.StarDao
 import com.kozak.pw.data.star.StarEntity
 import com.kozak.pw.data.star_system.StarSystemDao
@@ -77,5 +77,4 @@ abstract class AppDatabase : RoomDatabase() {
             ::planetDao
         )
     }
-
 }

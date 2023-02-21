@@ -21,8 +21,8 @@ data class StarEntity(
     override val name: String,
     override val health: Int,
     override val mass: Long,
-    val sizeWidth: Int,
-    val sizeHeight: Int,
-    // ForeignKey of Galaxy to set relation
+    override val sizeWidth: Int,
+    override val sizeHeight: Int,
+    // ForeignKey of StarSystem to set relation
     val starSystemId: Long
 ) : PwAnyEntity()

@@ -1,6 +1,7 @@
 package com.kozak.pw.domain.person
 
 import com.kozak.pw.PwConstants
+import com.kozak.pw.domain.Size
 import com.kozak.pw.domain.planet.Animal
 import com.kozak.pw.short
 import kotlinx.datetime.LocalDateTime
@@ -15,7 +16,15 @@ class Person(
     isAlive: Boolean = true,
     deathDate: LocalDateTime? = null,
     var isFavorite: Boolean = false,
-) : Animal(birthDate, sex, intelligence, beauty, luck, strength, isAlive, deathDate) {
+    mass: Long,
+    size: Size
+) : Animal(birthDate, sex, intelligence, beauty, luck, strength, isAlive, deathDate, mass, size) {
+
+    companion object {
+        val INITIAL_MASS_KG: LongRange = 3L..5L
+        val INITIAL_SIZE_WIDTH_CM = 12..15
+        val INITIAL_SIZE_HEIGHT_CM = 45..55
+    }
 
     var firstName: String = PwConstants.DEFAULT_ITEM_NAME
         get() = name.split(" ")[0]
@@ -31,9 +40,12 @@ class Person(
             name = "$firstName $value"
         }
 
-    // TODO implement
     override fun calculateMass(): Long {
-        return 0
+        return mass
+    }
+
+    override fun calculateSize(): Size {
+        return size!!
     }
 
     override fun toString(): String {

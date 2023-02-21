@@ -13,4 +13,5 @@ object PwConstants {
     const val LOG_TAG: String = "PW_LOG"
     const val DEFAULT_ANIMAL_STRENGTH = 1
     const val DEFAULT_ITEM_ID = 0L
+    const val INTERSTELLAR_SPACE_COEFFICIENT = 2
 }

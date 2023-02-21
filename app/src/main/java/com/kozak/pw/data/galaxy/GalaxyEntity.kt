@@ -23,5 +23,7 @@ data class GalaxyEntity(
     override val health: Int,
     override val mass: Long,
     // ForeignKey of Universe to set relation
-    val universeId: Long
+    val universeId: Long,
+    override val sizeWidth: Int?,
+    override val sizeHeight: Int?
 ) : PwAnyEntity()

@@ -1,7 +1,6 @@
-package com.kozak.pw.data.star
+package com.kozak.pw.data.planet
 
 import com.kozak.pw.data.PwMapper
-import com.kozak.pw.domain.Size
 import com.kozak.pw.domain.space.Planet
 import kotlinx.datetime.LocalDateTime
 
@@ -9,7 +8,7 @@ class PlanetMapper : PwMapper<PlanetEntity, Planet> {
 
     override fun mapEntityToItem(entity: PlanetEntity): Planet {
         return with(entity) {
-            Planet(mass, Size(sizeWidth, sizeHeight), starSystemId).apply {
+            Planet(mass, getSize(this), starId).apply {
                 id = entity.id
                 createdAt = LocalDateTime.parse(entity.createdAt)
                 name = entity.name
@@ -27,9 +26,9 @@ class PlanetMapper : PwMapper<PlanetEntity, Planet> {
                 name = name,
                 mass = mass,
                 health = health,
-                starSystemId = starSystemId,
-                sizeWidth = size.width,
-                sizeHeight = size.height
+                starId = starId,
+                sizeWidth = size!!.width,
+                sizeHeight = size!!.height
             )
         }
     }

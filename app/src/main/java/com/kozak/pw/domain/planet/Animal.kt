@@ -3,10 +3,11 @@ package com.kozak.pw.domain.planet
 import android.util.Log
 import com.kozak.pw.PwConstants
 import com.kozak.pw.domain.PwAny
-import com.kozak.pw.domain.utils.markov_ng.NameGenerator
+import com.kozak.pw.domain.Size
+import com.kozak.pw.domain.utils.markov_ng.NameGeneratorFactory
 import kotlinx.datetime.LocalDateTime
 
-abstract class Animal (
+abstract class Animal(
     var birthDate: LocalDateTime,
     val sex: Sex,
     var intelligence: Int = 0,
@@ -14,14 +15,17 @@ abstract class Animal (
     var luck: Int = 0,
     var strength: Int = PwConstants.DEFAULT_ANIMAL_STRENGTH,
     var isAlive: Boolean = true,
-    var deathDate: LocalDateTime? = null
-) : PwAny() {
+    var deathDate: LocalDateTime? = null,
+    mass: Long,
+    size: Size
+) : PwAny(mass, size) {
     enum class Sex {
         MALE, FEMALE
     }
 
     override fun generateName(): String {
-        val generatedName = NameGenerator.createForClass(this.javaClass, sex).generate(nameLengthRange)
+        val generatedName =
+            NameGeneratorFactory.createForClass(this.javaClass, sex).generate(nameLengthRange)
         Log.d(
             PwConstants.LOG_TAG,
             "Generated name for new ${this.javaClass.simpleName} - $generatedName"

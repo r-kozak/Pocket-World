@@ -1,11 +1,14 @@
 package com.kozak.pw.domain.person
 
 import com.kozak.pw.PwConstants
+import com.kozak.pw.domain.Size
 import com.kozak.pw.domain.planet.Animal
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlin.random.Random
+import kotlin.random.nextInt
+import kotlin.random.nextLong
 import kotlin.time.Duration
 
 object PersonGenerator {
@@ -19,7 +22,12 @@ object PersonGenerator {
             .minus(Duration.parse("P${randomDays}D"))
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
-        return Person(birthDate, sex).apply {
+        val initialMass = Random.nextLong(Person.INITIAL_MASS_KG)
+        val initialWidth = Random.nextInt(Person.INITIAL_SIZE_WIDTH_CM)
+        val initialHeight = Random.nextInt(Person.INITIAL_SIZE_HEIGHT_CM)
+        val size = Size(initialWidth, initialHeight)
+
+        return Person(birthDate, sex, mass = initialMass, size = size).apply {
             this.strength = Random.nextInt(PwConstants.PERSON_MAX_STRENGTH + 1)
         }
     }

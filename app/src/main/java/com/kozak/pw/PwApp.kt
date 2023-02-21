@@ -13,7 +13,7 @@ import com.kozak.pw.data.game.PwGameRepositoryImpl
 import com.kozak.pw.data.news.NewsRepositoryImpl
 import com.kozak.pw.data.num_composition.NumComposeGameRepositoryImpl
 import com.kozak.pw.data.person.PersonRepositoryImpl
-import com.kozak.pw.data.star.PlanetRepositoryImpl
+import com.kozak.pw.data.planet.PlanetRepositoryImpl
 import com.kozak.pw.data.star.StarRepositoryImpl
 import com.kozak.pw.data.star_system.StarSystemRepositoryImpl
 import com.kozak.pw.data.universe.UniverseRepositoryImpl

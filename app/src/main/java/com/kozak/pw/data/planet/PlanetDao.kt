@@ -1,4 +1,4 @@
-package com.kozak.pw.data.star
+package com.kozak.pw.data.planet
 
 import androidx.room.Dao
 import androidx.room.RoomDatabase

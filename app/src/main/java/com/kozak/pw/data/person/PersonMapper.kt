@@ -14,7 +14,9 @@ class PersonMapper : PwMapper<PersonEntity, Person> {
                 isAlive = isAlive,
                 isFavorite = isFavorite,
                 sex = sex,
-                strength = strength
+                strength = strength,
+                mass = mass,
+                size = getSize(entity)
             ).apply {
                 id = entity.id
                 createdAt = LocalDateTime.parse(entity.createdAt)
@@ -36,7 +38,9 @@ class PersonMapper : PwMapper<PersonEntity, Person> {
                 strength = strength,
                 health = health,
                 mass = mass,
-                name = name
+                name = name,
+                sizeWidth = size!!.width,
+                sizeHeight = size!!.height
             )
         }
     }

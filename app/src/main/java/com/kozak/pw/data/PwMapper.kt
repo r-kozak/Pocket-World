@@ -1,5 +1,7 @@
 package com.kozak.pw.data
 
+import com.kozak.pw.domain.Size
+
 interface PwMapper<E : BaseEntity, I> {
 
     fun mapEntityToItem(entity: E): I
@@ -11,4 +13,10 @@ interface PwMapper<E : BaseEntity, I> {
 
     fun mapItemsListToEntitiesList(items: List<I>): List<E> =
         items.map { mapItemToEntity(it) }
+
+    fun getSize(entity: PwAnyEntity): Size = Size(entity.sizeWidth!!, entity.sizeHeight!!)
+
+    fun getSizeNullable(entity: PwAnyEntity): Size? =
+        if (entity.sizeWidth != null && entity.sizeHeight != null)
+            Size(entity.sizeWidth!!, entity.sizeHeight!!) else null
 }

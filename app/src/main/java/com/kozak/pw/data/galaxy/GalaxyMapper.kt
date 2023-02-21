@@ -14,6 +14,7 @@ class GalaxyMapper : PwMapper<GalaxyEntity, Galaxy> {
                 name = entity.name
                 mass = entity.mass
                 health = entity.health
+                size = getSizeNullable(entity)
             }
         }
     }
@@ -26,7 +27,9 @@ class GalaxyMapper : PwMapper<GalaxyEntity, Galaxy> {
                 name = name,
                 mass = mass,
                 health = health,
-                universeId = universeId
+                universeId = universeId,
+                sizeWidth = size?.width,
+                sizeHeight = size?.height
             )
         }
     }

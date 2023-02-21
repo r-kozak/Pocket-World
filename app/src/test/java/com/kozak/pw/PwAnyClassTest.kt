@@ -2,6 +2,7 @@ package com.kozak.pw
 
 import com.kozak.pw.domain.Coordinate
 import com.kozak.pw.domain.PwAny
+import com.kozak.pw.domain.Size
 import com.kozak.pw.domain.planet.CountryResource
 import com.kozak.pw.domain.planet.CountryResourceType
 import org.junit.Assert.assertEquals
@@ -26,6 +27,9 @@ class PwAnyClassTest {
         override fun calculateMass(): Long {
             return PW_ANY_MASS
         }
+        override fun calculateSize(): Size {
+            return Size(10, 20)
+        }
     }
 
     @Test
@@ -44,7 +48,9 @@ class PwAnyClassTest {
     fun creationOfCountryResourceObject() {
         val countryResource = CountryResource(
             CountryResourceType.FOOD,
-            Coordinate(COORDINATE_X, COORDINATE_Y)
+            Coordinate(COORDINATE_X, COORDINATE_Y),
+            10,
+            Size(30, 40)
         )
         assertEquals(CountryResourceType.FOOD.name, countryResource.type.name)
         assertEquals(COORDINATE_X, countryResource.coordinate.x)

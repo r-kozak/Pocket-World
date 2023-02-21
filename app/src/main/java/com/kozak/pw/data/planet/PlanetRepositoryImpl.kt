@@ -1,4 +1,4 @@
-package com.kozak.pw.data.star
+package com.kozak.pw.data.planet
 
 import android.app.Application
 import com.kozak.pw.data.AppDatabase

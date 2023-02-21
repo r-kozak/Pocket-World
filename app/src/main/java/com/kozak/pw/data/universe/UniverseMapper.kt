@@ -9,8 +9,9 @@ class UniverseMapper : PwMapper<UniverseEntity, Universe> {
     override fun mapEntityToItem(entity: UniverseEntity): Universe {
         return Universe().apply {
             createdAt = LocalDateTime.parse(entity.createdAt)
-            name = name
-            mass = mass
+            name = entity.name
+            mass = entity.mass
+            size = getSizeNullable(entity)
         }
     }
 
@@ -21,7 +22,9 @@ class UniverseMapper : PwMapper<UniverseEntity, Universe> {
                 createdAt = item.createdAt.toString(),
                 name = name,
                 mass = mass,
-                health = health
+                health = health,
+                sizeWidth = size?.width,
+                sizeHeight = size?.height
             )
         }
     }
