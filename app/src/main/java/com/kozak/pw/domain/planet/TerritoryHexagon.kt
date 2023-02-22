@@ -1,10 +1,9 @@
 package com.kozak.pw.domain.planet
 
 import com.kozak.pw.domain.Coordinate
+import com.kozak.pw.domain.space.HeavenlyBodyResource
 
-class TerritoryHexagon(coordinate: Coordinate) {
+class TerritoryHexagon(val coordinate: Coordinate, var owner: Country? = null) {
 
-    var owner: Country? = null
-
-    val coordinate: Coordinate = coordinate
+    val resources = mutableListOf<HeavenlyBodyResource>()
 }

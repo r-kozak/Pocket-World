@@ -58,4 +58,13 @@ class PwAnyClassTest {
         assertEquals(COUNTRY_RESOURCE_MASS, countryResource.mass)
         assertEquals(PW_ANY_HEALTH, countryResource.health)
     }
+
+    @Test
+    fun swapFunction() {
+        var sideWidth =  10
+        var sideHeight = 20
+        sideWidth = sideHeight.also { sideHeight = sideWidth }
+        assertEquals(sideWidth, 20)
+        assertEquals(sideHeight, 10)
+    }
 }

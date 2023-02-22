@@ -8,7 +8,15 @@ class PlanetMapper : PwMapper<PlanetEntity, Planet> {
 
     override fun mapEntityToItem(entity: PlanetEntity): Planet {
         return with(entity) {
-            Planet(mass, getSize(this), starId).apply {
+            Planet(
+                mass = mass,
+                size = getSize(this),
+                starId = starId,
+                acidity = acidity,
+                waterPercent = waterPercent,
+                averageTemperature = averageTemperature,
+                oxygenPercent = oxygenPercent
+            ).apply {
                 id = entity.id
                 createdAt = LocalDateTime.parse(entity.createdAt)
                 name = entity.name
@@ -28,7 +36,11 @@ class PlanetMapper : PwMapper<PlanetEntity, Planet> {
                 health = health,
                 starId = starId,
                 sizeWidth = size!!.width,
-                sizeHeight = size!!.height
+                sizeHeight = size!!.height,
+                acidity = acidity,
+                waterPercent = waterPercent,
+                averageTemperature = averageTemperature,
+                oxygenPercent = oxygenPercent
             )
         }
     }

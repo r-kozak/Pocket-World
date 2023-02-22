@@ -4,6 +4,12 @@ import android.util.Log
 import com.kozak.pw.PwConstants
 import com.kozak.pw.domain.Size
 import com.kozak.pw.domain.space.*
+import com.kozak.pw.domain.space.Planet.Companion.INITIAL_ACIDITY_RANGE
+import com.kozak.pw.domain.space.Planet.Companion.INITIAL_AVERAGE_TEMPERATURE_RANGE
+import com.kozak.pw.domain.space.Planet.Companion.INITIAL_OXYGEN_PERCENT_RANGE
+import com.kozak.pw.domain.space.Planet.Companion.INITIAL_WATER_PERCENT_RANGE
+import com.kozak.pw.domain.space.Planet.Companion.PLANETS_SIZE_RANGE
+import com.kozak.pw.domain.space.Planet.Companion.PLANET_MASS_RANGE
 import org.koin.java.KoinJavaComponent.inject
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -29,8 +35,6 @@ class StartNewGameUseCase {
         private val STAR_SIZE_RANGE = 20..50
 
         private val PLANETS_COUNT_RANGE = 1..12 // planets of one Star
-        private val PLANET_MASS_RANGE = 100_000_000L..999_999_999L
-        private val PLANETS_SIZE_RANGE = 1..5
     }
 
     /**
@@ -134,12 +138,30 @@ class StartNewGameUseCase {
     private suspend fun generatePlanets(starId: Long) {
         val planetsIds = mutableListOf<Long>()
         repeat(Random.nextInt(PLANETS_COUNT_RANGE)) {
+            // calculate size
+            var sideWidth = Random.nextInt(PLANETS_SIZE_RANGE)
+            var sideHeight = Random.nextInt(PLANETS_SIZE_RANGE)
+            // width must be bigger than height, so - swap them
+            if (sideHeight > sideWidth) sideWidth = sideHeight.also { sideHeight = sideWidth }
+            val size = Size(sideWidth, sideHeight)
+
             val mass = Random.nextLong(PLANET_MASS_RANGE)
-            val sideSize = Random.nextInt(PLANETS_SIZE_RANGE)
-            val size = Size(sideSize, sideSize)
-            // save planet to DB and get its ID to put into dependant objects (star systems)
-            val id = planetRepository.insert(Planet(mass, size, starId))
-            planetsIds += id
+            val acidity = Random.nextInt(INITIAL_ACIDITY_RANGE)
+            val waterPercent = Random.nextInt(INITIAL_WATER_PERCENT_RANGE)
+            val averageTemperature = Random.nextInt(INITIAL_AVERAGE_TEMPERATURE_RANGE)
+            val oxygenPercent = Random.nextInt(INITIAL_OXYGEN_PERCENT_RANGE)
+
+            // save planet to DB and get its ID to put into dependant objects (star)
+            val planet = Planet(
+                mass = mass,
+                size = size,
+                starId = starId,
+                acidity = acidity,
+                waterPercent = waterPercent,
+                averageTemperature = averageTemperature,
+                oxygenPercent = oxygenPercent
+            )
+            planetsIds += planetRepository.insert(planet)
         }
     }
 }

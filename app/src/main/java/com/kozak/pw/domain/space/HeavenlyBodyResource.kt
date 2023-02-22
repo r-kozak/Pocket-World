@@ -1,14 +1,13 @@
 package com.kozak.pw.domain.space
 
-import com.kozak.pw.domain.Coordinate
 import com.kozak.pw.domain.PwAny
 import com.kozak.pw.domain.Size
 
 class HeavenlyBodyResource(
     val type: HeavenlyBodyResourceType,
-    val coordinate: Coordinate,
+    val territoryHexagonId: Long,
     mass: Long,
-    size: Size?
+    size: Size
 ) : PwAny(mass, size) {
 
     override fun calculateMass(): Long {
@@ -16,6 +15,6 @@ class HeavenlyBodyResource(
     }
 
     override fun calculateSize(): Size {
-        TODO("Not yet implemented")
+        return size!!
     }
 }

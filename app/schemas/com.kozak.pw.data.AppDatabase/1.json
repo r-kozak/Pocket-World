@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f5b7b0c8b2321693a758ca204761b584",
+    "identityHash": "74d6372915ee4139bc9429ecfec3286f",
     "entities": [
       {
         "tableName": "persons",
@@ -458,7 +458,7 @@
       },
       {
         "tableName": "planets",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `name` TEXT NOT NULL, `health` INTEGER NOT NULL, `mass` INTEGER NOT NULL, `starId` INTEGER NOT NULL, `sizeWidth` INTEGER NOT NULL, `sizeHeight` INTEGER NOT NULL, FOREIGN KEY(`starId`) REFERENCES `stars`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `name` TEXT NOT NULL, `health` INTEGER NOT NULL, `mass` INTEGER NOT NULL, `starId` INTEGER NOT NULL, `sizeWidth` INTEGER NOT NULL, `sizeHeight` INTEGER NOT NULL, `acidity` INTEGER NOT NULL, `waterPercent` INTEGER NOT NULL, `averageTemperature` INTEGER NOT NULL, `oxygenPercent` INTEGER NOT NULL, FOREIGN KEY(`starId`) REFERENCES `stars`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -507,6 +507,30 @@
             "columnName": "sizeHeight",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "acidity",
+            "columnName": "acidity",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterPercent",
+            "columnName": "waterPercent",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "averageTemperature",
+            "columnName": "averageTemperature",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oxygenPercent",
+            "columnName": "oxygenPercent",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -534,7 +558,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f5b7b0c8b2321693a758ca204761b584')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '74d6372915ee4139bc9429ecfec3286f')"
     ]
   }
 }

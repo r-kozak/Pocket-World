@@ -24,5 +24,9 @@ data class PlanetEntity(
     // ForeignKey of Star to set relation
     val starId: Long,
     override val sizeWidth: Int,
-    override val sizeHeight: Int
+    override val sizeHeight: Int,
+    val acidity: Int,
+    val waterPercent: Int,
+    val averageTemperature: Int,
+    val oxygenPercent: Int
 ) : PwAnyEntity()
