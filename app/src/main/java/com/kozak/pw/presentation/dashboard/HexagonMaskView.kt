@@ -116,8 +116,8 @@ class HexagonMaskView : GridLayout {
         }
 
         //calculate the y_offset for vertical centering.
-        var y_offset = 0f
-        val mCenterVertical = 1
+        var y_offset = 10f
+        val mCenterVertical = 3
         val zero: Double = 0.0
         when (mCenterVertical) {
             1 -> {
@@ -196,5 +196,6 @@ class HexagonMaskView : GridLayout {
         height = MeasureSpec.getSize(heightMeasureSpec).toFloat()
         radius = height / 2 - 10
         calculatePath()
+        setBackgroundColor(Color.WHITE)
     }
 }
