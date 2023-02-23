@@ -63,27 +63,22 @@ class HexagonMaskView : GridLayout {
         val triangleHeight = (Math.sqrt(3.0) * radius / 2).toFloat()
         val centerX = width / 2
         val centerY = height / 2
-        hexagonPath!!.moveTo(centerX, centerY + radius)
-        hexagonPath!!.lineTo(centerX - triangleHeight, centerY + radius / 2)
-        hexagonPath!!.lineTo(centerX - triangleHeight, centerY - radius / 2)
-        hexagonPath!!.lineTo(centerX, centerY - radius)
-        hexagonPath!!.lineTo(centerX + triangleHeight, centerY - radius / 2)
-        hexagonPath!!.lineTo(centerX + triangleHeight, centerY + radius / 2)
-        hexagonPath!!.moveTo(centerX, centerY + radius)
+        hexagonPath!!.moveTo(0f + 10, 0f + 10)
+        hexagonPath!!.lineTo(width - 10, 0f + 10)
+        hexagonPath!!.lineTo(width - 10, height - 10)
+        hexagonPath!!.lineTo(0f + 10, height - 10)
         val radiusBorder = radius - 5
         val triangleBorderHeight = (Math.sqrt(3.0) * radiusBorder / 2).toFloat()
-        hexagonBorderPath!!.moveTo(centerX, centerY + radiusBorder)
-        hexagonBorderPath!!.lineTo(centerX - triangleBorderHeight, centerY + radiusBorder / 2)
-        hexagonBorderPath!!.lineTo(centerX - triangleBorderHeight, centerY - radiusBorder / 2)
-        hexagonBorderPath!!.lineTo(centerX, centerY - radiusBorder)
-        hexagonBorderPath!!.lineTo(centerX + triangleBorderHeight, centerY - radiusBorder / 2)
-        hexagonBorderPath!!.lineTo(centerX + triangleBorderHeight, centerY + radiusBorder / 2)
-        hexagonBorderPath!!.moveTo(centerX, centerY + radiusBorder)
+        hexagonBorderPath!!.moveTo(0f, 0f)
+        hexagonBorderPath!!.lineTo(width, 0f)
+        hexagonBorderPath!!.lineTo(width, height)
+        hexagonBorderPath!!.lineTo(0f, height)
+        // hexagonBorderPath!!.moveTo(0f, height)
         invalidate()
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        val mSize = 15
+        val mSize = 45
         Log.d("HEX", "board.onlayout called with size $mSize l: $l r: $r t: $t b: $b")
 
         //If the dimensions of the board haven't changed, a redraw isn't necessary. Just update the images of the views instead by calling invalidate().
@@ -107,7 +102,7 @@ class HexagonMaskView : GridLayout {
 
         //Code to calculate the offsets for horizontal and vertical centering (this is an option in the .xml file)
         //The GAME_TYPE_HEX creates a tilted rectangular board and GAME_TYPE_Y creates a triangular board.
-        var x_offset_row: Float = 5f
+        var x_offset_row: Float = 10f
         val mCenterHorizontal = 1
         when (mCenterHorizontal) {
             1 -> {
@@ -187,11 +182,11 @@ class HexagonMaskView : GridLayout {
     public override fun onDraw(c: Canvas) {
         super.onDraw(c)
         c.clipPath(hexagonBorderPath!!)
-        c.drawColor(Color.GRAY)
+        c.drawColor(Color.YELLOW)
         c.save()
         c.clipPath(hexagonPath!!)
-//        c.drawColor(maskColor)
-//        c.save()
+        c.drawColor(maskColor)
+        c.save()
     }
 
     // getting the view size and default radius
