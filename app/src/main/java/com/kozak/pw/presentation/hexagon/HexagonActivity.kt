@@ -82,10 +82,10 @@ class HexagonActivity : AppCompatActivity(), ImagesAdapter.ViewHolderClicks {
         images!!.add("https://s3.amazonaws.com/99Covers-Facebook-Covers/watermark/24346.jpg")
         images!!.add("https://s3.amazonaws.com/99Covers-Facebook-Covers/watermark/2580.jpg")
         imagesAdapter!!.updateList(images)
-        recyclerView!!.adapter = imagesAdapter
+        recyclerView!!.setAdapter(imagesAdapter)
     }
 
-    override fun onStorySelected(view: View?, position: Int, imageUrl: String?) {
+    override fun onStorySelected(view: View?, position: Int, image: String?) {
         Toast.makeText(this, "$position ", Toast.LENGTH_SHORT).show()
         Log.d(TAG, "onStorySelected: $position")
     }
