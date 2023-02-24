@@ -15,6 +15,9 @@
         android:theme="@style/Theme.PocketWorld"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.hexagon.HexagonActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.dashboard.DashboardActivity"
             android:exported="false"
             android:parentActivityName=".presentation.main.MainActivity" />

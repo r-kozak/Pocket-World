@@ -13,6 +13,7 @@ import com.kozak.pw.PwConstants
 import com.kozak.pw.R
 import com.kozak.pw.databinding.ActivityMainBinding
 import com.kozak.pw.presentation.dashboard.DashboardActivity
+import com.kozak.pw.presentation.hexagon.HexagonActivity
 import com.kozak.pw.presentation.num_composition.NumCompositionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -89,6 +90,9 @@ class MainActivity : AppCompatActivity(),
         }
         binding.buttonNumComposition.setOnClickListener {
             startActivity(NumCompositionActivity.intentStartGame(this))
+        }
+        binding.buttonHex.setOnClickListener {
+            startActivity(HexagonActivity.intent(this))
         }
     }
 
