@@ -50,17 +50,17 @@ class ImagesAdapter(
     class CustomViewHolder(view: View, var clicksListener: ViewHolderClicks?) :
         RecyclerView.ViewHolder(view), View.OnClickListener {
         var imageView: HexagonImageView
-        var image_url: String? = null
+        var imageUrl: String? = null
 
         init {
             imageView = view.findViewById<View>(R.id.img_view) as HexagonImageView
             imageView.setOnClickListener(this)
         }
 
-        fun setImageUrl(image_url: String?) {
-            this.image_url = image_url
+        fun setImageUrl(imageUrl: String?) {
+            this.imageUrl = imageUrl
             Glide.with(imageView.context)
-                .load(image_url)
+                .load(imageUrl)
                 //.asBitmap()
                 .placeholder(R.drawable.sample)
                 .into(imageView)
@@ -68,12 +68,12 @@ class ImagesAdapter(
 
         override fun onClick(v: View) {
             if (clicksListener != null) clicksListener!!.onStorySelected(
-                v, layoutPosition, image_url
+                v, layoutPosition, imageUrl
             )
         }
     }
 
     interface ViewHolderClicks {
-        fun onStorySelected(view: View?, position: Int, image_url: String?)
+        fun onStorySelected(view: View?, position: Int, imageUrl: String?)
     }
 }
