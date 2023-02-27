@@ -117,7 +117,7 @@ class HexagonMaskView : GridLayout {
         }
 
         //calculate the y_offset for vertical centering.
-        var y_offset = 10f
+        var y_offset = 10f + offsetAfterMoveY
         val mCenterVertical = 3
         val zero: Double = 0.0
         when (mCenterVertical) {
@@ -130,7 +130,7 @@ class HexagonMaskView : GridLayout {
         }
         var cell = 0
         for (row in 0 until mSize) {
-            var x_offset = x_offset_row
+            var x_offset = x_offset_row + offsetAfterMoveX
 
             var rowLength: Int = mSize - 1
             if (row % 2 == 0) {
@@ -165,7 +165,7 @@ class HexagonMaskView : GridLayout {
                 ++cell
             }
             y_offset += effectiveHeight
-            if (row %2 == 0) {
+            if (row % 2 == 0) {
                 x_offset_row += effectiveWidth / 2
             } else {
                 x_offset_row -= effectiveWidth / 2
@@ -212,16 +212,20 @@ class HexagonMaskView : GridLayout {
                 touchEventY = event.y
             }
             MotionEvent.ACTION_MOVE -> {
-                Log.d("HEX", "onTouchEvent.ACTION_MOVE")
+                //Log.d("HEX", "onTouchEvent.ACTION_MOVE")
                 val newOffsetX = touchEventX - event.x
                 val newOffsetY = touchEventY - event.y
 
-                offsetAfterMoveX += newOffsetX
-                offsetAfterMoveY += newOffsetY
-                touchEventX =  event.x
-                touchEventY =  event.y
-                Log.d("HEX", "afterMove:: x: $offsetAfterMoveX, y: $offsetAfterMoveY, " +
-                        "touchEventX =  $touchEventX, touchEventY =  $touchEventY")
+
+                offsetAfterMoveX -= newOffsetX
+                offsetAfterMoveY -= newOffsetY
+                touchEventX = event.x
+                touchEventY = event.y
+//                Log.d("HEX", "afterMove:: x: $offsetAfterMoveX, y: $offsetAfterMoveY, " +
+//                        "touchEventX =  $touchEventX, touchEventY =  $touchEventY")
+                mSizeInvalidated = true
+                removeAllViewsInLayout()
+                requestLayout()
             }
             MotionEvent.ACTION_UP -> {
                 Log.d("HEX", "onTouchEvent.ACTION_UP")
