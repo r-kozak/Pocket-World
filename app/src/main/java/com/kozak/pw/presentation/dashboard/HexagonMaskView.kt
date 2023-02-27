@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View.OnClickListener
 import android.view.ViewGroup.LayoutParams
 import android.widget.GridLayout
@@ -78,7 +79,7 @@ class HexagonMaskView : GridLayout {
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        val mSize = 45
+        val mSize = 10
         Log.d("HEX", "board.onlayout called with size $mSize l: $l r: $r t: $t b: $b")
 
         //If the dimensions of the board haven't changed, a redraw isn't necessary. Just update the images of the views instead by calling invalidate().
@@ -142,7 +143,7 @@ class HexagonMaskView : GridLayout {
                 if (cell < childCount) {
                     v = getChildAt(cell) as ImageView
                 } else {
-                    v = ImageView(super.getContext())
+                    v = HexImageView(super.getContext())
                     v.rotation = 90f
                     v.layoutParams = layoutParams
                     v.setOnClickListener(onClickListener)
@@ -197,5 +198,40 @@ class HexagonMaskView : GridLayout {
         radius = height / 2 - 10
         calculatePath()
         setBackgroundColor(Color.WHITE)
+    }
+
+    var touchEventX = 0f
+    var touchEventY = 0f
+    var offsetAfterMoveX = 0f
+    var offsetAfterMoveY = 0f
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                Log.d("HEX", "onTouchEvent.ACTION_DOWN")
+                touchEventX = event.x
+                touchEventY = event.y
+            }
+            MotionEvent.ACTION_MOVE -> {
+                Log.d("HEX", "onTouchEvent.ACTION_MOVE")
+                val newOffsetX = touchEventX - event.x
+                val newOffsetY = touchEventY - event.y
+
+                offsetAfterMoveX += newOffsetX
+                offsetAfterMoveY += newOffsetY
+                touchEventX =  event.x
+                touchEventY =  event.y
+                Log.d("HEX", "afterMove:: x: $offsetAfterMoveX, y: $offsetAfterMoveY, " +
+                        "touchEventX =  $touchEventX, touchEventY =  $touchEventY")
+            }
+            MotionEvent.ACTION_UP -> {
+                Log.d("HEX", "onTouchEvent.ACTION_UP")
+            }
+        }
+        return true
+    }
+
+    override fun performClick(): Boolean {
+        Log.d("HEX", "performClick()")
+        return super.performClick()
     }
 }
